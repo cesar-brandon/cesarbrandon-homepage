@@ -6,11 +6,14 @@ const Header: React.FC = () => {
     <header className="flex items-center justify-between space-x-2 font-bold px-10 py-5">
       <Link href="/works">Works</Link>
       <Link href="/posts">Posts</Link>
-      <Link href="/">
-        <div className="w-20 h-20 bg-gray-900 rounded-full"></div>
-      </Link>
+      <Link href="/"></Link>
       <Link href="/about">About</Link>
       <Link href="/contact">Contact</Link>
+      <div
+        className="absolute top-2 left-1/2 w-20 h-20 flex justify-center
+				  bg-gray-900 rounded-full
+				  active:w-screen active:h-screen"
+      ></div>
     </header>
   );
 };

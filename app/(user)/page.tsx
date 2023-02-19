@@ -2,14 +2,14 @@ import { previewData } from "next/headers";
 import { groq } from "next-sanity";
 import { sanityClient } from "@/lib/sanity.client";
 import PreviewBlogList from "@/components/layouts/PreviewBlogList";
-import { PreviewSuspense } from "next-sanity/preview";
 import BlogList from "@/components/layouts/BlogList";
+import PreviewSuspense from "@/components/common/PreviewSuspense";
 
 const query = groq`
 		*[_type == "post"]{
 				...,
 				author->,
-				categories[]->,
+				categories[]->
 		} | order(_createdAt desc)
 `;
 
@@ -21,7 +21,6 @@ export default async function Home() {
       </PreviewSuspense>
     );
   }
-
   const posts = await sanityClient.fetch(query);
 
   return (
