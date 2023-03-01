@@ -15,47 +15,47 @@ type Props = {
 export const revalidate = 30;
 
 export async function generateStaticParams() {
-  const query = groq`*[_type == "post"]
+  const query = groq`*[_type == "project"]
 		{
 				slug
 		}`;
 
-  const slugs: Post[] = await sanityClient.fetch(query);
+  const slugs: Project[] = await sanityClient.fetch(query);
   const slugRoutes = slugs.map((slug) => slug.slug.current);
 
   return slugRoutes.map((slug) => ({ slug }));
 }
 
 const query = groq`
-		*[_type == "post" && slug.current == $slug][0]{
+		*[_type == "project" && slug.current == $slug][0]{
 				...,
 				author->, 
 				topics[]->
 		}
 `;
 
-const PostPage = async ({ params: { slug } }: Props) => {
-  const post: Post = await sanityClient.fetch(query, { slug });
+const ProyectPage = async ({ params: { slug } }: Props) => {
+  const project: Project = await sanityClient.fetch(query, { slug });
 
-  if (!post) {
+  if (!project) {
     return <div>Loading...</div>;
   }
 
   return (
     <article>
       <section className="w-full h-96 relative  overflow-hidden">
-        {post.mainImage && (
+        {project.mainImage && (
           <Image
             className="object-cover object-center mx-auto"
-            src={urlFor(post.mainImage).url()}
-            alt={post.author.name}
+            src={urlFor(project.mainImage).url()}
+            alt={project.author.name}
             fill
           />
         )}
       </section>
-      <PortableText value={post.body} components={RichTextComponents} />
+      <PortableText value={project.body} components={RichTextComponents} />
     </article>
   );
 };
 
-export default PostPage;
+export default ProyectPage;

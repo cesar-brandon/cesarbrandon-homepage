@@ -1,6 +1,6 @@
 import React from "react";
 import ClientSideRoute from "../common/ClientSideRoute";
-import PreviewProject from "../common/PreviewProject";
+import PreviewContent from "../common/PreviewContent";
 
 type Props = {
   posts: Post[];
@@ -11,7 +11,7 @@ const BlogList: React.FC<Props> = ({ posts }) => {
     <div className="grid grid-cols-bloglist gap-3">
       {posts.map((post) => (
         <ClientSideRoute key={post._id} route={`/posts/${post.slug.current}`}>
-          <PreviewProject post={post} />
+          <PreviewContent post={post} />
         </ClientSideRoute>
       ))}
     </div>

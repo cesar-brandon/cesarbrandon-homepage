@@ -2,29 +2,30 @@ import React from "react";
 import { previewData } from "next/headers";
 import { groq } from "next-sanity";
 import { sanityClient } from "@/lib/sanity.client";
-import BlogList from "@/components/layouts/BlogList";
 import PreviewSuspense from "@/components/common/PreviewSuspense";
 import PreviewList from "@/components/layouts/PreviewList";
+import ProjectList from "@/components/layouts/ProjectList";
 
 const query = groq`
-		*[_type == "post"]{
+		*[_type == "project"]{
 				...,
 				author->,
 				topics[]->
 		} | order(_createdAt desc)
 `;
 
-const Posts = async () => {
+const Projects = async () => {
   if (previewData()) {
     return (
       <PreviewSuspense fallback={<div>Loading...</div>}>
-        <PreviewList query={query} type={"blog"} />
+        <PreviewList query={query} type={"project"} />
       </PreviewSuspense>
     );
   }
-  const posts = await sanityClient.fetch(query);
 
-  return <BlogList posts={posts} />;
+  const projects = await sanityClient.fetch(query);
+
+  return <ProjectList projects={projects} />;
 };
 
-export default Posts;
+export default Projects;

@@ -6,7 +6,7 @@ type Props = {
   post: Post;
 };
 
-const PreviewProject: React.FC<Props> = ({ post }) => {
+const PreviewContent: React.FC<Props> = ({ post }) => {
   return (
     <div
       className="relative w-full h-80 drop-shadow-xl
@@ -24,12 +24,12 @@ const PreviewProject: React.FC<Props> = ({ post }) => {
 				bg-opacity-50 flex items-center pl-4 transition-all duration-300
 				opacity-0 group-hover:opacity-100"
       >
-        {post.categories.map((category) => (
+        {post.topics.map((topic) => (
           <span
-            key={category.title}
+            key={topic.title}
             className="text-xs text-white bg-gray-900 px-2 py-1 rounded-md"
           >
-            {category.title}
+            {topic.title}
           </span>
         ))}
       </div>
@@ -37,4 +37,4 @@ const PreviewProject: React.FC<Props> = ({ post }) => {
   );
 };
 
-export default PreviewProject;
+export default PreviewContent;

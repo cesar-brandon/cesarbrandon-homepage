@@ -6,10 +6,10 @@ import Character from "../../public/character-cartoon.gif";
 const Header: React.FC = () => {
   return (
     <header
-      className="flex items-center justify-between font-bold px-10 py-8
+      className="flex items-center justify-between font-bold px-10 py-10
 						  transition-all duration-500 ease"
     >
-      <Link href="/works">Works</Link>
+      <Link href="/projects">Projects</Link>
       <Link href="/posts">Posts</Link>
       <Link href="/"></Link>
       <Link href="/about">About</Link>
