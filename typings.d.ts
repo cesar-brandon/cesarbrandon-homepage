@@ -58,7 +58,7 @@ interface Category extends Base {
   title: string;
 }
 
-interface MianImage {
+interface MainImage {
   _type: "image";
   asset: Reference;
 }
