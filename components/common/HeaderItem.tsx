@@ -10,7 +10,9 @@ const HeaderItem: React.FC<Props> = ({ title, href }) => {
   return (
     <Link
       href={`/${href}`}
-      className="font-normal text-zinc-500 focus:font-bold focus:text-zinc-900"
+      className="font-normal text-zinc-500 
+			focus:font-bold focus:text-zinc-900
+			hover:font-bold hover:text-zinc-900 hover:underline hover:decoration-2 hover:underline-offset-4"
     >
       {title}
     </Link>
