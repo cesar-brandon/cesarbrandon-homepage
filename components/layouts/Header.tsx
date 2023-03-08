@@ -8,7 +8,8 @@ const Header: React.FC = () => {
   return (
     <header
       className="flex items-center justify-between font-bold px-10 py-10
-						  transition-all duration-500 ease"
+			transition-all duration-500 ease
+			"
     >
       <HeaderItem title="Projects" href="projects" />
       <HeaderItem title="Posts" href="posts" />

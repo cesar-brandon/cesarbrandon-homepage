@@ -1,3 +1,4 @@
+import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
 import "../globals.css";
 
@@ -11,7 +12,8 @@ export default function RootLayout({
       <head />
       <body className="max-w-7xl mx-auto">
         <Header />
-        <main className="px-10">{children}</main>
+        <main className="px-10 min-h-screen">{children}</main>
+        <Footer />
       </body>
     </html>
   );

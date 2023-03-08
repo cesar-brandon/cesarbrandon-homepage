@@ -1,32 +1,46 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import Character from "../../public/character.png";
 
 const Wrap: React.FC = () => {
+  const [circle, setCircle] = useState("");
+
+  // const detectLinkClicked = (e: any) => {
+  //   if (e.target.tagName === "A") {
+  //     setCircle("go");
+  //
+  //     setTimeout(() => {
+  //       setCircle("");
+  //     }, 2000);
+  //   }
+  // };
+  //
+  // useEffect(() => {
+  //   window.addEventListener("click", detectLinkClicked);
+  //
+  //   return () => {
+  //     window.removeEventListener("click", detectLinkClicked);
+  //   };
+  // }, []);
+
   return (
     <>
+      <div className={`Wrap ${circle}`}></div>
       <div
         className="h-[72px] w-[72px] overflow-hidden rounded-full
-			border absolute left-1/2 ml-[-36px] top-[10px] bg-zinc-900 z-[2]
-			transition-all duration-500 ease
-			active:z-[999] active:w-[3000px] active:h-[3000px] active:ml-[-1500px] active:mt-[-1500px] t-1/2"
-      ></div>
+				border absolute left-1/2 ml-[-36px] top-[10px] z-[2]"
+      >
+        <Link href={"/"}>
+          <span>
+            <Image src={Character} alt="link-home"></Image>
+          </span>
+        </Link>
+      </div>
     </>
   );
 };
 
 export default Wrap;
-
-// <div
-//   className="h-[72px] w-[72px] overflow-hidden rounded-full
-// border absolute left-1/2 ml-[-36px] top-[10px] z-[2]"
-// >
-//   <Link href={"/"}>
-//     <span>
-//       <Image
-//         className="invert mt-[.5rem]"
-//         src={Character}
-//         alt="link-home"
-//       ></Image>
-//     </span>
-//   </Link>
-// </div>
-//
