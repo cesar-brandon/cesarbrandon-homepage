@@ -7,10 +7,12 @@ import ToggleTheme from "../common/ToggleTheme";
 import Wrap from "../common/Wrap";
 
 const Header: React.FC = () => {
-  const [menuPosition, setMenuPosition] = useState("0");
+  const [menuPosition, setMenuPosition] = useState("right-0");
 
   const handleMenu = () => {
-    menuPosition === "0" ? setMenuPosition("-20rem") : setMenuPosition("0");
+    menuPosition === "right-0"
+      ? setMenuPosition("-right-80")
+      : setMenuPosition("right-0");
   };
 
   return (
@@ -38,12 +40,12 @@ const Header: React.FC = () => {
       </button>
 
       <div
-        className={`absolute w-80 h-screen top-0 right-[${menuPosition}] px-10 py-10
+        className={`absolute w-80 h-screen top-0 ${menuPosition} px-10 py-10
 				flex flex-col
 				bg-zinc-900 transition-all duration-500 ease z-10
-						md:static md:w-auto md:h-auto md:px-0 md:py-0
-						md:flex-row md:items-center md:justify-between 
-						md:bg-transparent
+				md:static md:w-auto md:h-auto md:px-0 md:py-0
+				md:flex-row md:items-center md:justify-between 
+				md:bg-transparent
 				`}
       >
         <HeaderItem title="Projects" href="projects" />
