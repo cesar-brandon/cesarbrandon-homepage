@@ -49,7 +49,7 @@ const Carousel: React.FC<Props> = ({ projects }) => {
   }, [embla, onSelect]);
 
   return (
-    <div className="overflow-hidden relative border-2 border-black rounded-lg">
+    <div className="overflow-hidden relative border-2 border-black rounded-lg z-[1]">
       <div ref={emblaRef}>
         <div className="flex">
           {projects.map((project: Post) => (
