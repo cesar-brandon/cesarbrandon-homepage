@@ -7,12 +7,12 @@ import ToggleTheme from "../common/ToggleTheme";
 import Wrap from "../common/Wrap";
 
 const Header: React.FC = () => {
-  const [menuPosition, setMenuPosition] = useState("right-0");
+  const [menuPosition, setMenuPosition] = useState("-right-80");
 
   const handleMenu = () => {
-    menuPosition === "right-0"
-      ? setMenuPosition("-right-80")
-      : setMenuPosition("right-0");
+    menuPosition === "-right-80"
+      ? setMenuPosition("right-0")
+      : setMenuPosition("-right-80");
   };
 
   return (
