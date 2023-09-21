@@ -1,46 +1,48 @@
 "use client";
 
+import useToggleContainer from "@/hooks/use-toggle-container";
 import { Bars2Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import React, { useState } from "react";
 import HeaderItem from "../common/HeaderItem";
-import ToggleTheme from "../common/ToggleTheme";
+import ToggleTheme from "../common/toggle-theme";
 import Wrap from "../common/Wrap";
 
 const Header: React.FC = () => {
-  const [menuPosition, setMenuPosition] = useState("-right-80");
+  const { isOpen, toggle, containerRef, handleBlur } = useToggleContainer()
 
   const handleMenu = () => {
-    menuPosition === "-right-80"
-      ? setMenuPosition("right-0")
-      : setMenuPosition("-right-80");
+    toggle()
   };
 
   return (
     <header
+      ref={containerRef}
       className="relative h-28
 			font-bold px-10 py-10
 			transition-all duration-500 ease z-[2]
 			md:flex-row md:items-center md:justify-between
 			md:bg-white
 			"
+      onBlur={handleBlur}
+      tabIndex={0}
     >
       <button
         onClick={handleMenu}
-        className="absolute right-10 bottom-9 w-12 h-12 flex items-center justify-center
+        className="fixed top-6 right-6 w-12 h-12 flex items-center justify-center
 				bg-zinc-900 hover:bg-zinc-800 rounded text-white
 				transition-all duration-300 z-[11]
 				md:hidden
 				"
       >
-        {menuPosition === "0" ? (
-          <XMarkIcon className="w-6 h-6" />
-        ) : (
+        {isOpen ? (
           <Bars2Icon className="w-6 h-6" />
+        ) : (
+          <XMarkIcon className="w-6 h-6" />
         )}
       </button>
 
       <div
-        className={`absolute w-80 h-screen top-0 ${menuPosition} px-10 py-10
+        className={`fixed w-80 h-80 top-0 ${isOpen ? "right-0" : "-right-80"} px-10 py-10 rounded-bl-xl 
 				flex flex-col
 				bg-zinc-900 transition-all duration-500 ease z-10
 				md:static md:w-auto md:h-auto md:px-0 md:py-0
