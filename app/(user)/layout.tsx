@@ -1,3 +1,5 @@
+import Providers from "@/components/common/providers";
+import { TailwindIndicator } from "@/components/common/tailwind-indicator";
 import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
 import "../globals.css";
@@ -27,10 +29,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head />
-      <body className="max-w-7xl mx-auto">
-        <Header />
-        <main className="px-10 min-h-screen">{children}</main>
-        <Footer />
+      <body className="max-w-7xl mx-auto bg-white dark:bg-zinc-900">
+        <Providers attribute="class" defaultTheme="light" enableSystem>
+          <Header />
+          <main className="px-10 min-h-screen">{children}</main>
+          <Footer />
+          <TailwindIndicator />
+        </Providers>
       </body>
     </html>
   );

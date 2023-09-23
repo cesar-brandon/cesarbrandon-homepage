@@ -20,9 +20,7 @@ const Header: React.FC = () => {
       className="relative h-28
 			font-bold px-10 py-10
 			transition-all duration-500 ease z-[2]
-			md:flex-row md:items-center md:justify-between
-			md:bg-white
-			"
+			md:flex-row md:items-center md:justify-between"
       onBlur={handleBlur}
       tabIndex={0}
     >

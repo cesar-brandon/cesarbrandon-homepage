@@ -1,5 +1,5 @@
 import React from "react";
-import { previewData } from "next/headers";
+import { draftMode } from "next/headers";
 import { groq } from "next-sanity";
 import { sanityClient } from "@/lib/sanity.client";
 import PreviewSuspense from "@/components/common/PreviewSuspense";
@@ -15,7 +15,8 @@ const query = groq`
 `;
 
 const Projects = async () => {
-  if (previewData()) {
+  const { isEnabled } = draftMode();
+  if (isEnabled) {
     return (
       <PreviewSuspense fallback={<div>Loading...</div>}>
         <PreviewList query={query} type={"project"} />

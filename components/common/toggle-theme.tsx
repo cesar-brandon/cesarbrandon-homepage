@@ -4,10 +4,13 @@ import {
   MoonIcon,
   ComputerDesktopIcon,
 } from "@heroicons/react/24/outline";
-import React, { useState } from "react";
+import { useTheme } from 'next-themes';
+import React, { useState, useTransition } from "react";
 
 const ToggleTheme: React.FC = () => {
+  const { theme, setTheme } = useTheme();
   const { isOpen, toggle, containerRef, handleBlur } = useToggleContainer();
+  const [_, startTransition] = useTransition()
   const [themes, setThemes] = useState([
     {
       title: "Claro",
@@ -23,11 +26,14 @@ const ToggleTheme: React.FC = () => {
     }
   ]);
 
-  const handleThemeClick = (index: number) => {
+  const handleThemeClick = (index: number, title: string) => {
     const newThemes = [...themes];
     const clickedTheme = newThemes.splice(index, 1)[0];
     newThemes.unshift(clickedTheme);
     setThemes(newThemes);
+    startTransition(() => {
+      setTheme(title === "Claro" ? "light" : "dark")
+    })
     toggle();
   };
 
@@ -39,7 +45,8 @@ const ToggleTheme: React.FC = () => {
         bg-transparent md:bg-white font-normal text-zinc-500 hover:text-zinc-50
         border border-zinc-500 hover:border-zinc-50 rounded-lg cursor-pointer
         transition-all duration-150 
-        md:mt-0 md:hover:text-zinc-900 md:border-zinc-300 md:hover:border-zinc-900`}
+        md:mt-0 md:hover:text-zinc-900 md:border-zinc-300 md:hover:border-zinc-900
+        dark:md:bg-zinc-800 dark:md:border-zinc-700 dark:hover:text-zinc-50`}
         onBlur={handleBlur}
         tabIndex={0}
       >
@@ -47,8 +54,9 @@ const ToggleTheme: React.FC = () => {
           themes.map(({ title, icon }, index) => (
             <div
               key={index}
-              className="w-full h-full p-2 gap-2 flex items-center md:hover:bg-zinc-100 hover:bg-zinc-800"
-              onClick={() => handleThemeClick(index)}
+              className="w-full h-full p-2 gap-2 flex items-center md:hover:bg-zinc-100 hover:bg-zinc-800
+              dark:md:hover:bg-zinc-700"
+              onClick={() => handleThemeClick(index, title)}
             >
               {icon}
               <p>{title}</p>
