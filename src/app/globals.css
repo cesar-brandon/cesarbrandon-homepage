@@ -21,25 +21,3 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
-.Wrap{
-		width: 72px;
-		height: 72px;
-		border-radius: 50%;
-		background-color: #18181b;
-		border: 1px solid #fff;
-		position: absolute;
-		left: 50%;
-		top: 10px;
-		margin-left: -36px;
-		z-index: 2;
-		transition: all 500ms ease;
-}
-.Wrap.go{
-		z-index: 999;
-		width: 3000px;
-		height: 3000px;
-		margin-left: -1500px;
-		margin-top: -1500px;
-		top: 50%;
-}

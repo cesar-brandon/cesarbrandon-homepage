@@ -7,4 +7,4 @@
 
 > preview
 
-![preview img](preview.png)
+![preview img](./public/screenshots/preview.png)

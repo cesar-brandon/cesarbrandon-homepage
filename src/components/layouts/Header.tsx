@@ -2,10 +2,8 @@
 
 import useToggleContainer from "@/hooks/use-toggle-container";
 import { Bars2Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import React, { useState } from "react";
 import HeaderItem from "../common/HeaderItem";
 import ToggleTheme from "../common/toggle-theme";
-import Wrap from "../common/Wrap";
 
 const Header: React.FC = () => {
   const { isOpen, toggle, containerRef, handleBlur } = useToggleContainer()
@@ -56,7 +54,6 @@ const Header: React.FC = () => {
         <ToggleTheme />
       </div>
 
-      <Wrap />
     </header>
   );
 };

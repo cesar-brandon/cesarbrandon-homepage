@@ -13,16 +13,18 @@
     "@portabletext/react": "^2.0.1",
     "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.0.0",
+    "clsx": "^2.0.0",
     "embla-carousel-autoplay": "^7.0.9",
     "embla-carousel-react": "^7.0.9",
-    "next": "^13.5.2",
+    "next": "^13.5.3",
     "next-sanity": "^4.1.2",
     "next-themes": "^0.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sanity": "^3.0.0",
     "sanity-plugin-iframe-pane": "^2.1.1",
-    "styled-components": "^5.2.0"
+    "styled-components": "^5.2.0",
+    "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
     "@sanity/eslint-config-studio": "^2.0.1",
