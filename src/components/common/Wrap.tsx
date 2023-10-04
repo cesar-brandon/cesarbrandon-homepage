@@ -1,41 +1,35 @@
 "use client"
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import Character from "@/public/character.png";
 import { cn } from "@/utilities/style";
 
 const Wrap: React.FC = () => {
-  const router = useRouter();
+  const [isExpanded, setIsExpanded] = useState(false);
 
-  const detectLinkClicked = () => {
-    // Agregar la clase de animación
-    const element = document.getElementById("animated-circle");
-    if (element) {
-      element.classList.add("animate-click");
-      setTimeout(() => {
-        // Quitar la clase de animación después de completar la animación
-        element.classList.remove("animate-click");
-      }, 300); // El tiempo debe coincidir con la duración de tu animación CSS
-    }
+  const handleCircleClick = () => {
+    setIsExpanded(true);
+
+    setTimeout(() => {
+      setIsExpanded(false);
+    }, 3000);
   };
 
   return (
-    <>
+    <div onClick={handleCircleClick}>
       <div
         id="animated-circle"
-        className={cn("absolute left-1/2 -ml-[36px] top-[10px] w-[] h-[72px] rounded-full bg-black border-2 border-white z-0", "")}
-        onClick={() => detectLinkClicked()}
+        className={cn(
+          "absolute left-1/2 -ml-[36px] top-[10px] w-[72px] h-[72px] rounded-full bg-black border-2 border-white z-0 transition-all duration-300",
+          isExpanded ? "transform scale-[80]" : ""
+        )}
       ></div>
-      <div
-        className="h-[72px] w-[72px] overflow-hidden rounded-full border absolute left-1/2 ml-[-36px] top-[10px] z-[2]"
-      >
+      <div className="h-[72px] w-[72px] overflow-hidden rounded-full border absolute left-1/2 ml-[-36px] top-[10px] z-[2]">
         <span>
-          <Image src={Character} alt="link-home"></Image>
+          <Image src="/icon-dark.png" alt="link-home" fill />
         </span>
       </div>
-    </>
+    </div>
   );
 };
 
