@@ -27,8 +27,8 @@ export default async function Home() {
         <LastPost />
         <div className="relative flex flex-col justify-center gap-10">
           <h2 className="text-2xl font-normal text-center">DRAFT</h2>
-          <section className="pr-10">
-            <Carousel slides={projects} options={OPTIONS_DRAFT} className="h-[16rem]" />
+          <section className="pr-10 relative flex justify-center">
+            <Carousel slides={projects} options={OPTIONS_DRAFT} className="w-full h-[16rem]" />
           </section>
         </div>
       </div>

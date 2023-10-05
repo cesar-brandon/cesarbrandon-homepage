@@ -3,6 +3,7 @@ import { sanityClient } from "@/lib/sanity.client";
 import { groq } from "next-sanity";
 import React, { useState, useEffect } from "react";
 import ClientSideRoute from "../common/ClientSideRoute";
+import { Skeleton } from "../ui/skeleton";
 
 const query = groq`
   *[_type == "post"] {
@@ -39,8 +40,8 @@ const LastPost = () => {
   return (
     <div className="flex flex-col justify-center md:px-10 gap-10">
       <h2 className="text-2xl font-normal text-center">NEWS</h2>
-      <div>
-        {
+      <div >
+        {postTitles.length !== 0 ?
           postTitles.map((post: Post, index) => (
             <ClientSideRoute key={index} route={`/posts/${post.slug.current}`}>
               <div
@@ -54,7 +55,14 @@ const LastPost = () => {
               </div>
             </ClientSideRoute>
           ))
-        }
+          : (
+            <div className="flex flex-col gap-2">
+              <Skeleton className="w-full h-14" />
+              <Skeleton className="w-full h-14" />
+              <Skeleton className="w-full h-14" />
+              <Skeleton className="w-full h-14" />
+            </div>
+          )}
       </div>
     </div>
   );

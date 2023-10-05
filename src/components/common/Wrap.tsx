@@ -3,16 +3,19 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { cn } from "@/utilities/style";
+import { useRouter } from "next/navigation";
 
 const Wrap: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const router = useRouter();
 
   const handleCircleClick = () => {
     setIsExpanded(true);
 
     setTimeout(() => {
       setIsExpanded(false);
-    }, 3000);
+      router.push("/");
+    }, 1000);
   };
 
   return (
@@ -20,14 +23,12 @@ const Wrap: React.FC = () => {
       <div
         id="animated-circle"
         className={cn(
-          "absolute left-1/2 -ml-[36px] top-[10px] w-[72px] h-[72px] rounded-full bg-black border-2 border-white z-0 transition-all duration-300",
-          isExpanded ? "transform scale-[80]" : ""
+          "absolute left-1/2 -ml-[36px] top-[10px] w-[72px] h-[72px] rounded-full bg-black border-2 border-black darK:border-white z-0 transition-all ease-in-out duration-700",
+          isExpanded ? "transform scale-[80] z-50" : ""
         )}
       ></div>
-      <div className="h-[72px] w-[72px] overflow-hidden rounded-full border absolute left-1/2 ml-[-36px] top-[10px] z-[2]">
-        <span>
-          <Image src="/icon-dark.png" alt="link-home" fill />
-        </span>
+      <div className="group h-[72px] w-[72px] overflow-hidden rounded-full dark:border-2  absolute left-1/2 ml-[-36px] top-[10px] z-[2]">
+        <Image className="cursor-pointer mt-6 group-hover:m-0 group-hover:animate-none transition-all duration-300" src="/icon-dark.png" alt="link-home" fill />
       </div>
     </div>
   );

@@ -48,14 +48,14 @@ const Carousel: React.FC<PropType> = (props) => {
 
   return (
     <div className={cn("overflow-hidden border-2 border-black rounded-lg z-[1]", className)}>
-      <div ref={emblaRef}>
-        <div className={`${!axis && "flex"}`}>
+      <div className="h-full" ref={emblaRef}>
+        <div className={`${!axis ? "flex" : "h-full"}`}>
           {slides.map(({ _id, slug, author, mainImage }: Post | Project) => (
             <ClientSideRoute
               key={_id}
               route={`/projects/${slug.current}`}
             >
-              <div className={`${axis ? "w-full" : "w-[50rem]"}  h-96 overflow-hidden`}>
+              <div className={`${axis ? "w-full h-full" : "w-[50rem] h-96"} overflow-hidden`}>
                 <BlurImage
                   src={urlFor(mainImage).url()}
                   alt={author.name}
@@ -76,14 +76,12 @@ const Carousel: React.FC<PropType> = (props) => {
       )}
 
       {axis && (
-        <div className="flex items-end flex-col gap-1 absolute right-0 top-1/2">
+        <div className="h-full w-3 flex justify-center flex-col gap-1 absolute right-0 top-0">
           {scrollSnaps.map((_, index) => (
             <DotButton
               key={index}
               onClick={() => onDotButtonClick(index)}
-              className={'w-6 h-1 bg-black rounded-full'.concat(
-                index === selectedIndex ? ' w-8' : ''
-              )}
+              className={cn("w-full h-3 bg-black dark:bg-zinc-500 hover:dark:bg-white rounded-full transition-all duration-300 ease-in-out", index === selectedIndex && "h-full  ")}
             />
           ))}
         </div>
