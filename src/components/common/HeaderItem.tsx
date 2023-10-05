@@ -18,6 +18,7 @@ const HeaderItem: React.FC<Props> = ({ title, href }) => {
 
       dark:text-zinc-500 dark:hover:text-zinc-50 dark:md:text-zinc-500 
 			dark:md:focus:text-zinc-50 dark:md:hover:text-zinc-50"
+      aria-label="header item"
     >
       {title}
     </Link>

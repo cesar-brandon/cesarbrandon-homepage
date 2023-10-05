@@ -17,7 +17,7 @@ const Header: React.FC = () => {
       ref={containerRef}
       className="relative h-28
 			font-bold px-10 py-10
-			transition-all duration-500 ease z-[2]
+			transition-all duration-500 ease z-50 md:z-10
 			md:flex-row md:items-center md:justify-between"
       onBlur={handleBlur}
       tabIndex={0}
@@ -26,7 +26,7 @@ const Header: React.FC = () => {
         onClick={handleMenu}
         className="fixed top-6 right-6 w-12 h-12 flex items-center justify-center
 				bg-zinc-900 hover:bg-zinc-800 rounded text-white
-				transition-all duration-300 z-[11]
+				transition-all duration-300 z-50
 				md:hidden
 				"
       >
@@ -40,10 +40,10 @@ const Header: React.FC = () => {
       <div
         className={`fixed w-80 h-80 top-0 ${isOpen ? "right-0" : "-right-80"} px-10 py-10 rounded-bl-xl 
 				flex flex-col
-				bg-zinc-900 transition-all duration-500 ease z-10
+				bg-zinc-900 transition-all duration-500 ease 
 				md:static md:w-auto md:h-auto md:px-0 md:py-0
 				md:flex-row md:items-center md:justify-between 
-				md:bg-transparent
+				md:bg-transparent 
 				`}
       >
         <HeaderItem title="Projects" href="projects" />

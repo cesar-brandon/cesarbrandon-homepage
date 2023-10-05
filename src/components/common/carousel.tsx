@@ -81,7 +81,7 @@ const Carousel: React.FC<PropType> = (props) => {
             <DotButton
               key={index}
               onClick={() => onDotButtonClick(index)}
-              className={cn("w-full h-3 bg-black dark:bg-zinc-500 hover:dark:bg-white rounded-full transition-all duration-300 ease-in-out", index === selectedIndex && "h-full  ")}
+              className={cn("w-full h-3 rounded-full transition-all duration-300 ease-in-out", index === selectedIndex ? "bg-gradient-to-b from-teal-400 via-sky-500 to-violet-500 h-full" : "bg-black dark:bg-zinc-500")}
             />
           ))}
         </div>

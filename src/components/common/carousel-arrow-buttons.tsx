@@ -69,6 +69,7 @@ export const PrevButton: React.FC<PropType> = (props) => {
       className="absolute w-14 h-full flex items-center justify-center
 								   left-0 top-1/2 transform -translate-y-1/2"
       type="button"
+      title='arrow left'
       {...restProps}
     >
       <ChevronLeftIcon className="w-8 h-8 text-black" />
@@ -85,6 +86,7 @@ export const NextButton: React.FC<PropType> = (props) => {
       className="absolute w-14 h-full flex items-center justify-center
 								   right-0 top-1/2 transform -translate-y-1/2"
       type="button"
+      title='arrow right'
       {...restProps}
     >
       <ChevronRightIcon className="w-8 h-8 text-black" />

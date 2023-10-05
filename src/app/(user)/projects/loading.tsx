@@ -1,11 +1,5 @@
-import React from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
-const Loading: React.FC = () => {
-  return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-6xl font-bold">Loading...</h1>
-    </div>
-  );
-};
-
-export default Loading;
+export default function loading() {
+  return <Skeleton className="w-full h-80" />;
+}

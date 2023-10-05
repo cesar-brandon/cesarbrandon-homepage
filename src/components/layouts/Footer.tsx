@@ -1,4 +1,3 @@
-import { CodeBracketIcon, CommandLineIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import React from "react";
 
@@ -10,7 +9,11 @@ const Footer: React.FC = () => {
     >
       <div>© 2023 Cesar Brandon</div>
       <div className="flex gap-5">
-        <Link href={"https://github.com/cesar-brandon"} target="_blank">
+        <Link
+          href={"https://github.com/cesar-brandon"}
+          target="_blank"
+          aria-label="github"
+        >
           <svg
             className="w-8 h-8 hover:text-zinc-500 cursor-pointer"
             xmlns="http://www.w3.org/2000/svg"
@@ -27,6 +30,7 @@ const Footer: React.FC = () => {
         <Link
           href={"https://www.linkedin.com/in/cesar-brandon/"}
           target="_blank"
+          aria-label="linkedin"
         >
           <svg
             className="w-8 h-8 hover:text-blue-500 cursor-pointer"

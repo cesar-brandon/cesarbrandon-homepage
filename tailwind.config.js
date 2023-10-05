@@ -16,10 +16,10 @@ module.exports = {
       },
     },
     extend: {
+      "gridTemplateColumns": {
+        bloglist: "repeat(auto-fill, minmax(24rem, 1fr))",
+      },
       keyframes: {
-        gridTemplateColumns: {
-          bloglist: "repeat(auto-fill, minmax(24rem, 1fr))",
-        },
         "accordion-down": {
           from: { height: 0 },
           to: { height: "var(--radix-accordion-content-height)" },

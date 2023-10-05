@@ -1,6 +1,6 @@
 import urlFor from "@/lib/urlFor";
-import Image from "next/image";
 import React from "react";
+import BlurImage from "./blur-image";
 
 type Props = {
   post: Post;
@@ -12,7 +12,7 @@ const PreviewContent: React.FC<Props> = ({ post }) => {
       className="relative w-full h-80 drop-shadow-xl
 					rounded-lg overflow-hidden group"
     >
-      <Image
+      <BlurImage
         className="object-cover object-center"
         src={urlFor(post.mainImage).url()}
         alt={post.author.name}
