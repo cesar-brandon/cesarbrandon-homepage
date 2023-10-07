@@ -2,6 +2,7 @@
 import { sanityClient } from "@/lib/sanity.client";
 import { groq } from "next-sanity";
 import React, { useState, useEffect } from "react";
+import ButtonLink from "../common/button-link";
 import ClientSideRoute from "../common/ClientSideRoute";
 import { Skeleton } from "../ui/skeleton";
 
@@ -39,7 +40,7 @@ const LastPost = () => {
 
   return (
     <div className="flex flex-col justify-center md:px-10 gap-10">
-      <h2 className="text-2xl font-normal text-center">NEWS</h2>
+      <ButtonLink className="group text-2xl font-normal" href="/posts" text="NEWS" ariaLabel="View All Posts" icon={<span className="font-mono ml-2 group-hover:translate-x-2 transition-all duration-300">{"~>"}</span>} />
       <div >
         {postTitles.length !== 0 ?
           postTitles.map((post: Post, index) => (

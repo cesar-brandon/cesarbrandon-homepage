@@ -46,7 +46,7 @@ const ToggleTheme: React.FC = () => {
         border border-zinc-500 hover:border-zinc-50 rounded-lg cursor-pointer
         transition-all duration-150 
         md:mt-0 md:hover:text-zinc-900 md:border-zinc-300 md:hover:border-zinc-900
-        dark:md:bg-zinc-800 dark:md:border-zinc-700 dark:hover:text-zinc-50`}
+        dark:md:bg-zinc-900 dark:md:backdrop-blur dark:md:border-white dark:md:border-opacity-30 dark:hover:text-zinc-50`}
         onBlur={handleBlur}
         tabIndex={0}
       >

@@ -24,7 +24,7 @@ type PropType = {
 
 const Carousel: React.FC<PropType> = (props) => {
   const { slides, options, className } = props
-  const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay()])
+  const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay({ delay: 2000 })])
 
   const onButtonClick = useCallback((emblaApi: EmblaCarouselType) => {
     const { autoplay } = emblaApi.plugins()
@@ -81,7 +81,7 @@ const Carousel: React.FC<PropType> = (props) => {
             <DotButton
               key={index}
               onClick={() => onDotButtonClick(index)}
-              className={cn("w-full h-3 rounded-full transition-all duration-300 ease-in-out", index === selectedIndex ? "bg-gradient-to-b from-teal-400 via-sky-500 to-violet-500 h-full" : "bg-black dark:bg-zinc-500")}
+              className={cn("w-full h-3 rounded-full transition-all duration-300 ease-in-out", index === selectedIndex ? "bg-black dark:bg-zinc-500  h-full" : "bg-black dark:bg-zinc-700 dark:hover:bg-white")}
             />
           ))}
         </div>

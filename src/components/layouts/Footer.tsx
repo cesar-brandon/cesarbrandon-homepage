@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
           aria-label="github"
         >
           <svg
-            className="w-8 h-8 hover:text-zinc-500 cursor-pointer"
+            className="w-8 h-8 hover:text-zinc-300 cursor-pointer"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
           aria-label="linkedin"
         >
           <svg
-            className="w-8 h-8 hover:text-blue-500 cursor-pointer"
+            className="w-8 h-8 hover:text-zinc-300 cursor-pointer"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"

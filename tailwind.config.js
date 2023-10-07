@@ -19,6 +19,10 @@ module.exports = {
       "gridTemplateColumns": {
         bloglist: "repeat(auto-fill, minmax(24rem, 1fr))",
       },
+      fontFamily: {
+        sans: ['var(--font-sans)'],
+        mono: ['var(--font-mono)'],
+      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },

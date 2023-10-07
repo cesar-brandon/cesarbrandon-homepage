@@ -3,6 +3,8 @@ import Carousel from "@/components/common/carousel";
 import { sanityClient } from "@/lib/sanity.client";
 import { EmblaOptionsType } from "embla-carousel-react";
 import { groq } from "next-sanity";
+import { ExpandIcon } from "lucide-react";
+import ButtonLink from "@/components/common/button-link";
 
 const query = groq`
 		*[_type == "project"] {
@@ -26,7 +28,10 @@ export default async function Home() {
       <div className="grid md:grid-cols-2 gap-8">
         <LastPost />
         <div className="relative flex flex-col justify-center gap-10">
-          <h2 className="text-2xl font-normal text-center">DRAFT</h2>
+          <ButtonLink
+            className="group text-2xl font-normal"
+            href="/draft" variant="ghost" text="DRAFTS" ariaLabel="View All Drafts"
+            icon={<span className="font-mono ml-2 group-hover:translate-x-2 transition-all duration-300">{"~>"}</span>} />
           <section className="pr-10 relative flex justify-center">
             <Carousel slides={projects} options={OPTIONS_DRAFT} className="w-full h-[16rem]" />
           </section>

@@ -3,8 +3,8 @@ import { TailwindIndicator } from "@/components/common/tailwind-indicator";
 import Wrap from "@/components/common/Wrap";
 import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
+import { fontSans, fontMono } from "@/lib/fonts"
 import { cn } from "@/lib/utils";
-import { Inter } from "next/font/google";
 import "../globals.css";
 
 export const metadata = {
@@ -24,8 +24,6 @@ export const metadata = {
   }
 }
 
-const inter = Inter({ subsets: ['latin'], display: 'swap' })
-
 export default function RootLayout({
   children,
 }: {
@@ -34,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head />
-      <body className={cn("max-w-7xl mx-auto bg-white dark:bg-zinc-900", inter.className)}>
+      <body className={cn("max-w-7xl mx-auto bg-white dark:bg-zinc-900 font-sans antialiased", fontSans.variable, fontMono.variable)}>
         <Providers attribute="class" defaultTheme="light" enableSystem>
           <Header />
           <Wrap />
