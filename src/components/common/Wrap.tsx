@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 
 const Wrap: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const router = useRouter();
 
   const handleCircleClick = () => {
@@ -27,8 +28,11 @@ const Wrap: React.FC = () => {
           isExpanded ? "transform scale-[80] z-50" : ""
         )}
       ></div>
-      <div className="group h-[72px] w-[72px] overflow-hidden rounded-full dark:border-2  absolute left-1/2 ml-[-36px] top-[10px] z-10 md:z-40">
-        <Image className="cursor-pointer mt-6 group-hover:m-0 group-hover:animate-none transition-all duration-300" src="/icon-dark.png" alt="link-home" fill />
+      <div className="group h-[72px] w-[72px] overflow-hidden rounded-full dark:border-2 dark:border-white dark:border-opacity-30  absolute left-1/2 ml-[-36px] top-[10px] z-10 md:z-40">
+        <Image className={cn("cursor-pointer mt-6 group-hover:m-0 group-hover:animate-none transition-all duration-300", isLoading && "m-12")}
+          src="/icon-dark.png" alt="link-home" width={1196} height={1199}
+          onLoadingComplete={() => setLoading(false)}
+        />
       </div>
     </div>
   );

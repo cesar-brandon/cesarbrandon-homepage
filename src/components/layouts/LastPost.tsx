@@ -44,7 +44,7 @@ const LastPost = () => {
       <div >
         {postTitles.length !== 0 ?
           postTitles.map((post: Post, index) => (
-            <ClientSideRoute key={index} route={`/posts/${post.slug.current}`}>
+            <ClientSideRoute key={index} route={`/posts/${post.slug.current}`} ariaLabel={`View ${post.title}`}>
               <div
                 key={index}
                 className="p-1 pb-4 border-b dark:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer"

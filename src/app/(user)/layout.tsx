@@ -65,9 +65,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head />
-      <body className={cn("max-w-7xl mx-auto bg-white dark:bg-zinc-900 font-sans antialiased", fontSans.variable, fontMono.variable)}>
+      <body className={cn("max-w-7xl mx-auto bg-white dark:bg-zinc-950 font-sans antialiased", fontSans.variable, fontMono.variable)}>
         <Providers attribute="class" defaultTheme="light" enableSystem>
           <Header />
           <Wrap />

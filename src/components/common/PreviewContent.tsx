@@ -20,7 +20,7 @@ const PreviewContent: React.FC<Props> = ({ post }) => {
           fill
         />
         <div className="absolute bottom-0 left-0 h-28 group-hover:h-36 w-full 
-          bg-gradient-to-t from-white dark:from-zinc-900 to-transparent transition-all duration-300"></div>
+          bg-gradient-to-t from-white dark:from-zinc-950 to-transparent transition-all duration-300"></div>
       </div>
       <div
         className="absolute flex flex-col gap-2 h-28 bottom-0 

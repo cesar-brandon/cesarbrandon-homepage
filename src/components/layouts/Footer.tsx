@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
   return (
     <footer
       className="flex items-center justify-between font-bold px-10 py-10 mt-10
-			bg-zinc-900 text-white"
+			bg-zinc-950 text-white"
     >
       <div>© 2023 Cesar Brandon</div>
       <div className="flex gap-5">

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import Link from "next/link"
+import ClientSideRoute from "./ClientSideRoute"
 
 interface Props {
   href: string
@@ -14,7 +14,8 @@ interface Props {
 const ButtonLink: React.FC<Props> = ({ href, text, className, icon, ariaLabel, variant }) => {
   return (
     <Button className={cn("rounded-full px-6 py-4", className)} variant={variant}>
-      <Link href={href} aria-label={ariaLabel} className="flex items-center">{text}{icon}</Link>
+      {/* <Link href={href} aria-label={ariaLabel} className="flex items-center">{text}{icon}</Link> */}
+      <ClientSideRoute route={href} ariaLabel={ariaLabel} className="flex items-center">{text}{icon}</ClientSideRoute>
     </Button>
   )
 }

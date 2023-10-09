@@ -1,9 +1,9 @@
+import BlurImage from "@/components/common/blur-image";
 import RichTextComponents from "@/components/common/RichTextComponents";
 import { sanityClient } from "@/lib/sanity.client";
 import urlFor from "@/lib/urlFor";
 import { PortableText } from "@portabletext/react";
 import { groq } from "next-sanity";
-import Image from "next/image";
 import React from "react";
 
 type Props = {
@@ -45,7 +45,7 @@ const ProyectPage = async ({ params: { slug } }: Props) => {
     <article>
       <section className="w-full h-96 relative  overflow-hidden">
         {project.mainImage && (
-          <Image
+          <BlurImage
             className="object-cover object-center mx-auto"
             src={urlFor(project.mainImage).url()}
             alt={project.author.name}
