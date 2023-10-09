@@ -6,6 +6,11 @@ import PreviewSuspense from "@/components/common/PreviewSuspense";
 import PreviewList from "@/components/layouts/PreviewList";
 import ProjectList from "@/components/layouts/ProjectList";
 
+export const metadata = {
+  title: "Projects",
+  description: "A list of all projects"
+}
+
 const query = groq`
 		*[_type == "project"]{
 				...,

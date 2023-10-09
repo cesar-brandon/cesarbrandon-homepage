@@ -3,25 +3,60 @@ import { TailwindIndicator } from "@/components/common/tailwind-indicator";
 import Wrap from "@/components/common/Wrap";
 import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
+import { siteConfig } from "@/config/site";
 import { fontSans, fontMono } from "@/lib/fonts"
 import { cn } from "@/lib/utils";
+import { Metadata } from "next";
 import "../globals.css";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: {
-    default: 'Cesar Brandon',
-    template: `%s - Cesar Brandon`
+    default: siteConfig.name,
+    template: `%s - ${siteConfig.name}`,
   },
-  description: 'Web Portafolio of Cesar Brandon',
+  description: siteConfig.description,
+  keywords: [
+    'Cesar Brandon',
+    'Web Portafolio',
+    'Web Developer',
+    'Frontend Developer',
+    'React',
+    'Next.js',
+    'Typescript',
+    'Javascript',
+    'Tailwind',
+  ],
+  authors: [
+    {
+      name: "cesar-brandon",
+      url: "https://github.com/cesar-brandon",
+    },
+  ],
+  creator: "cesar-brandon",
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
     { media: '(prefers-color-scheme: dark)', color: 'black' }
   ],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [`${siteConfig.url}/og.jpg`],
+    creator: "@cesarbrandon_0",
+  },
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-16x16.png',
     apple: '/apple-touch-icon.png'
-  }
+  },
 }
 
 export default function RootLayout({

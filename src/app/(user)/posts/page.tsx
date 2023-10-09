@@ -6,6 +6,11 @@ import BlogList from "@/components/layouts/BlogList";
 import PreviewSuspense from "@/components/common/PreviewSuspense";
 import PreviewList from "@/components/layouts/PreviewList";
 
+export const metadata = {
+  title: "Blog",
+  description: "Blog posts",
+}
+
 const query = groq`
 		*[_type == "post"]{
 				...,

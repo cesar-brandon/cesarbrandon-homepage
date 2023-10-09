@@ -1,10 +1,6 @@
-# Cesar Brandon Portfolio Website in progress...
+# Cesar Brandon Homepage 
 
-- Responsive Personal Portfolio Website Using NextJs13 TailwindCss & Sanity 
-- Includes a light and dark mode.
-- Developed first with the Mobile First methodology, then for desktop.
-- Compatible with all mobile devices and with a beautiful and pleasant user interface.
-
-> preview
-
-![preview img](./public/screenshots/preview.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./public/screenshots/twitter-post-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="./src/app/opengraph-image.png">
+</picture>

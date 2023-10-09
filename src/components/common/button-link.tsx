@@ -6,7 +6,7 @@ interface Props {
   href: string
   text: string
   ariaLabel: string
-  variant?: "default" | "destructive" | "outline" | "subtle" | "secondary" | "ghost" | "link"
+  variant?: any
   className?: string
   icon?: React.ReactNode
 }
