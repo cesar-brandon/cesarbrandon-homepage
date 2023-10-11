@@ -8,17 +8,17 @@ import { useTheme } from 'next-themes';
 import React, { useState, useTransition } from "react";
 
 const ToggleTheme: React.FC = () => {
-  const { theme, setTheme } = useTheme();
+  const { setTheme } = useTheme();
   const { isOpen, toggle, containerRef, handleBlur } = useToggleContainer();
   const [_, startTransition] = useTransition()
   const [themes, setThemes] = useState([
     {
-      title: "Claro",
-      icon: <SunIcon className="h-6 w-6" />,
-    },
-    {
       title: "Sistema",
       icon: <ComputerDesktopIcon className="h-6 w-6" />,
+    },
+    {
+      title: "Claro",
+      icon: <SunIcon className="h-6 w-6" />,
     },
     {
       title: "Oscuro",
@@ -32,7 +32,7 @@ const ToggleTheme: React.FC = () => {
     newThemes.unshift(clickedTheme);
     setThemes(newThemes);
     startTransition(() => {
-      setTheme(title === "Claro" ? "light" : "dark")
+      setTheme(title === "Claro" ? "light" : title === "Oscuro" ? "dark" : "system");
     })
     toggle();
   };

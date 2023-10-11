@@ -68,10 +68,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head />
       <body className={cn("max-w-7xl mx-auto bg-white dark:bg-zinc-950 font-sans antialiased", fontSans.variable, fontMono.variable)}>
-        <Providers attribute="class" defaultTheme="light" enableSystem>
+        <Providers attribute="class" enableSystem>
           <Header />
           <Wrap />
-          <main className="px-10 min-h-screen">{children}</main>
+          <main className="px-10 min-h-[51rem]">{children}</main>
           <Footer />
           <TailwindIndicator />
         </Providers>

@@ -15,9 +15,9 @@ const Header: React.FC = () => {
   return (
     <header
       ref={containerRef}
-      className="relative h-28
+      className="md:relative h-28
 			font-bold px-10 py-10
-			transition-all duration-500 ease z-50 md:z-10
+			transition-all duration-500 ease z-30 md:z-10
 			md:flex-row md:items-center md:justify-between"
       onBlur={handleBlur}
       tabIndex={0}
@@ -39,7 +39,7 @@ const Header: React.FC = () => {
 
       <div
         className={`fixed w-80 h-80 top-0 ${isOpen ? "right-0" : "-right-80"} px-10 py-10 rounded-bl-xl 
-				flex flex-col
+				flex flex-col z-40
 				bg-zinc-900 transition-all duration-500 ease 
 				md:static md:w-auto md:h-auto md:px-0 md:py-0
 				md:flex-row md:items-center md:justify-between 

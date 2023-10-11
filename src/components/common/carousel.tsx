@@ -54,6 +54,7 @@ const Carousel: React.FC<PropType> = (props) => {
             <ClientSideRoute
               key={_id}
               route={`/projects/${slug.current}`}
+              ariaLabel={`View ${slug.current}`}
             >
               <div className={`${axis ? "w-full h-full" : "w-[50rem] h-96"} overflow-hidden`}>
                 <BlurImage
