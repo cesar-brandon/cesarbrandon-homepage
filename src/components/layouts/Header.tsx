@@ -6,10 +6,10 @@ import HeaderItem from "../common/HeaderItem";
 import ToggleTheme from "../common/toggle-theme";
 
 const Header: React.FC = () => {
-  const { isOpen, toggle, containerRef, handleBlur } = useToggleContainer()
+  const { isOpen, toggle, containerRef, handleBlur } = useToggleContainer();
 
   const handleMenu = () => {
-    toggle()
+    toggle();
   };
 
   return (
@@ -22,6 +22,8 @@ const Header: React.FC = () => {
       onBlur={handleBlur}
       tabIndex={0}
     >
+      <div className="back-pattern" />
+
       <button
         onClick={handleMenu}
         className="fixed top-6 right-6 w-12 h-12 flex items-center justify-center
@@ -38,7 +40,9 @@ const Header: React.FC = () => {
       </button>
 
       <div
-        className={`fixed w-80 h-80 top-0 ${isOpen ? "right-0" : "-right-80"} px-10 py-10 rounded-bl-xl 
+        className={`fixed w-80 h-80 top-0 ${
+          isOpen ? "right-0" : "-right-80"
+        } px-10 py-10 rounded-bl-xl 
 				flex flex-col z-40
 				bg-zinc-900 transition-all duration-500 ease 
 				md:static md:w-auto md:h-auto md:px-0 md:py-0
@@ -46,14 +50,13 @@ const Header: React.FC = () => {
 				md:bg-transparent 
 				`}
       >
-        <HeaderItem title="Projects" href="projects" />
-        <HeaderItem title="Posts" href="posts" />
+        <HeaderItem title="Projects" href="/projects" />
+        <HeaderItem title="Posts" href="/posts" />
         <HeaderItem title="" href="/" />
-        <HeaderItem title="About" href="about" />
+        <HeaderItem title="About" href="/about" />
 
         <ToggleTheme />
       </div>
-
     </header>
   );
 };

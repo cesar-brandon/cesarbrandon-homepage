@@ -11,7 +11,7 @@ export const metadata = {
 const About: React.FC = () => {
   return (
     <div className="flex border-2 border-black border-dashed hover:border-solid hover:border-black rounded-2xl
-      dark:border-white dark:border-opacity-20 border-opacity-20 p-6 transition-all duration-300">
+      dark:border-white dark:border-opacity-20 border-opacity-20 p-6 transition-all duration-300 overflow-hidden">
       <div className="w-full md:w-[55%]">
         <h1 className="text-8xl font-bold">Cesar Brandon</h1>
         <h2 className="mt-4 ml-2 text-4xl font-medium">
@@ -57,7 +57,7 @@ const About: React.FC = () => {
       </div>
       <div className="hidden md:block relative h-[30rem] w-[45%]">
         <Line className="w-[15rem] -rotate-12 border-dashed top-[6rem] -left-20 dark:border-[#3C3C57]" />
-        <Line className="-left-[14rem] top-[12rem] dark:border-green-500" />
+        <Line className="-left-[14rem] top-[12rem] dark:border-indigo-200" />
         <Line className="rotate-12 top-[18rem] border-dashed -left-20 dark:border-[#3C3C57]" />
         <Line className="bottom-20 -left-32 dark:border-indigo-500" />
         <Line className="-rotate-6 bottom-4 right-20 dark:border-[#6F88E0] z-10" />

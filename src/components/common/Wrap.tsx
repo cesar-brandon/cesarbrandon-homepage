@@ -29,7 +29,7 @@ const Wrap: React.FC = () => {
         )}
       ></div>
       <div className="group h-[72px] w-[72px] overflow-hidden rounded-full dark:border-2 dark:border-white dark:border-opacity-30  absolute left-1/2 ml-[-36px] top-[10px] z-30">
-        <Image className={cn("cursor-pointer mt-6 group-hover:m-0 group-hover:animate-none transition-all duration-300", isLoading && "m-12")}
+        <Image className={cn("cursor-pointer mt-6 group-hover:mt-2 group-hover:animate-none transition-all duration-300", isLoading && "m-12")}
           src="/icon-dark.png" alt="link-home" width={1196} height={1199}
           onLoadingComplete={() => setLoading(false)}
         />

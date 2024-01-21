@@ -27,7 +27,7 @@ const PreviewContent: React.FC<Props> = ({ post }) => {
 				bg-opacity-50 px-8 pb-8 transition-all duration-300 group-hover:-translate-y-16">
         <p className="text-2xl font-bold">{post.title}</p>
         <p>Lorem ipsum dolor sit amet, qui minim labore.Lorem ipsum dolor sit amet, officia.</p>
-        <ButtonLink className="mt-4" href={`/projects/${post.slug.current}`}
+        <ButtonLink className="mt-4 min-[692px]:mt-10 min-[860px]:mt-4" href={`/projects/${post.slug.current}`}
           text="Read More" ariaLabel="Read More"
           icon={<p className="font-mono ml-2">{"~>"}</p>} />
       </div>
