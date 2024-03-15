@@ -29,7 +29,13 @@ const Posts = async () => {
       </PreviewSuspense>
     );
   }
-  const posts = await sanityClient.fetch(query);
+
+  let posts: Post[] = [];
+  try {
+    posts = await sanityClient.fetch(query);
+  } catch (error) {
+    console.error("Error fetching posts: ", error);
+  }
 
   return (
     <Suspense fallback={<Loading />}>

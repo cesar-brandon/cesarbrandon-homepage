@@ -1,12 +1,11 @@
-import { Cabin as FontSans, JetBrains_Mono as FontMono } from "next/font/google";
+import { Cabin, JetBrains_Mono } from "next/font/google";
 
-export const fontSans = FontSans({
-  subsets: ['latin'],
-  variable: '--font-sans'
-})
+export const fontSans = Cabin({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
-export const fontMono = FontMono({
-  subsets: ['latin'],
-  variable: '--font-mono'
-})
-
+export const fontMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+});

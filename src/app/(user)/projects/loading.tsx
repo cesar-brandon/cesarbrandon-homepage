@@ -1,5 +1,11 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
-  return <Skeleton className="w-full h-80" />;
+  return (
+    <div className="grid grid-cols-projectlist gap-3">
+      {Array.from({ length: 4 }).map((_, i) => (
+        <Skeleton key={i} className="w-full h-80 rounded-xl" />
+      ))}
+    </div>
+  );
 }

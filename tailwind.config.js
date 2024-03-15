@@ -18,7 +18,8 @@ module.exports = {
     },
     extend: {
       "gridTemplateColumns": {
-        bloglist: "repeat(auto-fill, minmax(24rem, 1fr))",
+        bloglist: "",
+        projectlist: "repeat(auto-fill, minmax(24rem, 1fr))",
       },
       fontFamily: {
         sans: ['var(--font-sans)'],

@@ -8,8 +8,8 @@ import ProjectList from "@/components/layouts/ProjectList";
 
 export const metadata = {
   title: "Projects",
-  description: "A list of all projects"
-}
+  description: "A list of all projects",
+};
 
 const query = groq`
 		*[_type == "project"]{
@@ -28,9 +28,14 @@ const Projects = async () => {
       </PreviewSuspense>
     );
   }
+  let projects: Project[] = [];
 
-  const projects = await sanityClient.fetch(query);
-
+  try {
+    projects = await sanityClient.fetch(query);
+  } catch (error) {
+    console.error("Error fetching projects: ", error);
+  }
+  
   return <ProjectList projects={projects} />;
 };
 

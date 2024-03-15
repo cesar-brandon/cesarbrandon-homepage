@@ -42,8 +42,8 @@ const ProyectPage = async ({ params: { slug } }: Props) => {
   }
 
   return (
-    <article>
-      <section className="w-full h-96 relative  overflow-hidden">
+    <article className="mb-10">
+      <section className="w-full h-96 relative rounded-xl overflow-hidden">
         {project.mainImage && (
           <BlurImage
             className="object-cover object-center mx-auto"

@@ -1,31 +1,47 @@
 import { Character } from "@/components/common/character";
 import Line from "@/components/common/line";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import React from "react";
 
 export const metadata = {
   title: "About",
   description: "About me",
-}
+};
 
 const About: React.FC = () => {
   return (
-    <div className="flex border-2 border-black border-dashed hover:border-solid hover:border-black rounded-2xl
-      dark:border-white dark:border-opacity-20 border-opacity-20 p-6 transition-all duration-300 overflow-hidden">
+    <div
+      className="flex border-2 border-foreground rounded-xl
+      dark:border-white dark:border-opacity-20 border-opacity-20 p-6 transition-all duration-300 overflow-hidden"
+    >
       <div className="w-full md:w-[55%]">
         <h1 className="text-8xl font-bold">Cesar Brandon</h1>
         <h2 className="mt-4 ml-2 text-4xl font-medium">
           Shaping the web,
-          <span className="text-indigo-500">{"<line>"}</span> by <span className="text-indigo-500">{"</line>"}</span>
+          <span className="text-indigo-500">{"<line>"}</span> by{" "}
+          <span className="text-indigo-500">{"</line>"}</span>
         </h2>
         <div className="w-full md:w-[15rem] lg:w-[25rem] xl:w-[30rem] pl-2 mt-10">
-          <Accordion type="single" collapsible className="w-full">
+          <Accordion type="single" className="w-full" defaultValue="item-1" collapsible>
             <AccordionItem value="item-1">
               <AccordionTrigger>Info</AccordionTrigger>
               <AccordionContent>
                 <p className="text-base">
-                  <strong>Digital Craftsman ( Artist / Developer / Designer )</strong><br />
-                  Brandon is an independent full-stack developer from Perú and is passionate about creating digital services and the things you want. You have a knack for everything related to product launches, from planning and design to solving real-life problems with code. When he is not online, he loves to spend time drawing.
+                  <strong>
+                    Digital Craftsman ( Artist / Developer / Designer )
+                  </strong>
+                  <br />
+                  Brandon is an independent full-stack developer from Perú and
+                  is passionate about creating digital services and the things
+                  you want. You have a knack for everything related to product
+                  launches, from planning and design to solving real-life
+                  problems with code. When he is not online, he loves to spend
+                  time drawing.
                 </p>
               </AccordionContent>
             </AccordionItem>

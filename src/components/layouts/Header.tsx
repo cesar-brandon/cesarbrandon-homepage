@@ -26,7 +26,7 @@ const Header: React.FC = () => {
 
       <button
         onClick={handleMenu}
-        className="fixed top-6 right-6 w-12 h-12 flex items-center justify-center
+        className="fixed top-6 right-6 w-12 h-16 flex items-center justify-center
 				bg-zinc-900 hover:bg-zinc-800 rounded text-white
 				transition-all duration-300 z-50
 				md:hidden

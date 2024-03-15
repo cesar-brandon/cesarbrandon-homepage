@@ -1,30 +1,40 @@
 import Providers from "@/components/common/providers";
 import { TailwindIndicator } from "@/components/common/tailwind-indicator";
 import Wrap from "@/components/common/Wrap";
-import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
 import { siteConfig } from "@/config/site";
-import { fontSans, fontMono } from "@/lib/fonts"
+import { Cabin, JetBrains_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Metadata } from "next";
 import "../globals.css";
 
+const fontSans = Cabin({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const fontMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.name,
     template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
   keywords: [
-    'Cesar Brandon',
-    'Web Portafolio',
-    'Web Developer',
-    'Frontend Developer',
-    'React',
-    'Next.js',
-    'Typescript',
-    'Javascript',
-    'Tailwind',
+    "Cesar Brandon",
+    "Web Portafolio",
+    "Web Developer",
+    "Frontend Developer",
+    "React",
+    "Next.js",
+    "Typescript",
+    "Javascript",
+    "Tailwind",
   ],
   authors: [
     {
@@ -34,8 +44,8 @@ export const metadata: Metadata = {
   ],
   creator: "cesar-brandon",
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' }
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
   ],
   openGraph: {
     type: "website",
@@ -53,11 +63,11 @@ export const metadata: Metadata = {
     creator: "@cesarbrandon_0",
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png'
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
   },
-}
+};
 
 export default function RootLayout({
   children,
@@ -67,12 +77,17 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body className={cn("max-w-7xl mx-auto bg-white dark:bg-zinc-950 font-sans antialiased", fontSans.variable, fontMono.variable)}>
+      <body
+        className={cn(
+          "max-w-7xl mx-auto bg-white dark:bg-zinc-950 font-sans antialiased",
+          fontSans.variable,
+          fontMono.variable
+        )}
+      >
         <Providers attribute="class" enableSystem>
           <Header />
           <Wrap />
           <main className="px-10 min-h-[51rem]">{children}</main>
-          <Footer />
           <TailwindIndicator />
         </Providers>
       </body>
