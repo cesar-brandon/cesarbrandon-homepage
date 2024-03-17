@@ -3,20 +3,11 @@ import { TailwindIndicator } from "@/components/common/tailwind-indicator";
 import Wrap from "@/components/common/Wrap";
 import Header from "@/components/layouts/Header";
 import { siteConfig } from "@/config/site";
-import { Cabin, JetBrains_Mono } from "next/font/google";
+import { GeistSans as fontSans } from "geist/font/sans";
+import { GeistMono as fontMono } from "geist/font/mono";
 import { cn } from "@/lib/utils";
 import { Metadata } from "next";
 import "../globals.css";
-
-const fontSans = Cabin({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
-
-const fontMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -81,7 +72,7 @@ export default function RootLayout({
         className={cn(
           "max-w-7xl mx-auto bg-white dark:bg-zinc-950 font-sans antialiased",
           fontSans.variable,
-          fontMono.variable
+          fontMono.variable,
         )}
       >
         <Providers attribute="class" enableSystem>

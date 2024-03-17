@@ -61,21 +61,26 @@ const LastPost = () => {
             >
               <div
                 key={index}
-                className="p-1 pb-4 border-b dark:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer"
+                className="relative group p-1 pb-4 border-b cursor-pointer"
               >
-                <h3>{post.title}</h3>
-                <p className="text-sm text-zinc-500">
-                  {simplifyDate(post._createdAt)}
-                </p>
+                <div>
+                  <h3>{post.title}</h3>
+                  <p className="text-sm text-zinc-500">
+                    {simplifyDate(post._createdAt)}
+                  </p>
+                </div>
+                <div
+                  className="absolute w-3 h-3 right-8 top-6 bg-background border
+                  group-hover:bg-primary group-hover:border-primary rounded-full"
+                />
               </div>
             </ClientSideRoute>
           ))
         ) : (
           <div className="flex flex-col gap-2">
-            <Skeleton className="w-full h-14" />
-            <Skeleton className="w-full h-14" />
-            <Skeleton className="w-full h-14" />
-            <Skeleton className="w-full h-14" />
+            {Array.from({ length: 4 }).map((_, index) => (
+              <Skeleton key={index} className="w-full h-14" />
+            ))}
           </div>
         )}
       </div>

@@ -15,14 +15,13 @@ const Header: React.FC = () => {
   return (
     <header
       ref={containerRef}
-      className="md:relative h-28
-			font-bold px-10 py-10
+      className="md:relative h-28 px-10 py-10
 			transition-all duration-500 ease z-30 md:z-10
 			md:flex-row md:items-center md:justify-between"
       onBlur={handleBlur}
       tabIndex={0}
     >
-      <div className="back-pattern" />
+      {/* <div className="back-pattern h-1/2 md:h-full" /> */}
 
       <button
         onClick={handleMenu}
@@ -33,9 +32,9 @@ const Header: React.FC = () => {
 				"
       >
         {isOpen ? (
-          <Bars2Icon className="w-6 h-6" />
-        ) : (
           <XMarkIcon className="w-6 h-6" />
+        ) : (
+          <Bars2Icon className="w-6 h-6" />
         )}
       </button>
 
@@ -52,7 +51,7 @@ const Header: React.FC = () => {
       >
         <HeaderItem title="Projects" href="/projects" />
         <HeaderItem title="Posts" href="/posts" />
-        <HeaderItem title="" href="/" />
+        <div />
         <HeaderItem title="About" href="/about" />
 
         <ToggleTheme />

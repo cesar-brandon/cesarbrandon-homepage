@@ -7,19 +7,19 @@ type Props = {
   post: Post;
 };
 
-const PreviewContent: React.FC<Props> = ({ post }) => {
+const PreviewProject: React.FC<Props> = ({ post }) => {
   return (
     <div className="relative w-full h-80 rounded-xl overflow-hidden group dark:border-none">
       <div className="relative w-full h-[80%] group-hover:h-[70%] transition-all duration-300 overflow-hidden">
         <BlurImage
-          className="object-cover rounded-xl object-center border border-foreground dark:border-none"
+          className="object-cover rounded-xl object-center border-none border-foreground dark:border-none"
           src={urlFor(post.mainImage).url()}
           alt={post.author.name}
           fill
         />
         <div
           className="absolute bottom-0 left-0 h-28 group-hover:h-36 w-full 
-          bg-gradient-to-t from-white dark:from-zinc-950 to-transparent transition-all duration-300"
+          bg-gradient-to-t from-background to-transparent transition-all duration-300"
         ></div>
       </div>
       <div
@@ -43,4 +43,5 @@ const PreviewContent: React.FC<Props> = ({ post }) => {
   );
 };
 
-export default PreviewContent;
+export default PreviewProject;
+

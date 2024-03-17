@@ -30,7 +30,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex flex-col gap-12 mb-10">
       <section className="relative">
         <Carousel slides={projects} options={OPTIONS_PROJECT} />
       </section>

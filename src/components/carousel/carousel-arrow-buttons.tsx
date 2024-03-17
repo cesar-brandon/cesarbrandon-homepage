@@ -2,95 +2,99 @@ import React, {
   PropsWithChildren,
   useCallback,
   useEffect,
-  useState
-} from 'react'
-import { EmblaCarouselType } from 'embla-carousel-react'
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+  useState,
+} from "react";
+import { EmblaCarouselType } from "embla-carousel-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 type UsePrevNextButtonsType = {
-  prevBtnDisabled: boolean
-  nextBtnDisabled: boolean
-  onPrevButtonClick: () => void
-  onNextButtonClick: () => void
-}
+  prevBtnDisabled: boolean;
+  nextBtnDisabled: boolean;
+  onPrevButtonClick: () => void;
+  onNextButtonClick: () => void;
+};
 
 export const usePrevNextButtons = (
   emblaApi: EmblaCarouselType | undefined,
-  onButtonClick?: (emblaApi: EmblaCarouselType) => void
+  onButtonClick?: (emblaApi: EmblaCarouselType) => void,
 ): UsePrevNextButtonsType => {
-  const [prevBtnDisabled, setPrevBtnDisabled] = useState(true)
-  const [nextBtnDisabled, setNextBtnDisabled] = useState(true)
+  const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
+  const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
 
   const onPrevButtonClick = useCallback(() => {
-    if (!emblaApi) return
-    emblaApi.scrollPrev()
-    if (onButtonClick) onButtonClick(emblaApi)
-  }, [emblaApi, onButtonClick])
+    if (!emblaApi) return;
+    emblaApi.scrollPrev();
+    if (onButtonClick) onButtonClick(emblaApi);
+  }, [emblaApi, onButtonClick]);
 
   const onNextButtonClick = useCallback(() => {
-    if (!emblaApi) return
-    emblaApi.scrollNext()
-    if (onButtonClick) onButtonClick(emblaApi)
-  }, [emblaApi, onButtonClick])
+    if (!emblaApi) return;
+    emblaApi.scrollNext();
+    if (onButtonClick) onButtonClick(emblaApi);
+  }, [emblaApi, onButtonClick]);
 
   const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
-    setPrevBtnDisabled(!emblaApi.canScrollPrev())
-    setNextBtnDisabled(!emblaApi.canScrollNext())
-  }, [])
+    setPrevBtnDisabled(!emblaApi.canScrollPrev());
+    setNextBtnDisabled(!emblaApi.canScrollNext());
+  }, []);
 
   useEffect(() => {
-    if (!emblaApi) return
+    if (!emblaApi) return;
 
-    onSelect(emblaApi)
-    emblaApi.on('reInit', onSelect)
-    emblaApi.on('select', onSelect)
-  }, [emblaApi, onSelect])
+    onSelect(emblaApi);
+    emblaApi.on("reInit", onSelect);
+    emblaApi.on("select", onSelect);
+  }, [emblaApi, onSelect]);
 
   return {
     prevBtnDisabled,
     nextBtnDisabled,
     onPrevButtonClick,
-    onNextButtonClick
-  }
-}
+    onNextButtonClick,
+  };
+};
 
 type PropType = PropsWithChildren<
   React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   >
->
+>;
 
 export const PrevButton: React.FC<PropType> = (props) => {
-  const { children, ...restProps } = props
+  const { children, ...restProps } = props;
 
   return (
     <button
-      className="absolute w-14 h-full flex items-center justify-center
+      className="absolute w-16 h-full flex items-center justify-center
 								   left-0 top-1/2 transform -translate-y-1/2"
       type="button"
-      title='arrow left'
+      title="arrow left"
       {...restProps}
     >
-      <ChevronLeftIcon className="w-8 h-8 text-black" />
-      {children}
+      <div className="bg-secondary-foreground rounded-full p-2">
+        <ArrowLeft className="w-8 h-8 stroke-background" />
+        {children}
+      </div>
     </button>
-  )
-}
+  );
+};
 
 export const NextButton: React.FC<PropType> = (props) => {
-  const { children, ...restProps } = props
+  const { children, ...restProps } = props;
 
   return (
     <button
-      className="absolute w-14 h-full flex items-center justify-center
+      className="absolute w-16 h-full flex items-center justify-center
 								   right-0 top-1/2 transform -translate-y-1/2"
       type="button"
-      title='arrow right'
+      title="arrow right"
       {...restProps}
     >
-      <ChevronRightIcon className="w-8 h-8 text-black" />
-      {children}
+      <div className="bg-secondary-foreground rounded-full p-2">
+        <ArrowRight className="w-8 h-8 text-background" />
+        {children}
+      </div>
     </button>
-  )
-}
+  );
+};

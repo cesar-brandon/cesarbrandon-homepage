@@ -1,6 +1,6 @@
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import React from "react";
-import PreviewContent from "../common/PreviewContent";
+import PreviewProject from "../common/preview-project";
 
 type Props = {
   projects: Project[];
@@ -17,10 +17,10 @@ const ProjectList: React.FC<Props> = ({ projects }) => {
   }
 
   return (
-    <div className="grid grid-cols-projectlist gap-3">
+    <div className="grid grid-cols-projectlist gap-6">
       {projects &&
         projects.map((project) => (
-          <PreviewContent key={project._id} post={project} />
+          <PreviewProject key={project._id} post={project} />
         ))}
     </div>
   );

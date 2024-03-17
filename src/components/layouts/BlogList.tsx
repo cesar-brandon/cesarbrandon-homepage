@@ -1,6 +1,6 @@
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import React from "react";
-import PreviewContent from "../common/PreviewContent";
+import PreviewPost from "../common/preview-post";
 
 type Props = {
   posts: Post[];
@@ -17,9 +17,9 @@ const BlogList: React.FC<Props> = ({ posts }) => {
   }
 
   return (
-    <div className="grid grid-cols-bloglist gap-3">
+    <div className="grid grid-cols-bloglist gap-6">
       {posts.map((post) => (
-        <PreviewContent key={post._id} post={post} />
+        <PreviewPost key={post._id} post={post} />
       ))}
     </div>
   );

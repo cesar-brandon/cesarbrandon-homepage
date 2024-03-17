@@ -2,10 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {
@@ -17,13 +17,13 @@ module.exports = {
       },
     },
     extend: {
-      "gridTemplateColumns": {
+      gridTemplateColumns: {
         bloglist: "",
         projectlist: "repeat(auto-fill, minmax(24rem, 1fr))",
       },
       fontFamily: {
-        sans: ['var(--font-sans)'],
-        mono: ['var(--font-mono)'],
+        sans: ["var(--font-geist-sans)"],
+        mono: ["var(--font-geist-mono)"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -82,4 +82,5 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
+
