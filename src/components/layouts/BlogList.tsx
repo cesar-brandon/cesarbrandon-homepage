@@ -10,8 +10,8 @@ type Props = {
 const BlogList: React.FC<Props> = ({ posts }) => {
   if (!posts || posts.length === 0) {
     return (
-      <div className="w-full h-72 flex flex-col items-center justify-center">
-        <NoSymbolIcon className="stroke-foreground stroke-1 w-40 h-40" />
+      <div className="w-full h-72 flex flex-col items-center justify-center gap-4">
+        <NoSymbolIcon className="stroke-primary stroke-1 w-40 h-40" />
         No hay publicaciones por el momento
       </div>
     );

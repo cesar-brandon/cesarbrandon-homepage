@@ -23,7 +23,7 @@ export function CarouselDialog({ children, slides }: Props) {
           <Carousel orientation="vertical">
             <CarouselContent className="h-[35rem] py-20 box-border">
               {slides.map((slide) => (
-                <CarouselItem className="flex flex-col lg:flex-row gap-10">
+                <CarouselItem key={slide._id} className="flex flex-col lg:flex-row gap-10">
                   <div className="w-full xl:w-[40%] flex flex-col gap-4">
                     <p className="font-medium">{slide.title}</p>
                     <p className="text-sm xl:w-[80%]">
