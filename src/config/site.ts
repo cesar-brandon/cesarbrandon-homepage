@@ -11,8 +11,8 @@ const links = {
 export const siteConfig = {
   name: "Cesar Brandon",
   description: "Web Portafolio of Cesar Brandon",
-  url: "https://cesarbrandon.com",
-  ogImage: "https://cesarbrandon.com/opengraph-image.png",
+  url: "https://cesarbrandon.vercel.app/",
+  ogImage: "https://cesarbrandon.vercel.app/opengraph-image.png",
   mainNav: [
     {
       title: "Home",
