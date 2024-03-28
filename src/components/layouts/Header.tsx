@@ -39,7 +39,7 @@ const Header: React.FC = () => {
       </button>
 
       <div
-        className={`fixed w-80 h-80 top-0 ${
+        className={`fixed w-60 h-56 top-0 ${
           isOpen ? "right-0" : "-right-80"
         } px-10 py-10 rounded-bl-xl 
 				flex flex-col z-40

@@ -16,7 +16,7 @@ type UsePrevNextButtonsType = {
 
 export const usePrevNextButtons = (
   emblaApi: EmblaCarouselType | undefined,
-  onButtonClick?: (emblaApi: EmblaCarouselType) => void,
+  onButtonClick?: (emblaApi: EmblaCarouselType) => void
 ): UsePrevNextButtonsType => {
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
   const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
@@ -67,13 +67,13 @@ export const PrevButton: React.FC<PropType> = (props) => {
   return (
     <button
       className="absolute w-16 h-full flex items-center justify-center
-								   left-0 top-1/2 transform -translate-y-1/2"
+      left-0 top-1/2 transform -translate-y-1/2"
       type="button"
       title="arrow left"
       {...restProps}
     >
       <div className="bg-secondary-foreground rounded-full p-2">
-        <ArrowLeft className="w-8 h-8 stroke-background" />
+        <ArrowLeft className="w-8 h-8 text-background dark:text-foreground" />
         {children}
       </div>
     </button>
@@ -86,13 +86,13 @@ export const NextButton: React.FC<PropType> = (props) => {
   return (
     <button
       className="absolute w-16 h-full flex items-center justify-center
-								   right-0 top-1/2 transform -translate-y-1/2"
+			right-0 top-1/2 transform -translate-y-1/2"
       type="button"
       title="arrow right"
       {...restProps}
     >
       <div className="bg-secondary-foreground rounded-full p-2">
-        <ArrowRight className="w-8 h-8 text-background" />
+        <ArrowRight className="w-8 h-8 text-background dark:text-foreground" />
         {children}
       </div>
     </button>

@@ -1,5 +1,6 @@
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import React from "react";
+import ClientSideRoute from "../common/ClientSideRoute";
 import PreviewPost from "../common/preview-post";
 
 type Props = {
@@ -18,8 +19,14 @@ const BlogList: React.FC<Props> = ({ posts }) => {
 
   return (
     <div className="grid grid-cols-bloglist gap-6">
-      {posts.map((post) => (
-        <PreviewPost key={post._id} post={post} />
+      {posts.map((post: Post, index) => (
+        <ClientSideRoute
+          key={index}
+          route={`/posts/${post.slug.current}`}
+          ariaLabel={`View ${post.title}`}
+        >
+          <PreviewPost key={post._id} post={post} />
+        </ClientSideRoute>
       ))}
     </div>
   );

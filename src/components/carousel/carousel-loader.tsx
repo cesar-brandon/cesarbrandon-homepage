@@ -7,7 +7,7 @@ interface Props {
 export function CarouselLoader({ axis }: Props) {
   return (
     <Skeleton
-      className={`rounded-lg ${!axis ? "w-full h-96" : "w-full h-[15rem]"} overflow-hidden`}
+      className={`rounded-lg ${!axis ? "w-full h-96" : "w-full h-[16rem]"} overflow-hidden`}
     />
   );
 }

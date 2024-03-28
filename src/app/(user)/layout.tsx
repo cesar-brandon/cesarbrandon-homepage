@@ -70,9 +70,9 @@ export default function RootLayout({
       <head />
       <body
         className={cn(
-          "max-w-7xl mx-auto bg-white dark:bg-zinc-950 font-sans antialiased",
+          "bg-white dark:bg-zinc-950 font-sans antialiased",
           fontSans.variable,
-          fontMono.variable,
+          fontMono.variable
         )}
       >
         <Providers attribute="class" enableSystem>

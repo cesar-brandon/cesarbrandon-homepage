@@ -70,8 +70,7 @@ const LastPost = () => {
                   </p>
                 </div>
                 <div
-                  className="absolute w-3 h-3 right-8 top-6 bg-background border
-                  group-hover:bg-primary group-hover:border-primary rounded-full"
+                  className="absolute w-3 h-3 right-8 top-6 bg-muted group-hover:bg-primary rounded-full"
                 />
               </div>
             </ClientSideRoute>

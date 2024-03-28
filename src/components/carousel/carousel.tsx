@@ -14,14 +14,13 @@ import {
   usePrevNextButtons,
 } from "@/components/carousel/carousel-arrow-buttons";
 import Autoplay from "embla-carousel-autoplay";
-import ClientSideRoute from "../common/ClientSideRoute";
-import BlurImage from "../common/blur-image";
-import urlFor from "@/lib/urlFor";
 import { cn } from "@/utilities/style";
 import { CarouselLoader } from "./carousel-loader";
+import Sticker from "../ui/sticker";
+import { CarouselItemX, CarouselItemY } from "./carousel-item";
 
 type PropType = {
-  slides: Post[] | Project[];
+  slides: Post[] | Project[] | Draft[];
   options?: EmblaOptionsType;
   className?: string;
 };
@@ -40,7 +39,7 @@ const Carousel: React.FC<PropType> = (props) => {
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(
     emblaApi,
-    onButtonClick,
+    onButtonClick
   );
 
   const {
@@ -60,7 +59,7 @@ const Carousel: React.FC<PropType> = (props) => {
     <div
       className={cn(
         "overflow-hidden border-2 border-accent-foreground dark:border-none rounded-xl z-[1]",
-        className,
+        className
       )}
     >
       {!axis && (
@@ -68,34 +67,31 @@ const Carousel: React.FC<PropType> = (props) => {
           <div className="absolute -right-6 top-8 bg-primary h-4 md:h-6 xl:h-8 w-10 md:w-16 z-[1]" />
           <div className="absolute -right-12 top-[4rem] bg-primary h-4 w-6 z-10" />
 
-          <div className="absolute -left-6 bottom-8 bg-primary h-4 md:h-6 xl:h-16 w-6 z-10" />
-          <div className="absolute -left-12 bottom-[4rem] bg-primary h-4 w-6 z-10" />
+          <Sticker
+            type="asterisk"
+            className="absolute -left-10 bottom-0 w-20 animate-spin"
+          />
         </>
       )}
       <div className="h-full" ref={emblaRef}>
         <div className={`${!axis ? "flex" : "h-full"}`}>
           {slides &&
-            slides.map(({ _id, slug, author, mainImage }: Post | Project) => (
-              <ClientSideRoute
-                key={_id}
-                route={`/projects/${slug.current}`}
-                ariaLabel={`View ${slug.current}`}
-              >
-                <div
-                  className={`${
-                    axis ? "w-full h-full" : "w-[50rem] h-96"
-                  } overflow-hidden`}
-                >
-                  <BlurImage
-                    src={urlFor(mainImage).url()}
-                    alt={author.name}
-                    width="1920"
-                    height="1080"
-                    className="object-cover"
-                  />
-                </div>
-              </ClientSideRoute>
-            ))}
+            slides.map(({ _id, slug, mainImage }: Post | Project | Draft) =>
+              axis ? (
+                <CarouselItemY
+                  key={_id}
+                  mainImage={mainImage}
+                  title={slug.current}
+                />
+              ) : (
+                <CarouselItemX
+                  key={_id}
+                  _id={_id}
+                  slug={slug}
+                  mainImage={mainImage}
+                />
+              )
+            )}
         </div>
       </div>
 
@@ -116,7 +112,7 @@ const Carousel: React.FC<PropType> = (props) => {
                 "w-full h-3 rounded-full transition-all duration-300 ease-in-out",
                 index === selectedIndex
                   ? "bg-accent-foreground dark:bg-accent  h-full"
-                  : "bg-accent-foreground/50 dark:bg-accent/50 hover:bg-accent-foreground dark:hover:bg-accent",
+                  : "bg-accent-foreground/50 dark:bg-accent/50 hover:bg-accent-foreground dark:hover:bg-accent"
               )}
             />
           ))}
