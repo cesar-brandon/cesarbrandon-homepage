@@ -26,11 +26,12 @@ const About: React.FC = () => {
       dark:border-white dark:border-opacity-20 border-opacity-20 transition-all duration-300 overflow-hidden"
     >
       <div className="w-full lg:w-[55%] pb-10">
-        <h1 className="text-7xl font-bold">Cesar Brandon</h1>
-        <h2 className="mt-4 ml-2 text-4xl font-medium">
-          Shaping the web,
-          <span className="text-primary">{"<line>"}</span> by{" "}
-          <span className="text-primary">{"</line>"}</span>
+        <h1 className="text-6xl font-bold">Cesar Brandon</h1>
+        <h2 className="mt-4 ml-2 text-3xl font-medium">
+          <span className="text-primary">Frontend Developer</span>
+          <span className="text-muted font-mono">{"~>"} UI Designer</span>
+          {/* <span className="text-primary">{"<line>"}</span> by{" "}
+          <span className="text-primary">{"</line>"}</span> */}
         </h2>
         <div className="w-full lg:w-[25rem] xl:w-[30rem] pl-2 mt-10">
           <Accordion
@@ -43,16 +44,17 @@ const About: React.FC = () => {
               <AccordionTrigger>Info</AccordionTrigger>
               <AccordionContent>
                 <h1 className="text-base font-semibold">
-                  Digital Craftsman ( Artist / Developer / Designer )
+                  Digital Craftsman ( Developer )
                 </h1>
                 <br />
                 <p className="text-base">
-                  Brandon is an independent full-stack developer from Perú and
+                  Brandon is an independent Frontend developer from Perú and
                   is passionate about creating digital services and the things
                   you want. You have a knack for everything related to product
                   launches, from planning and design to solving real-life
-                  problems with code. When he is not online, he loves to spend
-                  time drawing.
+                  problems with code. 
+                  {/* When he is not online, he loves to spend
+                  time drawing. */}
                 </p>
               </AccordionContent>
             </AccordionItem>
