@@ -7,6 +7,7 @@ import { GeistSans as fontSans } from "geist/font/sans";
 import { GeistMono as fontMono } from "geist/font/mono";
 import { cn } from "@/lib/utils";
 import { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
 import "../globals.css";
 
 export const metadata: Metadata = {
@@ -80,6 +81,7 @@ export default function RootLayout({
           <Header />
           <Wrap />
           <main className="px-10 min-h-[51rem]">{children}</main>
+          <Analytics />
           <TailwindIndicator />
         </Providers>
       </body>
