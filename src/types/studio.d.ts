@@ -4,6 +4,7 @@ type Base = {
   _rev: string;
   _type: string;
   _updatedAt: string;
+  publishedAt: string;
 };
 
 interface Post extends Base {
@@ -24,6 +25,8 @@ interface Project extends Base {
   slug: Slug;
   title: string;
   description: string;
+  github: string;
+  demo: string;
 }
 
 interface Author extends Base {

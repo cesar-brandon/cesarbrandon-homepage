@@ -27,9 +27,8 @@ const PreviewProject: React.FC<Props> = ({ post }) => {
 				bg-opacity-50 px-8 pb-8 transition-all duration-300 group-hover:-translate-y-16"
       >
         <p className="w-full text-2xl font-bold ">{post.title}</p>
-        <p>
-          Lorem ipsum dolor sit amet, qui minim labore.Lorem ipsum dolor sit
-          amet, officia.
+        <p className="line-clamp-2">
+          {post.description}
         </p>
         <ButtonLink
           className="mt-4 min-[692px]:mt-10 min-[860px]:mt-4"

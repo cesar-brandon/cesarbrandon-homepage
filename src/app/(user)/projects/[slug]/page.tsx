@@ -1,7 +1,9 @@
 import BlurImage from "@/components/common/blur-image";
 import RichTextComponents from "@/components/common/RichTextComponents";
+import { Badge } from "@/components/ui/badge";
 import { sanityClient } from "@/lib/sanity.client";
 import urlFor from "@/lib/urlFor";
+import { formatDate } from "@/lib/utils";
 import { PortableText } from "@portabletext/react";
 import { groq } from "next-sanity";
 import React from "react";
@@ -53,7 +55,29 @@ const ProyectPage = async ({ params: { slug } }: Props) => {
           />
         )}
       </section>
-      <PortableText value={project.body} components={RichTextComponents} />
+      <div className="flex justify-between my-4">
+        <span className="font-light text-sm">
+          {formatDate(project.publishedAt)}
+        </span>
+        <div className="flex gap-4">
+          {project.topics.map((topic, index) => (
+            <Badge key={index} variant="secondary">
+              {topic.title}
+            </Badge>
+          ))}
+        </div>
+      </div>
+      <section className="gap-8 flex">
+        <div className="w-full">
+          <PortableText value={project.body} components={RichTextComponents} />
+        </div>
+        <div className="w-full flex flex-col gap-5">
+          <div className="w-full h-60 border rounded"></div>
+          <div className="w-full h-60 border rounded"></div>
+          <div className="w-full h-60 border rounded"></div>
+          <div className="w-full h-60 border rounded"></div>
+        </div>
+      </section>
     </article>
   );
 };
