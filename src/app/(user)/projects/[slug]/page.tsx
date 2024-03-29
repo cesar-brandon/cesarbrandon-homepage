@@ -58,24 +58,28 @@ const ProyectPage = async ({ params: { slug } }: Props) => {
           />
         )}
         <div className="absolute flex gap-4 bottom-4 left-4">
-          <Link href={project.github} target="_blank">
-            <Badge
-              className="flex gap-2 h-8 w-40 hover:w-80 overflow-hidden
+          {project.github && (
+            <Link href={project.github} target="_blank">
+              <Badge
+                className="flex gap-2 h-8 w-40 hover:w-80 overflow-hidden
               transition-all duration-300"
-            >
-              <GithubIcon className="w-[22px] h-[22px]" />
-              <span className="w-full truncate">{project.github}</span>
-            </Badge>
-          </Link>
-          <Link href={project.github} target="_blank">
-            <Badge
-              className="flex gap-2 h-8 w-40 hover:w-80 overflow-hidden
+              >
+                <GithubIcon className="w-[22px] h-[22px]" />
+                <span className="w-full truncate">{project.github}</span>
+              </Badge>
+            </Link>
+          )}
+          {project.demo && (
+            <Link href={project.demo} target="_blank">
+              <Badge
+                className="flex gap-2 h-8 w-40 hover:w-80 overflow-hidden
               transition-all duration-300"
-            >
-              <LinkIcon className="w-[22px] h-[22px]" />
-              <span className="w-full truncate">{project.demo}</span>
-            </Badge>
-          </Link>
+              >
+                <LinkIcon className="w-[22px] h-[22px]" />
+                <span className="w-full truncate">{project.demo}</span>
+              </Badge>
+            </Link>
+          )}
         </div>
       </section>
       <div className="flex justify-between my-4">
