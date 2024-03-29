@@ -1,11 +1,14 @@
 import BlurImage from "@/components/common/blur-image";
+import { GithubIcon } from "@/components/common/icons";
 import RichTextComponents from "@/components/common/RichTextComponents";
 import { Badge } from "@/components/ui/badge";
 import { sanityClient } from "@/lib/sanity.client";
 import urlFor from "@/lib/urlFor";
 import { formatDate } from "@/lib/utils";
 import { PortableText } from "@portabletext/react";
+import { LinkIcon } from "lucide-react";
 import { groq } from "next-sanity";
+import Link from "next/link";
 import React from "react";
 
 type Props = {
@@ -54,6 +57,26 @@ const ProyectPage = async ({ params: { slug } }: Props) => {
             fill
           />
         )}
+        <div className="absolute flex gap-4 bottom-4 left-4">
+          <Link href={project.github} target="_blank">
+            <Badge
+              className="flex gap-2 h-8 w-40 hover:w-80 overflow-hidden
+              transition-all duration-300"
+            >
+              <GithubIcon className="w-[22px] h-[22px]" />
+              <span className="w-full truncate">{project.github}</span>
+            </Badge>
+          </Link>
+          <Link href={project.github} target="_blank">
+            <Badge
+              className="flex gap-2 h-8 w-40 hover:w-80 overflow-hidden
+              transition-all duration-300"
+            >
+              <LinkIcon className="w-[22px] h-[22px]" />
+              <span className="w-full truncate">{project.demo}</span>
+            </Badge>
+          </Link>
+        </div>
       </section>
       <div className="flex justify-between my-4">
         <span className="font-light text-sm">

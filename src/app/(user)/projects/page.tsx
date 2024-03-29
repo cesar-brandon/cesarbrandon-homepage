@@ -32,7 +32,6 @@ const Projects = async () => {
 
   try {
     projects = await sanityClient.fetch(query);
-    console.log("Projects: ", projects);
   } catch (error) {
     console.error("Error fetching projects: ", error);
   }

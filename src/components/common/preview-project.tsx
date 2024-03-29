@@ -23,12 +23,14 @@ const PreviewProject: React.FC<Props> = ({ post }) => {
         ></div>
       </div>
       <div
-        className="absolute flex flex-col gap-2 h-28 bottom-0 
+        className="absolute flex flex-col gap-2 w-full h-28 bottom-0 
 				bg-opacity-50 px-8 pb-8 transition-all duration-300 group-hover:-translate-y-16"
       >
         <p className="w-full text-2xl font-bold ">{post.title}</p>
-        <p className="line-clamp-2">
-          {post.description}
+        <p>
+          {post.description.length > 80
+            ? post.description.slice(0, 80) + "..."
+            : post.description}
         </p>
         <ButtonLink
           className="mt-4 min-[692px]:mt-10 min-[860px]:mt-4"
@@ -43,4 +45,3 @@ const PreviewProject: React.FC<Props> = ({ post }) => {
 };
 
 export default PreviewProject;
-
