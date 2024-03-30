@@ -40,7 +40,12 @@ const query = groq`
 `;
 
 const ProyectPage = async ({ params: { slug } }: Props) => {
-  const project: Project = await sanityClient.fetch(query, { slug });
+  let project = {} as Project;
+  try {
+    project = await sanityClient.fetch(query, { slug });
+  } catch (error) {
+    console.error("Error fetching project: ", error);
+  }
 
   if (!project) {
     return <div>Loading...</div>;
@@ -87,11 +92,12 @@ const ProyectPage = async ({ params: { slug } }: Props) => {
           {formatDate(project.publishedAt)}
         </span>
         <div className="flex gap-4">
-          {project.topics.map((topic, index) => (
-            <Badge key={index} variant="secondary">
-              {topic.title}
-            </Badge>
-          ))}
+          {Array.isArray(project.topics) &&
+            project.topics.map((topic, index) => (
+              <Badge key={index} style={{ backgroundColor: topic.color.value }}>
+                {topic.title}
+              </Badge>
+            ))}
         </div>
       </div>
       <section className="gap-8 flex">

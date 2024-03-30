@@ -14,7 +14,7 @@ import {
   usePrevNextButtons,
 } from "@/components/carousel/carousel-arrow-buttons";
 import Autoplay from "embla-carousel-autoplay";
-import { cn } from "@/utilities/style";
+import { cn } from "@/lib/utils";
 import { CarouselLoader } from "./carousel-loader";
 import Sticker from "../ui/sticker";
 import { CarouselItemX, CarouselItemY } from "./carousel-item";

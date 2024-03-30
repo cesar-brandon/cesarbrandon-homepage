@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { cn } from "@/utilities/style";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 const Wrap: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(false);

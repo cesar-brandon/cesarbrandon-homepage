@@ -69,6 +69,10 @@ interface Span {
 interface Topic extends Base {
   description: string;
   title: string;
+  color: {
+    label: string;
+    value: string;
+  };
 }
 
 interface MainImage {
