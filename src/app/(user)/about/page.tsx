@@ -48,11 +48,11 @@ const About: React.FC = () => {
                 </h1>
                 <br />
                 <p className="text-base">
-                  Brandon is an independent Frontend developer from Perú and
-                  is passionate about creating digital services and the things
-                  you want. You have a knack for everything related to product
+                  Brandon is an independent Frontend developer from Perú and is
+                  passionate about creating digital services and the things you
+                  want. You have a knack for everything related to product
                   launches, from planning and design to solving real-life
-                  problems with code. 
+                  problems with code.
                   {/* When he is not online, he loves to spend
                   time drawing. */}
                 </p>
@@ -98,6 +98,13 @@ const About: React.FC = () => {
       </div>
 
       <div className="absolute right-4 bottom-4 flex items-center justify-center gap-8">
+        <Link
+          href="https://drive.google.com/file/d/1tGdsZZAzsk-WMmLIuYhrOjCBenRd2CXV/view?usp=sharing"
+          target="_blank"
+          className="text-primary"
+        >
+          Resume{"↗"}
+        </Link>
         <Link href="https://github.com/cesar-brandon" target="_blank">
           <GithubIcon className="w-6 h-6" />
         </Link>
