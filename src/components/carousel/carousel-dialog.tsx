@@ -46,7 +46,7 @@ export function CarouselDialog({ children, slides }: Props) {
         ) : (
           <div className="w-full h-full flex flex-col items-center justify-center gap-4">
             <Box className="stroke-primary stroke-1 w-40 h-40" />
-            <span>No hay componentes por el momento</span>
+            <span>There are no drafts at the moment.</span>
           </div>
         )}
 

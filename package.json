@@ -32,7 +32,6 @@
     "sanity": "^3.0.0",
     "sanity-plugin-iframe-pane": "^2.1.1",
     "sanity-plugin-simpler-color-input": "^2.2.1",
-    "styled-components": "^5.2.0",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7"
   },

@@ -28,8 +28,8 @@ const PreviewProject: React.FC<Props> = ({ post }) => {
       >
         <p className="w-full text-2xl font-bold ">{post.title}</p>
         <p>
-          {post.description.length > 80
-            ? post.description.slice(0, 80) + "..."
+          {post.description.length > 70
+            ? post.description.slice(0, 70) + "..."
             : post.description}
         </p>
         <ButtonLink

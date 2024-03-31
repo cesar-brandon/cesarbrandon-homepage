@@ -20,6 +20,10 @@ export const colorList = [
     value: "#FFD484",
   },
   {
+    label: "Blue",
+    value: "#5992FF",
+  },
+  {
     label: "Sky Blue",
     value: "#84D4FB",
   },
@@ -29,7 +33,7 @@ export const colorList = [
   },
   {
     label: "Turquoise",
-    value: "#84FBF9",
+    value: "#38bdf8",
   },
   {
     label: "Violet",
