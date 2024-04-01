@@ -1,23 +1,14 @@
 import React from "react";
 import { draftMode } from "next/headers";
-import { groq } from "next-sanity";
-import { sanityClient } from "@/lib/sanity.client";
 import PreviewSuspense from "@/components/common/PreviewSuspense";
 import PreviewList from "@/components/layouts/PreviewList";
 import ProjectList from "@/components/layouts/ProjectList";
+import { getProjects, query } from "@/services/fetch-projects";
 
 export const metadata = {
   title: "Projects",
   description: "A list of all projects",
 };
-
-const query = groq`
-		*[_type == "project"]{
-				...,
-				author->,
-				topics[]->
-		} | order(_createdAt desc)
-`;
 
 const Projects = async () => {
   const { isEnabled } = draftMode();
@@ -28,14 +19,8 @@ const Projects = async () => {
       </PreviewSuspense>
     );
   }
-  let projects: Project[] = [];
+  const projects = await getProjects();
 
-  try {
-    projects = await sanityClient.fetch(query);
-  } catch (error) {
-    console.error("Error fetching projects: ", error);
-  }
-  
   return <ProjectList projects={projects} />;
 };
 

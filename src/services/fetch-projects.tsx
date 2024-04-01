@@ -1,0 +1,26 @@
+import { groq } from "next-sanity";
+import { sanityClient } from "@/lib/sanity.client";
+import { cache } from "react";
+
+export const query = groq`
+		*[_type == "project"] {
+				...,
+				author->,
+				topics[]->
+		}| order(_createdAt desc)
+`;
+
+async function fetchProjects(): Promise<Project[]> {
+  let projects = [] as Project[];
+  if (process.env.NODE_ENV !== "development") {
+    try {
+      projects = await sanityClient.fetch(query);
+    } catch (error) {
+      console.error("Error fetching projects: ", error);
+    }
+  }
+
+  return projects;
+}
+
+export const getProjects = cache(fetchProjects);

@@ -1,35 +1,13 @@
-"use client";
-import { sanityClient } from "@/lib/sanity.client";
-import { groq } from "next-sanity";
-import React, { useState, useEffect } from "react";
 import ButtonLink from "../common/button-link";
 import ClientSideRoute from "../common/ClientSideRoute";
 import { Skeleton } from "../ui/skeleton";
 
-const query = groq`
-  *[_type == "post"] {
-    title,
-    slug,
-    _createdAt,
-  }| order(_createdAt desc)[0..3]
-`;
+interface Props {
+  postTitles: Post[];
+}
 
-const LastPost = () => {
-  const [postTitles, setPostTitles] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await sanityClient.fetch(query);
-        setPostTitles(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+export default function LastPost({ postTitles }: Props) {
+  
   const simplifyDate = (date: string) => {
     const dateObj = new Date(date);
     const month = dateObj.toLocaleString("default", { month: "long" });
@@ -69,9 +47,7 @@ const LastPost = () => {
                     {simplifyDate(post._createdAt)}
                   </p>
                 </div>
-                <div
-                  className="absolute w-3 h-3 right-8 top-6 bg-muted group-hover:bg-primary rounded-full"
-                />
+                <div className="absolute w-3 h-3 right-8 top-6 bg-muted group-hover:bg-primary rounded-full" />
               </div>
             </ClientSideRoute>
           ))
@@ -85,6 +61,4 @@ const LastPost = () => {
       </div>
     </div>
   );
-};
-
-export default LastPost;
+}
