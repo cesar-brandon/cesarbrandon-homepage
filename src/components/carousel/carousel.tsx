@@ -20,7 +20,7 @@ import Sticker from "../ui/sticker";
 import { CarouselItemX, CarouselItemY } from "./carousel-item";
 
 type PropType = {
-  slides: Post[] | Project[] | Draft[];
+  slides: Post[] | Project[] | OCC[];
   options?: EmblaOptionsType;
   className?: string;
 };
@@ -76,21 +76,23 @@ const Carousel: React.FC<PropType> = (props) => {
       <div className="h-full" ref={emblaRef}>
         <div className={`${!axis ? "flex" : "h-full"}`}>
           {slides &&
-            slides.map(({ _id, slug, mainImage }: Post | Project | Draft) =>
-              axis ? (
-                <CarouselItemY
-                  key={_id}
-                  mainImage={mainImage}
-                  title={slug.current}
-                />
-              ) : (
-                <CarouselItemX
-                  key={_id}
-                  _id={_id}
-                  slug={slug}
-                  mainImage={mainImage}
-                />
-              )
+            slides.map(
+              ({ _id, slug, title, mainImage }: Post | Project | OCC) =>
+                axis ? (
+                  <CarouselItemY
+                    key={_id}
+                    _id={_id}
+                    mainImage={mainImage}
+                    title={title}
+                  />
+                ) : (
+                  <CarouselItemX
+                    key={_id}
+                    _id={_id}
+                    slug={slug}
+                    mainImage={mainImage}
+                  />
+                )
             )}
         </div>
       </div>

@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import "../globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -74,7 +75,7 @@ export default function RootLayout({
         className={cn(
           "bg-white dark:bg-zinc-950 font-sans antialiased",
           fontSans.variable,
-          fontMono.variable
+          fontMono.variable,
         )}
       >
         <Providers attribute="class" enableSystem>
@@ -83,6 +84,7 @@ export default function RootLayout({
           <main className="px-10 min-h-[51rem]">{children}</main>
           <Analytics />
           <TailwindIndicator />
+          <Toaster />
         </Providers>
       </body>
     </html>

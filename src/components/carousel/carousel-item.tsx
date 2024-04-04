@@ -1,12 +1,13 @@
 import ClientSideRoute from "@/components/common/ClientSideRoute";
 import BlurImage from "@/components/common/blur-image";
 import urlFor from "@/lib/urlFor";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { CarouselDialog } from "./carousel-dialog";
+import { occ } from "../occ/drafts";
 
 interface Props {
   _id?: string;
   slug?: { current: string };
-  mainImage: Image;
+  mainImage: string | MainImage;
   title?: string;
 }
 
@@ -29,21 +30,21 @@ export function CarouselItemX({ _id, slug, mainImage }: Props) {
   );
 }
 
-export function CarouselItemY({ mainImage, title = "Draft" }: Props) {
+export function CarouselItemY({ _id, mainImage, title = "Draft" }: Props) {
+  const src =
+    typeof mainImage === "string" ? mainImage : urlFor(mainImage).url();
+
   return (
-    <Dialog>
-      <DialogTrigger>
-        <div className={"w-full h-full overflow-hidden"}>
-          <BlurImage
-            src={""}
-            alt={title}
-            width="1920"
-            height="1080"
-            className="object-cover"
-          />
-        </div>
-      </DialogTrigger>
-      <DialogContent className="">hello</DialogContent>
-    </Dialog>
+    <CarouselDialog slides={occ}>
+      <div className={"w-full h-full overflow-hidden"}>
+        <BlurImage
+          src={src}
+          alt={title}
+          width="1920"
+          height="1080"
+          className="object-cover"
+        />
+      </div>
+    </CarouselDialog>
   );
 }

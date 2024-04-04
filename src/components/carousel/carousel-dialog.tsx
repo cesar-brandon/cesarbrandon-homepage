@@ -1,20 +1,21 @@
-"use client";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
   Carousel,
   CarouselContent,
-  CarouselItem,
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Box } from "lucide-react";
+import { CarouselDialogActions } from "./carousel-dialog-actions";
+import { CarouselDialogItem } from "./carousel-dialog-item";
+import Code from "./carousel-dialog-code";
 
-interface Props {
+interface CarouselProps {
   children: React.ReactNode;
-  slides: Draft[];
+  slides: OCC[];
 }
 
-export function CarouselDialog({ children, slides }: Props) {
+export function CarouselDialog({ children, slides }: CarouselProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -23,25 +24,15 @@ export function CarouselDialog({ children, slides }: Props) {
           <Carousel orientation="vertical">
             <CarouselContent className="h-[35rem] py-20 box-border">
               {slides.map((slide) => (
-                <CarouselItem key={slide._id} className="flex flex-col lg:flex-row gap-10">
-                  <div className="w-full xl:w-[40%] flex flex-col gap-4">
-                    <p className="font-medium">{slide.title}</p>
-                    <p className="text-sm xl:w-[80%]">
-                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                      Explicabo maiores ab sapiente itaque totam voluptatem
-                      tenetur debitis, quae eaque quos laborum ut reprehenderit
-                      at quod nulla, perspiciatis odit officiis eos!
-                    </p>
-                  </div>
-
-                  <div className="w-full xl:w-[60%] h-full border rounded">
-
-                  </div>
-                </CarouselItem>
+                <CarouselDialogItem key={slide.title} slide={slide}>
+                  {/* @ts-expect-error Server Component */}
+                  <Code code={slide.code.code} />
+                </CarouselDialogItem>
               ))}
             </CarouselContent>
             <CarouselPrevious className="top-0" />
             <CarouselNext className="bottom-0" />
+            <CarouselDialogActions />
           </Carousel>
         ) : (
           <div className="w-full h-full flex flex-col items-center justify-center gap-4">
@@ -49,7 +40,6 @@ export function CarouselDialog({ children, slides }: Props) {
             <span>There are no drafts at the moment.</span>
           </div>
         )}
-
       </DialogContent>
     </Dialog>
   );
