@@ -4,6 +4,7 @@ import LastPost from "@/components/layouts/LastPost";
 import { getLastPosts } from "@/services/fetch-posts";
 import { getProjects } from "@/services/fetch-projects";
 import LastOCC from "@/components/layouts/last-occ";
+import CarouselContent from "@/components/carousel/carousel-content";
 
 const OPTIONS_PROJECT: EmblaOptionsType = { loop: true };
 
@@ -14,7 +15,9 @@ export default async function Home() {
   return (
     <div className="flex flex-col gap-12 mb-10">
       <section className="relative">
-        <Carousel slides={projects} options={OPTIONS_PROJECT} />
+        <Carousel slides={projects} options={OPTIONS_PROJECT}>
+          <CarouselContent slides={projects} />
+        </Carousel>
       </section>
       <div className="grid md:grid-cols-2 gap-8">
         <LastPost postTitles={postTitles} />

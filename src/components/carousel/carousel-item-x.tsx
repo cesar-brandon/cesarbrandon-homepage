@@ -1,8 +1,6 @@
 import ClientSideRoute from "@/components/common/ClientSideRoute";
 import BlurImage from "@/components/common/blur-image";
 import urlFor from "@/lib/urlFor";
-import { CarouselDialog } from "./carousel-dialog";
-import { occ } from "../occ/drafts";
 
 interface Props {
   _id?: string;
@@ -27,24 +25,5 @@ export function CarouselItemX({ _id, slug, mainImage }: Props) {
         />
       </div>
     </ClientSideRoute>
-  );
-}
-
-export function CarouselItemY({ _id, mainImage, title = "Draft" }: Props) {
-  const src =
-    typeof mainImage === "string" ? mainImage : urlFor(mainImage).url();
-
-  return (
-    <CarouselDialog slides={occ}>
-      <div className={"w-full h-full overflow-hidden"}>
-        <BlurImage
-          src={src}
-          alt={title}
-          width="1920"
-          height="1080"
-          className="object-cover"
-        />
-      </div>
-    </CarouselDialog>
   );
 }

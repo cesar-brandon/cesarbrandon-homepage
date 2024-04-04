@@ -17,16 +17,16 @@ import Autoplay from "embla-carousel-autoplay";
 import { cn } from "@/lib/utils";
 import { CarouselLoader } from "./carousel-loader";
 import Sticker from "../ui/sticker";
-import { CarouselItemX, CarouselItemY } from "./carousel-item";
 
 type PropType = {
   slides: Post[] | Project[] | OCC[];
   options?: EmblaOptionsType;
   className?: string;
+  children: React.ReactNode;
 };
 
 const Carousel: React.FC<PropType> = (props) => {
-  const { slides, options, className } = props;
+  const { slides, options, className, children } = props;
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [
     Autoplay({ delay: 2000 }),
   ]);
@@ -39,7 +39,7 @@ const Carousel: React.FC<PropType> = (props) => {
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(
     emblaApi,
-    onButtonClick
+    onButtonClick,
   );
 
   const {
@@ -59,7 +59,7 @@ const Carousel: React.FC<PropType> = (props) => {
     <div
       className={cn(
         "overflow-hidden border-2 border-accent-foreground dark:border-none rounded-xl z-[1]",
-        className
+        className,
       )}
     >
       {!axis && (
@@ -74,27 +74,7 @@ const Carousel: React.FC<PropType> = (props) => {
         </>
       )}
       <div className="h-full" ref={emblaRef}>
-        <div className={`${!axis ? "flex" : "h-full"}`}>
-          {slides &&
-            slides.map(
-              ({ _id, slug, title, mainImage }: Post | Project | OCC) =>
-                axis ? (
-                  <CarouselItemY
-                    key={_id}
-                    _id={_id}
-                    mainImage={mainImage}
-                    title={title}
-                  />
-                ) : (
-                  <CarouselItemX
-                    key={_id}
-                    _id={_id}
-                    slug={slug}
-                    mainImage={mainImage}
-                  />
-                )
-            )}
-        </div>
+        {children}
       </div>
 
       {!axis && (
@@ -114,7 +94,7 @@ const Carousel: React.FC<PropType> = (props) => {
                 "w-full h-3 rounded-full transition-all duration-300 ease-in-out",
                 index === selectedIndex
                   ? "bg-accent-foreground dark:bg-accent  h-full"
-                  : "bg-accent-foreground/50 dark:bg-accent/50 hover:bg-accent-foreground dark:hover:bg-accent"
+                  : "bg-accent-foreground/50 dark:bg-accent/50 hover:bg-accent-foreground dark:hover:bg-accent",
               )}
             />
           ))}

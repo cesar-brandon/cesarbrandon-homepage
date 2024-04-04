@@ -139,7 +139,7 @@ export default function OCC() {
       _type: "slug",
       current: "draft-2",
     },
-    title: "Draft 1",
+    title: "Draft 2",
     description:
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Explicabo maiores ab sapiente itaque totam voluptatem tenetur debitis, quae eaque quos laborum ut reprehenderit at quod nulla, perspiciatis odit officiis eos!",
     topics: ["Tailwindcss", "Shadcn", "Framer Motion"],

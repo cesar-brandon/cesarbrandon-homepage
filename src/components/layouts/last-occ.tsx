@@ -3,6 +3,7 @@ import { CarouselDialog } from "@/components/carousel/carousel-dialog";
 import { EmblaOptionsType } from "embla-carousel-react";
 import Carousel from "../carousel/carousel";
 import { occ } from "../occ/drafts";
+import CarouselContent from "../carousel/carousel-content";
 
 const OPTIONS_DRAFT: EmblaOptionsType = {
   axis: "y",
@@ -30,7 +31,9 @@ export default function LastOCC() {
           slides={occ}
           options={OPTIONS_DRAFT}
           className="w-full h-[16rem]"
-        />
+        >
+          <CarouselContent slides={occ} axis="y" />
+        </Carousel>
       </section>
     </div>
   );
