@@ -33,8 +33,8 @@ export default function CopyToClipboard({ code }: Props) {
     <Button
       disabled={isLoading}
       onClick={copyToClipboard}
-      className="absolute w-11 p-3 right-2 top-2 z-10 opacity-0 group-hover:opacity-100
-          transition-opacity duration-300 ease-in-out bg-background hover:bg-background/80 dark:text-foreground"
+      className="absolute w-8 h-8 p-[0.6rem] right-6 top-6  z-10 opacity-0 group-hover:opacity-100
+          transition-opacity duration-300 ease-in-out bg-background/80 hover:bg-background dark:text-foreground"
     >
       {isLoading ? <Loader2 className="animate-spin" /> : <Copy />}
     </Button>

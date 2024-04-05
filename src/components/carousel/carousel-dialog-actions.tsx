@@ -29,7 +29,7 @@ export function CarouselDialogActions() {
         className="w-11 text-xs rounded-full p-[0.85rem]"
         onClick={() => handleMode(!codeMode)}
       >
-        {codeMode ? <Code2 /> : <Component />}
+        {codeMode ? <Component /> : <Code2 />}
       </Button>
     </div>
   );
