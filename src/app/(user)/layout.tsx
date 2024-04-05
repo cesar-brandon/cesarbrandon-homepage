@@ -82,7 +82,7 @@ export default function RootLayout({
           <Header />
           <Wrap />
           <main className="px-10 min-h-[51rem]">{children}</main>
-          <Analytics />
+          <Analytics mode={"production"} />
           <TailwindIndicator />
           <Toaster />
         </Providers>

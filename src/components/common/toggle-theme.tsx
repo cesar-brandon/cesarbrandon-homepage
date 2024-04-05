@@ -11,17 +11,17 @@ const themesList = [
   {
     title: "Sistema",
     label: "system",
-    icon: <ComputerDesktopIcon className="h-6 w-6" />,
+    icon: <ComputerDesktopIcon className="h-5 w-5" />,
   },
   {
     title: "Claro",
     label: "light",
-    icon: <SunIcon className="h-6 w-6" />,
+    icon: <SunIcon className="h-5 w-5" />,
   },
   {
     title: "Oscuro",
     label: "dark",
-    icon: <MoonIcon className="h-6 w-6" />,
+    icon: <MoonIcon className="h-5 w-5" />,
   },
 ];
 
@@ -32,10 +32,10 @@ const ToggleTheme: React.FC = () => {
 
   const initialThemes = () => {
     const otherThemes = themesList.filter(
-      (t) => t.label.toLowerCase() !== theme
+      (t) => t.label.toLowerCase() !== theme,
     );
     const currentTheme = themesList.find(
-      (t) => t.label.toLowerCase() === theme
+      (t) => t.label.toLowerCase() === theme,
     );
 
     if (!currentTheme) {
@@ -80,7 +80,7 @@ const ToggleTheme: React.FC = () => {
             onClick={() => handleThemeClick(label)}
           >
             {icon}
-            <p>{title}</p>
+            <p className="text-sm">{title}</p>
           </div>
         ))}
       </div>
