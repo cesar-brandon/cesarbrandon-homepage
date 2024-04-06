@@ -7,12 +7,15 @@ interface Props {
 export default async function Code({ code }: Props) {
   const html = await codeToHtml(code, {
     lang: "tsx",
-    theme: "tokyo-night",
+    themes: {
+      light: "catppuccin-latte",
+      dark: "tokyo-night",
+    },
   });
 
   return (
     <div
-      className="absolute text-sm left-0 top-0"
+      className="absolute min-w-full h-full text-sm left-0 top-0"
       dangerouslySetInnerHTML={{ __html: html }}
     ></div>
   );

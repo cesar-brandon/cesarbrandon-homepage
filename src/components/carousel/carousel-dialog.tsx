@@ -21,7 +21,12 @@ export function CarouselDialog({ children, slides }: CarouselProps) {
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="max-w-[80%] xl:max-w-[60rem] h-[40rem] py-10">
         {slides && slides.length > 0 ? (
-          <Carousel orientation="vertical">
+          <Carousel
+            orientation="vertical"
+            opts={{
+              watchDrag: false,
+            }}
+          >
             <CarouselContent className="h-[35rem] py-20 box-border">
               {slides.map((slide) => (
                 <CarouselDialogItem key={slide.title} slide={slide}>
