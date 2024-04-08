@@ -15,7 +15,7 @@ export function CarouselDialogActions() {
   return (
     <div className="flex justify-between items-center gap-4 absolute -top-2 left-0">
       <Button variant="outline" className=" text-xs rounded-full font-mono">
-        1/8 OCC
+        1/1 OCC
       </Button>
       <Button
         variant="outline"

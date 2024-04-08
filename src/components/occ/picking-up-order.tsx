@@ -1,11 +1,10 @@
 "use client";
-import { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { motion } from "framer-motion";
 
 export function PickingUpOrder() {
   const [isCalling, setIsCalling] = useState(false);
   const [isMessaging, setIsMessaging] = useState(false);
-  const [progress, setProgress] = useState(5);
 
   const handleCall = () => {
     setIsCalling(!isCalling);
@@ -17,54 +16,11 @@ export function PickingUpOrder() {
     setIsCalling(false);
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((prev) => (prev === 100 ? 0 : prev + 1));
-    }, 100);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <div className="relative flex flex-col h-40 w-[80%] bg-background border rounded-3xl p-5">
       <div className="flex flex-col justify-center gap-4">
         <p className="text-sm text-primary">Picking up order</p>
-
-        <div className="flex justify-between items-center">
-          <div className="relative flex items-center justify-between w-full">
-            <div className="absolute left-1 w-[98%] bg-primary-muted rounded-full z-[1]">
-              <div
-                className="bg-primary h-3 rounded-full"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-            <div className="w-7 h-7 rounded-full bg-primary p-1 z-[2]">
-              <BoxIcon className="fill-white stroke-primary" />
-            </div>
-            <div
-              className={`relative w-7 h-7 rounded-full p-1 z-[2] overflow-hidden ${
-                progress > 46 ? "bg-primary" : "bg-primary-muted"
-              }`}
-            >
-              <CarIcon
-                className={`${
-                  progress > 46
-                    ? "fill-white stroke-primary"
-                    : "fill-primary stroke-primary-muted"
-                }`}
-              />
-            </div>
-            <div
-              className={`w-7 h-7 rounded-full p-[0.3rem] z-[2] ${
-                progress > 93 ? "bg-primary" : "bg-primary-muted"
-              }`}
-            >
-              <HomeIcon
-                className={`${progress > 93 ? "fill-white" : "fill-primary"}`}
-              />
-            </div>
-          </div>
-        </div>
-
+        <DeliveryProgressBar />
         <div className="flex justify-between items-center">
           <div className="flex w-full items-center">
             <img
@@ -102,6 +58,53 @@ export function PickingUpOrder() {
   );
 }
 
+export function DeliveryProgressBar() {
+  const [progress, setProgress] = useState(5);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress((prev) => (prev === 100 ? 0 : prev + 1));
+    }, 100);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="relative flex items-center justify-between w-full">
+      <div className="absolute left-1 w-[98%] bg-primary-muted rounded-full z-[1]">
+        <div
+          className="bg-primary h-3 rounded-full"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+      <div className="w-7 h-7 rounded-full bg-primary p-1 z-[2]">
+        <BoxIcon className="fill-white stroke-primary" />
+      </div>
+      <div
+        className={`relative w-7 h-7 rounded-full p-1 z-[2] overflow-hidden ${
+          progress > 46 ? "bg-primary" : "bg-primary-muted"
+        }`}
+      >
+        <CarIcon
+          className={`${
+            progress > 46
+              ? "fill-white stroke-primary"
+              : "fill-primary stroke-primary-muted"
+          }`}
+        />
+      </div>
+      <div
+        className={`w-7 h-7 rounded-full p-[0.3rem] z-[2] ${
+          progress > 93 ? "bg-primary" : "bg-primary-muted"
+        }`}
+      >
+        <HomeIcon
+          className={`${progress > 93 ? "fill-white" : "fill-primary"}`}
+        />
+      </div>
+    </div>
+  );
+}
+
 export function DeliveryCall({ isCalling }: { isCalling: boolean }) {
   const [callingTime, setCallingTime] = useState(0);
 
@@ -126,7 +129,7 @@ export function DeliveryCall({ isCalling }: { isCalling: boolean }) {
       className="absolute bottom-0 left-0 flex items-center justify-between gap-4 h-20
       w-full bg-background border rounded-3xl p-5 z-[-1]"
     >
-      <span className="calling"></span>
+      <AudioSpectrum />
       <span className="w-1/2 text-sm text-foreground dark:text-secondary text-center">
         {timer}
       </span>
@@ -176,16 +179,7 @@ export function DeliveryChat({ isMessaging }: { isMessaging: boolean }) {
           type="submit"
           disabled={message.text.length === 0}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className={`w-6 h-6 transition-colors duration-300 ${
-              message.text.length > 0 ? "fill-white" : "fill-foreground/40"
-            }`}
-          >
-            <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
-          </svg>
+          <SendIcon text={message.text} />
         </button>
       </form>
 
@@ -275,3 +269,48 @@ export const ChatBubbleIcon = ({ isMessaging }: { isMessaging: boolean }) => (
     />
   </svg>
 );
+
+export const SendIcon = ({ text }: { text: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={`w-6 h-6 transition-colors duration-300 ${
+      text.length > 0 ? "fill-white" : "fill-foreground/40"
+    }`}
+  >
+    <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+  </svg>
+);
+
+export const AudioSpectrum = () => {
+  const container = {
+    up: { height: "28px" },
+    down: { height: "4px" },
+  };
+
+  const renderMotionSpan = (delay: number) => (
+    <motion.span
+      variants={container}
+      initial="down"
+      animate="up"
+      transition={{
+        delay: delay,
+        duration: 0.3,
+        repeat: Infinity,
+        repeatType: "reverse",
+      }}
+      className="w-2 h-5 bg-primary rounded-sm"
+    />
+  );
+
+  const elements = [0, 0.3, 0.45, 0, 0.3, 0.45];
+
+  return (
+    <div className="relative flex items-center gap-2 mx-auto">
+      {elements.map((element, index) => (
+        <React.Fragment key={index}>{renderMotionSpan(element)}</React.Fragment>
+      ))}
+    </div>
+  );
+};
