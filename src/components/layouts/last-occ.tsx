@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { CarouselDialog } from "@/components/carousel/carousel-dialog";
 import { EmblaOptionsType } from "embla-carousel-react";
 import Carousel from "../carousel/carousel";
-import { occ } from "../occ/drafts";
+import { occ } from "../occ/occ-list";
 import CarouselContent from "../carousel/carousel-content";
 
 const OPTIONS_DRAFT: EmblaOptionsType = {

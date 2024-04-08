@@ -1,7 +1,7 @@
 import BlurImage from "@/components/common/blur-image";
 import urlFor from "@/lib/urlFor";
 import { CarouselDialog } from "./carousel-dialog";
-import { occ } from "../occ/drafts";
+import { occ } from "../occ/occ-list";
 
 interface Props {
   _id?: string;
