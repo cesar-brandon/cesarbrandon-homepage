@@ -94,7 +94,7 @@ const ProyectPage = async ({ params: { slug } }: Props) => {
         <div className="flex gap-4">
           {Array.isArray(project.topics) &&
             project.topics.map((topic, index) => (
-              <Badge key={index} style={{ backgroundColor: topic.color.value }}>
+              <Badge key={index} className="bg-secondary">
                 {topic.title}
               </Badge>
             ))}
