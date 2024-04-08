@@ -72,7 +72,7 @@ export function DeliveryProgressBar() {
     <div className="relative flex items-center justify-between w-full">
       <div className="absolute left-1 w-[98%] bg-primary-muted rounded-full z-[1]">
         <div
-          className="bg-primary h-3 rounded-full"
+          className="bg-primary h-3 rounded-full transition-all duration-300"
           style={{ width: `${progress}%` }}
         />
       </div>
@@ -80,25 +80,27 @@ export function DeliveryProgressBar() {
         <BoxIcon className="fill-white stroke-primary" />
       </div>
       <div
-        className={`relative w-7 h-7 rounded-full p-1 z-[2] overflow-hidden ${
-          progress > 46 ? "bg-primary" : "bg-primary-muted"
+        className={`relative w-7 h-7 rounded-full p-1 z-[2] overflow-hidden transition-colors duration-300 ${
+          progress > 48 ? "bg-primary" : "bg-primary-muted"
         }`}
       >
         <CarIcon
-          className={`${
-            progress > 46
+          className={`transition-colors duration-300 ${
+            progress > 48
               ? "fill-white stroke-primary"
               : "fill-primary stroke-primary-muted"
           }`}
         />
       </div>
       <div
-        className={`w-7 h-7 rounded-full p-[0.3rem] z-[2] ${
-          progress > 93 ? "bg-primary" : "bg-primary-muted"
+        className={`w-7 h-7 rounded-full p-[0.3rem] z-[2] overflow-hidden transition-colors duration-300 ${
+          progress > 95 ? "bg-primary" : "bg-primary-muted"
         }`}
       >
         <HomeIcon
-          className={`${progress > 93 ? "fill-white" : "fill-primary"}`}
+          className={`transition-colors duration-300 ${
+            progress > 95 ? "fill-white" : "fill-primary"
+          }`}
         />
       </div>
     </div>
