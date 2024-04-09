@@ -8,6 +8,7 @@ import { GeistMono as fontMono } from "geist/font/mono";
 import { cn } from "@/lib/utils";
 import { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "../globals.css";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -83,6 +84,7 @@ export default function RootLayout({
           <Wrap />
           <main className="px-10 min-h-[51rem]">{children}</main>
           <Analytics mode={"production"} />
+          <SpeedInsights />
           <TailwindIndicator />
           <Toaster />
         </Providers>
