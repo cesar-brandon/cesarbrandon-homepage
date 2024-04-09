@@ -1,23 +1,29 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const Wrap: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isLoading, setLoading] = useState(true);
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleCircleClick = () => {
     setIsExpanded(true);
 
     setTimeout(() => {
-      setIsExpanded(false);
-      router.push("/");
-    }, 1000);
+      pathname === "/" ? router.push("/about") : router.push("/");
+    }, 500);
   };
+
+  useEffect(() => {
+    if (pathname === "/" || pathname === "/about") {
+      setIsExpanded(false);
+    }
+  }, [pathname]);
 
   return (
     <div onClick={handleCircleClick}>

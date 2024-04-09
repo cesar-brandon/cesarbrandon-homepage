@@ -17,7 +17,7 @@ export const occ: OCC[] = [
     },
     description:
       "It's an intuitive user interface for tracking delivery progress, enabling direct and efficient communication by phone or messaging with the delivery person throughout the process.",
-    topics: ["Tailwindcss", "Framer Motion", "React"],
+    topics: ["react", "tailwindcss", "framer motion"],
     code: {
       code: pickingUpOrder,
       language: "TSX",

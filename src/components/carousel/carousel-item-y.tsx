@@ -27,6 +27,7 @@ export default function CarouselItemY({
           width="1920"
           height="1080"
           className="object-cover"
+          aria-label={title}
         />
       </div>
     </CarouselDialog>
