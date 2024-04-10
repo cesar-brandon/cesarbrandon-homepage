@@ -12,11 +12,13 @@ interface ItemProps {
 export function CarouselDialogItem({ children, slide }: ItemProps) {
   const codeMode = useCarouselStore((state) => state.codeMode);
   return (
-    <CarouselItem className="group relative flex flex-col lg:flex-row gap-10 pt-10 first:pt-0">
+    <CarouselItem className="group relative flex flex-col lg:flex-row gap-4 lg:gap-10 pt-10 first:pt-0">
       <div className="w-full lg:w-[40%] flex flex-col gap-4">
         <p className="font-medium">{slide.title}</p>
-        <p className="text-sm xl:w-[80%]">{slide.description}</p>
-        <div>
+        <p className="hidden lg:block text-sm xl:w-[80%]">
+          {slide.description}
+        </p>
+        <div className="hidden lg:block">
           {slide.topics.map((topic) => (
             <Badge key={topic} className="mr-2" variant="secondary">
               {topic}
@@ -26,9 +28,8 @@ export function CarouselDialogItem({ children, slide }: ItemProps) {
       </div>
       <CopyToClipboard code={slide.code.code} />
       <div
-        className={`group relative w-full lg:w-[60%] h-full border rounded 
-        flex  justify-center py-10 px-4 ${
-          codeMode ? "overflow-y-auto overflow-x-auto" : "overflow-hidden"
+        className={`group relative w-full lg:w-[60%] h-[22rem] border rounded flex justify-center ${
+          codeMode ? "overflow-y-auto overflow-x-auto" : "overflow-y-auto"
         }`}
       >
         {codeMode ? <>{children}</> : <>{slide.component}</>}

@@ -1,5 +1,6 @@
 import fs from "fs";
 import { PickingUpOrder } from "./picking-up-order";
+import SmoothScrollCards from "./smooth-scroll-cards";
 
 const pickingUpOrder = fs.readFileSync(
   "src/components/occ/picking-up-order.tsx",
@@ -24,5 +25,25 @@ export const occ: OCC[] = [
     },
 
     component: <PickingUpOrder />,
+  },
+  {
+    _id: "occ-smooth-scroll-cards",
+    mainImage: "/occ/occ-smooth-scroll-cards.png",
+    title: "Smooth scroll cards",
+    slug: {
+      _type: "slug",
+      current: "smooth-scroll-cards",
+    },
+    description:
+      "A smooth scroll cards component that scales the images as you scroll.",
+    topics: ["react", "tailwindcss", "framer motion"],
+    code: {
+      code: fs.readFileSync(
+        "src/components/occ/smooth-scroll-cards.tsx",
+        "utf-8",
+      ),
+      language: "TSX",
+    },
+    component: <SmoothScrollCards />,
   },
 ];
