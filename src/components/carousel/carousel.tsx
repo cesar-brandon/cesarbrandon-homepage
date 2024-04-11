@@ -17,6 +17,7 @@ import Autoplay from "embla-carousel-autoplay";
 import { cn } from "@/lib/utils";
 import { CarouselLoader } from "./carousel-loader";
 import Sticker from "../ui/sticker";
+import { motion } from "framer-motion";
 
 type PropType = {
   slides: Post[] | Project[] | OCC[];
@@ -28,7 +29,7 @@ type PropType = {
 const Carousel: React.FC<PropType> = (props) => {
   const { slides, options, className, children } = props;
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [
-    Autoplay({ delay: 2000 }),
+    Autoplay({ delay: 3000 }),
   ]);
 
   const onButtonClick = useCallback((emblaApi: EmblaCarouselType) => {
@@ -64,13 +65,24 @@ const Carousel: React.FC<PropType> = (props) => {
     >
       {!axis && (
         <>
-          <div className="absolute -right-6 top-8 bg-primary h-4 md:h-6 xl:h-8 w-10 md:w-16 z-[1]" />
-          <div className="absolute -right-12 top-[4rem] bg-primary h-4 w-6 z-10" />
-
-          <Sticker
-            type="asterisk"
-            className="absolute -left-10 bottom-0 w-20 animate-spin"
+          <motion.div
+            animate={{ translateY: [0, 10, 0] }}
+            transition={{ duration: 5, repeat: Infinity }}
+            className="absolute -right-6 top-8 bg-primary h-4 md:h-6 xl:h-8 w-10 md:w-16 z-[1]"
           />
+          <motion.div
+            animate={{ translateY: [0, 10, 0] }}
+            transition={{ duration: 5, repeat: Infinity }}
+            className="absolute -right-12 top-[4rem] bg-primary h-4 w-6 z-10"
+          />
+
+          <motion.div
+            animate={{ rotate: [0, 360] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            className="absolute -left-10 bottom-10 w-20 h-20 z-10"
+          >
+            <Sticker type="asterisk" className="w-full h-full" />
+          </motion.div>
         </>
       )}
       <div className="h-full" ref={emblaRef}>

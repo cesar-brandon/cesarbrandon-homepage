@@ -9,13 +9,16 @@ import { Box } from "lucide-react";
 import { CarouselDialogActions } from "./carousel-dialog-actions";
 import { CarouselDialogItem } from "./carousel-dialog-item";
 import Code from "./carousel-dialog-code";
+import { EmblaOptionsType } from "embla-carousel-react";
+import useEmblaCarousel from "embla-carousel-react";
 
 interface CarouselProps {
   children: React.ReactNode;
   slides: OCC[];
+  opts?: EmblaOptionsType;
 }
 
-export function CarouselDialog({ children, slides }: CarouselProps) {
+export function CarouselDialog({ children, slides, opts }: CarouselProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>

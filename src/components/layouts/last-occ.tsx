@@ -14,7 +14,7 @@ const OPTIONS_DRAFT: EmblaOptionsType = {
 export default function LastOCC() {
   return (
     <div className="relative flex flex-col justify-center gap-10">
-      <CarouselDialog slides={occ}>
+      <CarouselDialog slides={occ} opts={OPTIONS_DRAFT}>
         <Button
           className={"w-full group text-2xl font-normal rounded-full p-0"}
           variant="ghost"

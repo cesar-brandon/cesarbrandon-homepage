@@ -10,6 +10,8 @@ import { motion } from "framer-motion";
 export function CarouselDialogActions() {
   const { theme, setTheme } = useTheme();
   const [isExpanded, setIsExpanded] = useState(false);
+  const selectedSnap = useCarouselStore((state) => state.selectedSnap);
+  const snapCount = useCarouselStore((state) => state.snapCount);
 
   const handleTheme = () => {
     setTheme(theme === "dark" || theme === "system" ? "light" : "dark");
@@ -38,7 +40,7 @@ export function CarouselDialogActions() {
           variant="outline"
           className="hidden sm:block text-xs rounded-full font-mono"
         >
-          1/1 OCC
+          {selectedSnap + 1}/{snapCount} OCC
         </Button>
         <div className="group relative w-11">
           <Button

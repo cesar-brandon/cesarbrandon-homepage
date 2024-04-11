@@ -17,7 +17,7 @@ export default function Sticker({ className, type }: StickerProps) {
     <div
       className={cn(
         "absolute -right-8 top-8 bg-orange-500 h-4 md:h-6 xl:h-10 w-10 md:w-20 z-10",
-        className
+        className,
       )}
     />
   );
@@ -26,7 +26,7 @@ export default function Sticker({ className, type }: StickerProps) {
 export function Asterisk({ className, variant = "default" }: StickerProps) {
   return (
     <svg
-      className={cn("absolute z-[1]", className)}
+      className={className}
       width="200"
       height="200"
       viewBox="0 0 200 200"

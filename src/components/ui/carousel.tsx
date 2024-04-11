@@ -8,6 +8,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useCarouselStore } from "@/store/carousel";
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -67,6 +68,8 @@ const Carousel = React.forwardRef<
     );
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
     const [canScrollNext, setCanScrollNext] = React.useState(false);
+    const setSelectedSnap = useCarouselStore((state) => state.setSelectedSnap);
+    const setSnapCount = useCarouselStore((state) => state.setSnapCount);
 
     const onSelect = React.useCallback((api: CarouselApi) => {
       if (!api) {
@@ -98,6 +101,17 @@ const Carousel = React.forwardRef<
       [scrollPrev, scrollNext],
     );
 
+    const updateScrollSnapState = React.useCallback(
+      (api: CarouselApi) => {
+        if (!api) {
+          return;
+        }
+        setSnapCount(api.scrollSnapList().length);
+        setSelectedSnap(api.selectedScrollSnap());
+      },
+      [setSnapCount, setSelectedSnap],
+    );
+
     React.useEffect(() => {
       if (!api || !setApi) {
         return;
@@ -111,14 +125,21 @@ const Carousel = React.forwardRef<
         return;
       }
 
+      updateScrollSnapState(api);
       onSelect(api);
+
       api.on("reInit", onSelect);
       api.on("select", onSelect);
+      api.on("select", updateScrollSnapState);
+      api.on("reInit", updateScrollSnapState);
 
       return () => {
         api?.off("select", onSelect);
+        api?.off("reInit", onSelect);
+        api?.off("select", updateScrollSnapState);
+        api?.off("reInit", updateScrollSnapState);
       };
-    }, [api, onSelect]);
+    }, [api, onSelect, updateScrollSnapState]);
 
     return (
       <CarouselContext.Provider
