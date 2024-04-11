@@ -2,11 +2,6 @@ import fs from "fs";
 import { PickingUpOrder } from "./picking-up-order";
 import SmoothScrollCards from "./smooth-scroll-cards";
 
-const pickingUpOrder = fs.readFileSync(
-  "src/components/occ/picking-up-order.tsx",
-  "utf-8",
-);
-
 export const occ: OCC[] = [
   {
     _id: "occ-picking-up-order",
@@ -20,7 +15,7 @@ export const occ: OCC[] = [
       "It's an intuitive user interface for tracking delivery progress, enabling direct and efficient communication by phone or messaging with the delivery person throughout the process.",
     topics: ["react", "tailwindcss", "framer motion"],
     code: {
-      code: pickingUpOrder,
+      code: fs.readFileSync("src/components/occ/picking-up-order.tsx", "utf-8"),
       language: "TSX",
     },
 
@@ -39,7 +34,7 @@ export const occ: OCC[] = [
     topics: ["react", "tailwindcss", "framer motion"],
     code: {
       code: fs.readFileSync(
-        "src/components/occ/smooth-scroll-cards.tsx",
+        "src/components/occ/smooth-scroll-cards-react.jsx",
         "utf-8",
       ),
       language: "TSX",
