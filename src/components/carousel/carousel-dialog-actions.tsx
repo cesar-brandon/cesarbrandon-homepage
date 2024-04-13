@@ -4,14 +4,20 @@ import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { useCarouselStore } from "@/store/carousel";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 export function CarouselDialogActions() {
   const { theme, setTheme } = useTheme();
+  const isDesktop = useMediaQuery("(min-width:768px)");
   const [isExpanded, setIsExpanded] = useState(false);
   const selectedSnap = useCarouselStore((state) => state.selectedSnap);
   const snapCount = useCarouselStore((state) => state.snapCount);
+
+  useEffect(() => {
+    setIsExpanded(isDesktop);
+  }, [isDesktop]);
 
   const handleTheme = () => {
     setTheme(theme === "dark" || theme === "system" ? "light" : "dark");
@@ -34,7 +40,7 @@ export function CarouselDialogActions() {
           x: isExpanded ? 50 : -10,
           visibility: isExpanded ? "visible" : "hidden",
         }}
-        className="opacity-0 invisible md:opacity-100 md:visible flex justify-between items-center gap-4 absolute -top-2 left-0"
+        className="flex justify-between items-center gap-4 absolute -top-2 left-0"
       >
         <Button
           variant="outline"
@@ -70,7 +76,7 @@ export function CarouselDialogActions() {
   );
 }
 
-const OCCInfo = () => (
+export const OCCInfo = () => (
   <div
     className="absolute w-[10rem] lg:w-[25rem] -bottom-18 left-4 p-2 border border-foreground dark:border-secondary rounded-xl bg-background
           invisible opacity-0 group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-50"

@@ -17,11 +17,11 @@ export function PickingUpOrder() {
   };
 
   return (
-    <div className="relative flex flex-col h-40 w-[80%] bg-background border rounded-3xl p-5 mt-10">
+    <div className="relative flex flex-col h-52 min-[430px]:h-40 w-[80%] bg-background border rounded-3xl p-5 mt-10">
       <div className="flex flex-col justify-center gap-4">
         <p className="text-sm text-primary">Picking up order</p>
         <DeliveryProgressBar />
-        <div className="flex justify-between items-center">
+        <div className="flex  flex-col min-[430px]:flex-row justify-between items-center gap-4">
           <div className="flex w-full items-center">
             <img
               src="https://randomuser.me/api/portraits/women/63.jpg"

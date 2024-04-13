@@ -7,14 +7,25 @@ import { CarouselItem } from "@/components/ui/carousel";
 interface ItemProps {
   slide: OCC;
   children: React.ReactNode;
+  index: number;
 }
 
-export function CarouselDialogItem({ children, slide }: ItemProps) {
+export function CarouselDialogItem({ children, slide, index }: ItemProps) {
   const codeMode = useCarouselStore((state) => state.codeMode);
+  const snapCount = useCarouselStore((state) => state.snapCount);
+
   return (
-    <CarouselItem className="group relative flex flex-col lg:flex-row gap-4 lg:gap-10 pt-10 first:pt-0">
+    <CarouselItem
+      className="group relative flex flex-col lg:flex-row gap-4 lg:gap-10
+      mt-10 first:mt-0"
+    >
       <div className="w-full lg:w-[40%] flex flex-col gap-4">
-        <p className="font-medium">{slide.title}</p>
+        <div className="font-medium flex items-center justify-center md:justify-start gap-2">
+          {slide.title}{" "}
+          <Badge variant="outline" className="md:hidden font-mono">
+            {index + 1}/{snapCount}
+          </Badge>
+        </div>
         <p className="hidden lg:block text-sm xl:w-[80%]">
           {slide.description}
         </p>

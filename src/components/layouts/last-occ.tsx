@@ -4,6 +4,7 @@ import { EmblaOptionsType } from "embla-carousel-react";
 import Carousel from "../carousel/carousel";
 import { occ } from "../occ/occ-list";
 import CarouselContent from "../carousel/carousel-content";
+import Link from "next/link";
 
 const OPTIONS_DRAFT: EmblaOptionsType = {
   axis: "y",
@@ -14,17 +15,18 @@ const OPTIONS_DRAFT: EmblaOptionsType = {
 export default function LastOCC() {
   return (
     <div className="relative flex flex-col justify-center gap-10">
-      <CarouselDialog slides={occ} opts={OPTIONS_DRAFT}>
-        <Button
-          className={"w-full group text-2xl font-normal rounded-full p-0"}
-          variant="ghost"
-        >
+      <Button
+        className={"w-full group text-2xl font-normal rounded-full p-0"}
+        variant="ghost"
+        asChild
+      >
+        <Link href="/occ" aria-label="Go OCC List">
           OCC
           <span className="font-mono ml-2 group-hover:translate-x-2 transition-all duration-300">
             {"~>"}
           </span>
-        </Button>
-      </CarouselDialog>
+        </Link>
+      </Button>
 
       <section className="pr-10 relative flex justify-center">
         <Carousel

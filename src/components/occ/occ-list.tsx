@@ -1,25 +1,27 @@
 import fs from "fs";
-import { PickingUpOrder } from "./picking-up-order";
-import SmoothScrollCards from "./smooth-scroll-cards";
+import { PickingUpOrder } from "./items/picking-up-order";
+import { PictureEditor } from "./items/picture-editor";
+import SmoothScrollCards from "./items/smooth-scroll-cards";
 
 export const occ: OCC[] = [
   {
-    _id: "occ-picking-up-order",
-    mainImage: "/occ/occ-picking-up-order.png",
-    title: "Picking up order",
+    _id: "occ-picture-editor",
+    mainImage: "/occ/occ-smooth-scroll-cards.png",
+    title: "Picture editor",
     slug: {
       _type: "slug",
-      current: "picking-up-order",
+      current: "picture-editor",
     },
-    description:
-      "It's an intuitive user interface for tracking delivery progress, enabling direct and efficient communication by phone or messaging with the delivery person throughout the process.",
-    topics: ["react", "tailwindcss", "framer motion"],
+    description: "A picture editor with zoom in/out and rotate functionality.",
+    topics: ["shadcn", "tailwindcss", "framer motion"],
     code: {
-      code: fs.readFileSync("src/components/occ/picking-up-order.tsx", "utf-8"),
+      code: fs.readFileSync(
+        "src/components/occ/items/picture-editor.tsx",
+        "utf-8",
+      ),
       language: "TSX",
     },
-
-    component: <PickingUpOrder />,
+    component: <PictureEditor />,
   },
   {
     _id: "occ-smooth-scroll-cards",
@@ -34,11 +36,32 @@ export const occ: OCC[] = [
     topics: ["react", "tailwindcss", "framer motion"],
     code: {
       code: fs.readFileSync(
-        "src/components/occ/smooth-scroll-cards-react.jsx",
+        "src/components/occ/items/smooth-scroll-cards-react.jsx",
+        "utf-8",
+      ),
+      language: "JSX",
+    },
+    component: <SmoothScrollCards />,
+  },
+  {
+    _id: "occ-picking-up-order",
+    mainImage: "/occ/occ-picking-up-order.png",
+    title: "Picking up order",
+    slug: {
+      _type: "slug",
+      current: "picking-up-order",
+    },
+    description:
+      "It's an intuitive user interface for tracking delivery progress, enabling direct and efficient communication by phone or messaging with the delivery person throughout the process.",
+    topics: ["react", "tailwindcss", "framer motion"],
+    code: {
+      code: fs.readFileSync(
+        "src/components/occ/items/picking-up-order.tsx",
         "utf-8",
       ),
       language: "TSX",
     },
-    component: <SmoothScrollCards />,
+
+    component: <PickingUpOrder />,
   },
 ];

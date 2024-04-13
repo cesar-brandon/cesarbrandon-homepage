@@ -31,8 +31,8 @@ export function CarouselDialog({ children, slides, opts }: CarouselProps) {
             }}
           >
             <CarouselContent className="h-[35rem] py-20 box-border">
-              {slides.map((slide) => (
-                <CarouselDialogItem key={slide.title} slide={slide}>
+              {slides.map((slide, i) => (
+                <CarouselDialogItem key={slide.title} slide={slide} index={i}>
                   {/* @ts-expect-error Server Component */}
                   <Code code={slide.code.code} />
                 </CarouselDialogItem>
