@@ -44,7 +44,7 @@ const Wrap: React.FC = () => {
           alt="link-home"
           width={1196}
           height={1199}
-          onLoadingComplete={() => setLoading(false)}
+          onLoad={() => setLoading(false)}
         />
       </div>
     </div>

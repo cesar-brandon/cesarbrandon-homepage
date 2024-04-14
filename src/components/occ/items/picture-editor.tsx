@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Rnd } from "react-rnd";
 
 export function PictureEditor() {
   const [scale, setScale] = useState(1);
@@ -14,31 +15,78 @@ export function PictureEditor() {
   });
   const [adjust, setAdjust] = useState(false);
 
+  const takeScreenshot = async () => {
+    const node = document.querySelector("#image-container");
+  
+    if (!node) {
+      console.error("No se encontró el nodo");
+      return;
+    }
+  
+    const imgElement = node.querySelector("img");
+    if (!imgElement) {
+      console.error("No se encontró la imagen");
+      return;
+    }
+  
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    if (!ctx) {
+      console.error("No se pudo obtener el contexto del canvas");
+      return;
+    }
+  
+    canvas.width = node.clientWidth;
+    canvas.height = node.clientHeight;
+  
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = imgElement.src;
+  
+    img.onload = () => {
+      const scaleRatio = Math.max(canvas.width / img.width, canvas.height / img.height);
+      const x = (canvas.width - img.width * scaleRatio) / 2;
+      const y = (canvas.height - img.height * scaleRatio) / 2;
+  
+      ctx.save();
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+      ctx.rotate((rotate.angle * Math.PI) / 180);
+      ctx.scale(scale, scale);
+      ctx.translate(-canvas.width / 2, -canvas.height / 2);
+      ctx.drawImage(img, x, y, img.width * scaleRatio, img.height * scaleRatio);
+      ctx.restore();
+  
+      const data = canvas.toDataURL("image/png");
+      const a = document.createElement("a");
+      a.href = data;
+      a.download = "screenshot.png";
+      a.click();
+    };
+  };
+
   return (
     <div className="w-[90%] h-[90%] my-auto rounded-xl bg-background border overflow-hidden">
-      <PictureEditorControls />
+      <PictureEditorControls takeScreenshot={takeScreenshot} />
       <div className="relative w-full h-[80%] overflow-hidden border-y">
-        <AdjustementTool
-          isVisible={adjust}
-          rotate={rotate.angle}
-          setRotate={(value) => setRotate({ ...rotate, angle: value })}
-        />
+        <AdjustementTool isVisible={adjust} />
         <RotationTool
           rotate={rotate.angle}
           setRotate={(value) => setRotate({ ...rotate, angle: value })}
           isVisible={rotate.isVisible}
         />
-        <motion.img
-          animate={{
-            scale: scale + rotate.angle / 360,
-            transition: { duration: 0 },
-            rotateZ: rotate.angle,
-          }}
-          className={`w-full h-full object-cover transform transition-transform duration-300 ease-in-out select-none`}
-          src="https://dr.savee-cdn.com/things/thumbnails/6/2/44b67089842e706ba43d05.webp"
-          alt="picture"
-          draggable="false"
-        />
+        <div id="image-container" className="w-full h-full overflow-hidden">
+          <motion.img
+            animate={{
+              scale: scale + rotate.angle / 360,
+              transition: { duration: 0 },
+              rotateZ: rotate.angle,
+            }}
+            className={`w-full h-full object-cover transform transition-transform duration-300 ease-in-out select-none`}
+            src="http://localhost:3000/_next/image?url=%2Focc%2Focc-smooth-scroll-cards.png&w=1920&q=75"
+            alt="picture"
+            draggable="false"
+          />
+        </div>
       </div>
       <PictureEditorActions
         setAdjust={setAdjust}
@@ -52,13 +100,19 @@ export function PictureEditor() {
   );
 }
 
-export function PictureEditorControls() {
+export function PictureEditorControls({
+  takeScreenshot,
+}: {
+  takeScreenshot: () => void;
+}) {
   return (
     <div className="h-[10%] w-full flex items-center justify-between space-x-4 px-2">
       <Badge className="text-xs max-w-[10rem] line-clamp-1" variant="outline">
         IMG_20210927_12345333222236.jpg
       </Badge>
-      <Button className="h-6">Done</Button>
+      <Button className="h-6" onClick={() => takeScreenshot()}>
+        Done
+      </Button>
     </div>
   );
 }
@@ -136,31 +190,7 @@ export function PictureEditorActions({
   );
 }
 
-export function AdjustementTool({
-  isVisible,
-  rotate,
-  setRotate,
-}: {
-  isVisible: boolean;
-  rotate: number;
-  setRotate: (value: number) => void;
-}) {
-  const [size, setSize] = useState({ width: 200, height: 200 });
-
-  const handleDrag =
-    (position: "top" | "bottom" | "left" | "right") => (delta: number) => {
-      setSize((prevSize) => {
-        switch (position) {
-          case "top":
-          case "bottom":
-            return { ...prevSize, height: prevSize.height + delta };
-          case "left":
-          case "right":
-            return { ...prevSize, width: prevSize.width + delta };
-        }
-      });
-    };
-
+export function AdjustementTool({ isVisible }: { isVisible: boolean }) {
   return (
     <motion.div
       animate={{
@@ -168,27 +198,38 @@ export function AdjustementTool({
         y: isVisible ? -10 : 0,
         visibility: isVisible ? "visible" : "hidden",
       }}
-      style={{ width: size.width, height: size.height }}
-      className="opacity-0 invisible absolute bottom-0 w-[50%] max-w-full h-[50%] max-h-full inset-0 m-auto border border-white z-10"
+      className="absolute w-full h-full opacity-0 invisible z-10 left-0 bottom-0"
     >
-      <AdjustementToolHandle position="top" onDrag={handleDrag("top")} />
-      <AdjustementToolHandle position="bottom" onDrag={handleDrag("bottom")} />
-      <AdjustementToolHandle position="left" onDrag={handleDrag("left")} />
-      <AdjustementToolHandle position="right" onDrag={handleDrag("right")} />
-      <div className="absolute top-0 left-1/3 w-[0.01rem]  h-full bg-white transform -translate-x-1/2"></div>
-      <div className="absolute top-1/3 left-0 h-[0.01rem] w-full bg-white transform -translate-y-1/2"></div>
-      <div className="absolute top-0 right-1/3 w-[0.01rem] h-full bg-white transform -translate-x-1/2"></div>
-      <div className="absolute bottom-1/3 left-0 h-[0.01rem] w-full bg-white transform -translate-y-1/2"></div>
+      <Rnd
+        default={{
+          x: 50,
+          y: 50,
+          width: 320,
+          height: 200,
+        }}
+        minWidth={100}
+        maxWidth={"100%"}
+        minHeight={100}
+        maxHeight={"100%"}
+        className="absolute bottom-0 w-[50%] max-w-[10rem] h-[50%] max-h-full inset-0 m-auto border border-white z-20"
+      >
+        <AdjustementToolHandle position="top" />
+        <AdjustementToolHandle position="bottom" />
+        <AdjustementToolHandle position="left" />
+        <AdjustementToolHandle position="right" />
+        <div className="absolute top-0 left-1/3 w-[0.01rem]  h-full bg-white transform -translate-x-1/2"></div>
+        <div className="absolute top-1/3 left-0 h-[0.01rem] w-full bg-white transform -translate-y-1/2"></div>
+        <div className="absolute top-0 right-1/3 w-[0.01rem] h-full bg-white transform -translate-x-1/2"></div>
+        <div className="absolute bottom-1/3 left-0 h-[0.01rem] w-full bg-white transform -translate-y-1/2"></div>
+      </Rnd>
     </motion.div>
   );
 }
 
 export function AdjustementToolHandle({
   position,
-  onDrag,
 }: {
   position: "top" | "bottom" | "left" | "right";
-  onDrag: (delta: number) => void;
 }) {
   const positionClass: Record<string, string> = {
     top: "-top-[0.2rem] left-1/2 transform -translate-x-1/2",
@@ -197,31 +238,9 @@ export function AdjustementToolHandle({
     right: "rotate-90 top-1/2 -right-[0.6rem] transform -translate-y-1/2",
   };
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const initialPos =
-      position === "left" || position === "right" ? e.clientX : e.clientY;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const currentPos =
-        position === "left" || position === "right" ? e.clientX : e.clientY;
-      const delta = currentPos - initialPos;
-      onDrag(delta);
-    };
-
-    const handleMouseUp = () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
-  };
-
   return (
     <div
-      className={`absolute cursor-pointer w-5 h-1 bg-white ${positionClass[position]}`}
-      onMouseDown={handleMouseDown}
+      className={`absolute cursor-pointer w-5 h-1 bg-white  ${positionClass[position]}`}
     />
   );
 }

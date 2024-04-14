@@ -39,7 +39,7 @@ const query = groq`
 		}
 `;
 
-const ProyectPage = async ({ params: { slug } }: Props) => {
+const ProjectPage = async ({ params: { slug } }: Props) => {
   let project = {} as Project;
   try {
     project = await sanityClient.fetch(query, { slug });
@@ -115,4 +115,4 @@ const ProyectPage = async ({ params: { slug } }: Props) => {
   );
 };
 
-export default ProyectPage;
+export default ProjectPage;

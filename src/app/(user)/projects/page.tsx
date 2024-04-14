@@ -1,9 +1,9 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { draftMode } from "next/headers";
-import PreviewSuspense from "@/components/common/PreviewSuspense";
 import PreviewList from "@/components/layouts/PreviewList";
 import ProjectList from "@/components/layouts/ProjectList";
-import { getProjects, query } from "@/services/fetch-projects";
+import { getProjects, PROJECTS_QUERY } from "@/services/fetch-projects";
+import Loading from "./loading";
 
 export const metadata = {
   title: "Projects",
@@ -11,17 +11,17 @@ export const metadata = {
 };
 
 const Projects = async () => {
-  const { isEnabled } = draftMode();
-  if (isEnabled) {
-    return (
-      <PreviewSuspense fallback={<div>Loading...</div>}>
-        <PreviewList query={query} type={"project"} />
-      </PreviewSuspense>
-    );
-  }
   const projects = await getProjects();
 
-  return <ProjectList projects={projects} />;
+  return draftMode().isEnabled ? (
+    <Suspense fallback={<Loading />}>
+      <PreviewList query={PROJECTS_QUERY} initial={projects} type={"project"} />
+    </Suspense>
+  ) : (
+    <Suspense fallback={<Loading />}>
+      <ProjectList projects={projects} />
+    </Suspense>
+  );
 };
 
 export default Projects;

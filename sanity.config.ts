@@ -6,6 +6,7 @@ import { defaultDocumentNode } from "@/utilities/structure";
 import { simplerColorInput } from "sanity-plugin-simpler-color-input";
 import { colorList } from "@/utilities/style";
 import { codeInput } from "@sanity/code-input";
+import { presentationTool } from "sanity/presentation";
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "";
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "";
@@ -26,6 +27,13 @@ export default defineConfig({
       defaultColorList: colorList,
     }),
     codeInput(),
+    presentationTool({
+      previewUrl: {
+        draftMode: {
+          enable: "/api/draft",
+        },
+      },
+    }),
   ],
 
   schema: {
