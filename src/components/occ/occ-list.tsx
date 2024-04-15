@@ -6,7 +6,7 @@ import SmoothScrollCards from "./items/smooth-scroll-cards";
 export const occ: OCC[] = [
   {
     _id: "occ-picture-editor",
-    mainImage: "/occ/occ-smooth-scroll-cards.png",
+    mainImage: "/occ/picture-editor.png",
     title: "Picture editor",
     slug: {
       _type: "slug",

@@ -1,11 +1,25 @@
 "use client";
-import { Disc3Icon, Frame, RotateCcw, ZoomIn } from "lucide-react";
+import { Disc3Icon, Frame, RotateCcw, Upload, ZoomIn } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { Rnd } from "react-rnd";
+import { useDropzone } from "react-dropzone";
+
+function calculateSize(size: number) {
+  const i = Math.floor(Math.log(size) / Math.log(1024));
+  return (
+    +(size / Math.pow(1024, i)).toFixed(2) +
+    " " +
+    ["B", "kB", "MB", "GB", "TB"][i]
+  );
+}
+
+interface FileWithPreview extends File {
+  preview: string;
+}
 
 export function PictureEditor() {
   const [scale, setScale] = useState(1);
@@ -14,40 +28,47 @@ export function PictureEditor() {
     isVisible: false,
   });
   const [adjust, setAdjust] = useState(false);
+  const [files, setFiles] = useState<FileWithPreview[]>([]);
+
+  const onDrop = useCallback((acceptedFiles: any) => {
+    console.log(acceptedFiles);
+    setFiles(
+      acceptedFiles.map((file: Blob | MediaSource) =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
+      )
+    );
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   const takeScreenshot = async () => {
     const node = document.querySelector("#image-container");
-  
-    if (!node) {
-      console.error("No se encontró el nodo");
-      return;
-    }
-  
+    if (!node) return;
+
     const imgElement = node.querySelector("img");
-    if (!imgElement) {
-      console.error("No se encontró la imagen");
-      return;
-    }
-  
+    if (!imgElement) return;
+
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
-    if (!ctx) {
-      console.error("No se pudo obtener el contexto del canvas");
-      return;
-    }
-  
+    if (!ctx) return;
+
     canvas.width = node.clientWidth;
     canvas.height = node.clientHeight;
-  
+
     const img = new Image();
     img.crossOrigin = "anonymous";
     img.src = imgElement.src;
-  
+
     img.onload = () => {
-      const scaleRatio = Math.max(canvas.width / img.width, canvas.height / img.height);
+      const scaleRatio = Math.max(
+        canvas.width / img.width,
+        canvas.height / img.height
+      );
       const x = (canvas.width - img.width * scaleRatio) / 2;
       const y = (canvas.height - img.height * scaleRatio) / 2;
-  
+
       ctx.save();
       ctx.translate(canvas.width / 2, canvas.height / 2);
       ctx.rotate((rotate.angle * Math.PI) / 180);
@@ -55,7 +76,7 @@ export function PictureEditor() {
       ctx.translate(-canvas.width / 2, -canvas.height / 2);
       ctx.drawImage(img, x, y, img.width * scaleRatio, img.height * scaleRatio);
       ctx.restore();
-  
+
       const data = canvas.toDataURL("image/png");
       const a = document.createElement("a");
       a.href = data;
@@ -66,7 +87,7 @@ export function PictureEditor() {
 
   return (
     <div className="w-[90%] h-[90%] my-auto rounded-xl bg-background border overflow-hidden">
-      <PictureEditorControls takeScreenshot={takeScreenshot} />
+      <PictureEditorControls takeScreenshot={takeScreenshot} file={files[0]} />
       <div className="relative w-full h-[80%] overflow-hidden border-y">
         <AdjustementTool isVisible={adjust} />
         <RotationTool
@@ -74,18 +95,32 @@ export function PictureEditor() {
           setRotate={(value) => setRotate({ ...rotate, angle: value })}
           isVisible={rotate.isVisible}
         />
-        <div id="image-container" className="w-full h-full overflow-hidden">
-          <motion.img
-            animate={{
-              scale: scale + rotate.angle / 360,
-              transition: { duration: 0 },
-              rotateZ: rotate.angle,
-            }}
-            className={`w-full h-full object-cover transform transition-transform duration-300 ease-in-out select-none`}
-            src="http://localhost:3000/_next/image?url=%2Focc%2Focc-smooth-scroll-cards.png&w=1920&q=75"
-            alt="picture"
-            draggable="false"
-          />
+        <div
+          id="image-container"
+          className="w-full h-full overflow-hidden"
+          {...getRootProps()}
+        >
+          <div
+            className={`${
+              files.length === 0 ? "flex" : "hidden"
+            } w-full h-full items-center justify-center`}
+          >
+            <Upload className="w-20 h-20 text-muted" />
+          </div>
+          <input {...getInputProps()} />
+          {files.length > 0 && (
+            <motion.img
+              animate={{
+                scale: scale + rotate.angle / 360,
+                transition: { duration: 0 },
+                rotateZ: rotate.angle,
+              }}
+              className={`w-full h-full object-cover transform transition-transform duration-300 ease-in-out select-none`}
+              src={files[0].preview}
+              alt="picture"
+              draggable="false"
+            />
+          )}
         </div>
       </div>
       <PictureEditorActions
@@ -102,14 +137,32 @@ export function PictureEditor() {
 
 export function PictureEditorControls({
   takeScreenshot,
+  file,
 }: {
   takeScreenshot: () => void;
+  file: { preview: string; name: string; size: number };
 }) {
   return (
     <div className="h-[10%] w-full flex items-center justify-between space-x-4 px-2">
-      <Badge className="text-xs max-w-[10rem] line-clamp-1" variant="outline">
-        IMG_20210927_12345333222236.jpg
-      </Badge>
+      <div className="w-full flex gap-4">
+        {file && (
+          <Badge
+            className="text-xs max-w-[12rem] overflow-hidden line-clamp-1"
+            variant="outline"
+          >
+            {file.name}
+          </Badge>
+        )}
+        {file && (
+          <Badge
+            className="hidden sm:block text-xs text-muted-foreground line-clamp-1"
+            variant="outline"
+          >
+            {calculateSize(file.size)}
+          </Badge>
+        )}
+      </div>
+
       <Button className="h-6" onClick={() => takeScreenshot()}>
         Done
       </Button>
@@ -139,7 +192,7 @@ export function PictureEditorActions({
   };
 
   return (
-    <div className="h-[10%] w-full flex items-center justify-center space-x-4 px-2 dark:bg-foreground/5">
+    <div className="h-[10%] w-full flex items-center justify-center space-x-4 px-2 dark:bg-foreground/10 dark:border-transparent dark:text-muted-foreground">
       <Button
         className="w-auto h-6 hover:bg-muted dark:hover:text-accent text-xs"
         variant="ghost"
@@ -150,7 +203,7 @@ export function PictureEditorActions({
       >
         <RotateCcw className="h-4 w-4" />
       </Button>
-      <span className="text-muted">|</span>
+      <span className="text-muted dark:text-accent-foreground">|</span>
       <Button
         className={`w-auto h-6 hover:bg-muted dark:hover:text-accent text-xs ${
           adjust ? "bg-muted dark:text-accent" : ""
@@ -160,7 +213,7 @@ export function PictureEditorActions({
       >
         <Frame className="h-4 w-4" />
       </Button>
-      <span className="text-muted">|</span>
+      <span className="text-muted dark:text-accent-foreground">|</span>
       <Button
         className={`w-auto h-6 hover:bg-muted dark:hover:text-accent text-xs ${
           rotate.isVisible ? "bg-muted dark:text-accent" : ""
@@ -170,8 +223,11 @@ export function PictureEditorActions({
       >
         <Disc3Icon className="h-4 w-4" />
       </Button>
-      <span className="text-muted">|</span>
-      <div className="w-[60%] flex items-center justify-between gap-4">
+      <span className="text-muted dark:text-accent-foreground">|</span>
+      <div
+        className="absolute -bottom-6 sm:bottom-0 sm:relative flex w-[80%] sm:w-[60%] items-center justify-between
+        gap-4 bg-background border sm:border-none p-2 rounded-xl dark:bg-foreground/10 dark:border-transparent dark:text-muted-foreground"
+      >
         <span className="font-mono text-xs">{calculatePercentage(scale)}%</span>
         {/*by Shadcn -> <SliderPrimitive.Track className="relative h-1 focus-visible:h-2 w-full grow overflow-hidden rounded-full bg-foreground/20"> */}
         {/*by Shadcn -> <SliderPrimitive.Thumb className="block h-3 w-3 rounded-full border bg-primary ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50" /> */}
@@ -318,7 +374,7 @@ export function RotationTool({
       ></motion.div>
       <div className="absolute -right-20 top-1/2 transform -translate-y-1/2 flex items-center gap-2">
         <div className="border-t-[4px] border-t-transparent border-r-[10px] border-r-white border-b-[4px] border-b-transparent cursor-pointer" />
-        <p className="font-mono text-xs">{rotate.toFixed(2)}°</p>
+        <p className="font-mono text-xs text-white">{rotate.toFixed(2)}°</p>
       </div>
     </motion.div>
   );
