@@ -81,7 +81,7 @@ export default function RootLayout({
         className={cn(
           "bg-white dark:bg-zinc-950 font-sans antialiased",
           fontSans.variable,
-          fontMono.variable
+          fontMono.variable,
         )}
       >
         <Providers attribute="class" enableSystem>

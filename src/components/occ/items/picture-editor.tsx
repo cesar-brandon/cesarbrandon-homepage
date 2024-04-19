@@ -36,8 +36,8 @@ export function PictureEditor() {
       acceptedFiles.map((file: Blob | MediaSource) =>
         Object.assign(file, {
           preview: URL.createObjectURL(file),
-        })
-      )
+        }),
+      ),
     );
   }, []);
 
@@ -64,7 +64,7 @@ export function PictureEditor() {
     img.onload = () => {
       const scaleRatio = Math.max(
         canvas.width / img.width,
-        canvas.height / img.height
+        canvas.height / img.height,
       );
       const x = (canvas.width - img.width * scaleRatio) / 2;
       const y = (canvas.height - img.height * scaleRatio) / 2;
@@ -144,18 +144,18 @@ export function PictureEditorControls({
 }) {
   return (
     <div className="h-[10%] w-full flex items-center justify-between space-x-4 px-2">
-      <div className="w-full flex gap-4">
+      <div className="w-full flex items-center gap-4">
         {file && (
-          <Badge
-            className="text-xs max-w-[12rem] overflow-hidden line-clamp-1"
-            variant="outline"
+          <div
+            className="text-foreground rounded-full border px-2.5 py-0.5 text-xs font-semibold 
+            max-w-[12rem] line-clamp-1"
           >
             {file.name}
-          </Badge>
+          </div>
         )}
         {file && (
           <Badge
-            className="hidden sm:block text-xs text-muted-foreground line-clamp-1"
+            className="hidden sm:block h-5 text-xs text-muted-foreground line-clamp-1"
             variant="outline"
           >
             {calculateSize(file.size)}
@@ -199,6 +199,7 @@ export function PictureEditorActions({
         onClick={() => {
           setScale(1);
           setRotate({ angle: 0, isVisible: false });
+          setAdjust(false);
         }}
       >
         <RotateCcw className="h-4 w-4" />
@@ -209,7 +210,10 @@ export function PictureEditorActions({
           adjust ? "bg-muted dark:text-accent" : ""
         }`}
         variant="ghost"
-        onClick={() => setAdjust(!adjust)}
+        onClick={() => {
+          setRotate({ ...rotate, isVisible: false });
+          setAdjust(!adjust);
+        }}
       >
         <Frame className="h-4 w-4" />
       </Button>
@@ -219,7 +223,10 @@ export function PictureEditorActions({
           rotate.isVisible ? "bg-muted dark:text-accent" : ""
         }`}
         variant="ghost"
-        onClick={() => setRotate({ ...rotate, isVisible: !rotate.isVisible })}
+        onClick={() => {
+          setAdjust(false);
+          setRotate({ ...rotate, isVisible: !rotate.isVisible });
+        }}
       >
         <Disc3Icon className="h-4 w-4" />
       </Button>
