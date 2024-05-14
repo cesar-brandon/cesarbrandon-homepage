@@ -143,11 +143,11 @@ export function MessageBubbles() {
             onChange={handleInput}
             onKeyDown={handleKeyDown}
             value={text}
-            className="w-full h-[1rem] max-h-[2.5rem] bg-primary focus:outline-none resize-none leading-tight 
+            className="xl:w-[16rem] h-[1rem] max-h-[2.5rem] bg-primary focus:outline-none resize-none leading-tight 
             overflow-hidden placeholder:text-background/50 placeholder:font-normal
             "
             placeholder="Type a message..."
-          ></textarea>
+          />
         </Bubble>
       </div>
     </main>
