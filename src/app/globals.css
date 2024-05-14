@@ -55,6 +55,8 @@
   * {
     @apply border-border;
     box-sizing: border-box;
+    scrollbar-color: hsl(var(--border)) hsl(var(--background));
+    scrollbar-width: thin;
   }
 
   body {

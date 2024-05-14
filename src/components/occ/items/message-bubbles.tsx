@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 
 type User = {
   name: string;
@@ -56,17 +56,22 @@ const currentUser = {
 
 export function MessageBubbles() {
   const [text, setText] = React.useState("");
+  const [messages, setMessages] = React.useState(_messages);
+  const { scrollY } = useScroll();
 
   React.useEffect(() => {
     const detectTyping = (e: KeyboardEvent) => {
       if (e.key === "Backspace") {
         setText(text.slice(0, -1));
       } else if (e.key === "Enter") {
-        _messages.push({
-          user: currentUser,
-          text: text,
-          createdAt: new Date().toLocaleTimeString().slice(0, -3),
-        });
+        setMessages([
+          ...messages,
+          {
+            user: currentUser,
+            text: text,
+            createdAt: new Date().toLocaleTimeString().slice(0, -3),
+          },
+        ]);
         setText("");
       } else if (e.key === "spacebar") {
         setText(text + " ");
@@ -78,7 +83,7 @@ export function MessageBubbles() {
     window.addEventListener("keydown", detectTyping);
 
     return () => window.removeEventListener("keydown", detectTyping);
-  }, [text]);
+  }, [text, messages]);
 
   const convertToDate = (date: Date) => {
     const day = date.getDate();
@@ -86,16 +91,25 @@ export function MessageBubbles() {
     return `${monthString} ${day}, ${date.getFullYear()}`;
   };
 
+  React.useEffect(() => {
+    var messageContent = document.getElementById("message-content");
+    if (!messageContent) return;
+    messageContent.scrollTop = messageContent.scrollHeight;
+  }, [messages]);
+
   return (
     <main className="rtl w-full h-full flex flex-col gap-2 relative overflow-hidden">
       <div
         className="absolute top-0 left-0 w-full h-12 bg-gradient-to-b from-background
-        flex items-center justify-between p-4 text-foreground z-10"
+        flex items-center justify-between p-4 text-foreground z-10 backdrop-blur"
       >
         {convertToDate(new Date())}.
       </div>
-      <div className="w-full flex flex-col gap-3 p-4 overflow-y-auto scroll-m-inline scroll-ps-6">
-        {_messages.map((message, index) => (
+      <div
+        id="message-content"
+        className="w-full flex flex-col gap-3 p-4 overflow-y-auto snap-end scroll-smooth"
+      >
+        {messages.map((message, index) => (
           <Bubble key={index} message={message} />
         ))}
       </div>
