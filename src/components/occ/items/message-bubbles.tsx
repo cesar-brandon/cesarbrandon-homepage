@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { motion } from "framer-motion";
 
 type User = {
   name: string;
@@ -57,33 +57,41 @@ const currentUser = {
 export function MessageBubbles() {
   const [text, setText] = React.useState("");
   const [messages, setMessages] = React.useState(_messages);
-  const { scrollY } = useScroll();
+  const [isTyping, setIsTyping] = React.useState(false);
 
+  const textAreaRef = React.useRef<HTMLTextAreaElement>(null);
+
+  const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value);
+    e.target.style.height = "1rem";
+    e.target.style.height = `${e.target.scrollHeight}px`;
+  };
   React.useEffect(() => {
-    const detectTyping = (e: KeyboardEvent) => {
-      if (e.key === "Backspace") {
-        setText(text.slice(0, -1));
-      } else if (e.key === "Enter") {
-        setMessages([
-          ...messages,
-          {
-            user: currentUser,
-            text: text,
-            createdAt: new Date().toLocaleTimeString().slice(0, -3),
-          },
-        ]);
-        setText("");
-      } else if (e.key === "spacebar") {
-        setText(text + " ");
-      } else {
-        setText(text + e.key);
-      }
-    };
+    if (textAreaRef.current) {
+      setIsTyping(text.length > 0);
+      textAreaRef.current.style.height = "1rem";
+      textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+    }
+  }, [text]);
 
-    window.addEventListener("keydown", detectTyping);
+  const onSubmit = () => {
+    setMessages([
+      ...messages,
+      {
+        user: currentUser,
+        text: text,
+        createdAt: new Date().toLocaleTimeString().slice(0, -3),
+      },
+    ]);
+    setText("");
+  };
 
-    return () => window.removeEventListener("keydown", detectTyping);
-  }, [text, messages]);
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      onSubmit();
+    }
+  };
 
   const convertToDate = (date: Date) => {
     const day = date.getDate();
@@ -95,7 +103,7 @@ export function MessageBubbles() {
     var messageContent = document.getElementById("message-content");
     if (!messageContent) return;
     messageContent.scrollTop = messageContent.scrollHeight;
-  }, [messages]);
+  }, [messages, isTyping]);
 
   return (
     <main className="rtl w-full h-full flex flex-col gap-2 relative overflow-hidden">
@@ -112,20 +120,49 @@ export function MessageBubbles() {
         {messages.map((message, index) => (
           <Bubble key={index} message={message} />
         ))}
+        {isTyping && (
+          <motion.span
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="self-end mr-4 text-foreground/50"
+          >
+            is writing...
+          </motion.span>
+        )}
       </div>
-      <div className="w-full h-[10rem] flex items-center justify-center">
+      <div className="w-full p-2 flex items-center justify-center">
         <Bubble
           message={{
             user: currentUser,
             text: text,
           }}
-        />
+          isTyping
+        >
+          <textarea
+            ref={textAreaRef}
+            onChange={handleInput}
+            onKeyDown={handleKeyDown}
+            value={text}
+            className="w-full h-[1rem] max-h-[2.5rem] bg-primary focus:outline-none resize-none leading-tight 
+            overflow-hidden placeholder:text-background/50 placeholder:font-normal
+            "
+            placeholder="Type a message..."
+          ></textarea>
+        </Bubble>
       </div>
     </main>
   );
 }
 
-function Bubble({ message }: { message: Message }) {
+function Bubble({
+  message,
+  isTyping,
+  children,
+}: {
+  message: Message;
+  isTyping?: boolean;
+  children?: React.ReactNode;
+}) {
   const isUser = message.user.username === currentUser.username;
 
   return (
@@ -167,9 +204,13 @@ function Bubble({ message }: { message: Message }) {
             </div>
           )}
         </div>
-        <p className="font-semibold max-w-[20rem] overflow-hidden text-wrap">
-          {message.text}
-        </p>
+        {isTyping ? (
+          <div>{children}</div>
+        ) : (
+          <p className="font-semibold max-w-[20rem] overflow-hidden whitespace-pre-wrap">
+            {message.text}
+          </p>
+        )}
       </div>
       <svg
         width="21"
