@@ -111,7 +111,7 @@ const About: React.FC = () => {
         <Link href="https://www.linkedin.com/in/cesar-brandon/" target="_blank">
           <LinkedinIcon className="w-[1.65rem] h-[1.65rem]" />
         </Link>
-        <Link href="https://twitter.com/cesarbrandon_0" target="_blank">
+        <Link href="https://twitter.com/burando_03" target="_blank">
           <TwitterIcon className="w-6 h-6 dark:fill-foreground" />
         </Link>
       </div>

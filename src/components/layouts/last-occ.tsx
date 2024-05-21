@@ -1,10 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { CarouselDialog } from "@/components/carousel/carousel-dialog";
 import { EmblaOptionsType } from "embla-carousel-react";
 import Carousel from "../carousel/carousel";
 import { occ } from "../occ/occ-list";
 import CarouselContent from "../carousel/carousel-content";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 
 const OPTIONS_DRAFT: EmblaOptionsType = {
   axis: "y",

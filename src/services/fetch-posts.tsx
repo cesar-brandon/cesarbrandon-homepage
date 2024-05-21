@@ -20,7 +20,7 @@ export const queryAllPosts = groq`
 
 async function fetchLastPosts(): Promise<Post[]> {
   let posts = [] as Post[];
-  if (process.env.NODE_ENV !== "development") {
+  if (process.env.NODE_ENV === "development") {
     try {
       posts = await sanityClient.fetch(queryLastPosts);
     } catch (error) {
@@ -32,7 +32,7 @@ async function fetchLastPosts(): Promise<Post[]> {
 
 async function fetchPosts(): Promise<Post[]> {
   let posts = [] as Post[];
-  if (process.env.NODE_ENV !== "development") {
+  if (process.env.NODE_ENV === "development") {
     try {
       posts = await sanityClient.fetch(queryAllPosts);
     } catch (error) {

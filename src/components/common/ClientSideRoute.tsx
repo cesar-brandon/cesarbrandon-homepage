@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-
+import { Link } from "next-view-transitions";
 interface Props {
   children: React.ReactNode;
   route: string;
@@ -10,7 +9,11 @@ interface Props {
 }
 
 const ClientSideRoute = ({ children, route, ariaLabel, className }: Props) => {
-  return <Link href={route} aria-label={ariaLabel} className={className}>{children}</Link>;
+  return (
+    <Link href={route} aria-label={ariaLabel} className={className}>
+      {children}
+    </Link>
+  );
 };
 
 export default ClientSideRoute;

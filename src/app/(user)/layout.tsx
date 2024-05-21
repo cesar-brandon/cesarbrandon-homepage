@@ -13,6 +13,8 @@ import "../globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { draftMode } from "next/headers";
 import LiveVisualEditing from "@/components/live-visual-editing";
+import { ViewTransitions } from "next-view-transitions";
+import SmoothScrolling from "@/lib/smooth-scroolling";
 
 export const viewport: Viewport = {
   themeColor: [
@@ -75,29 +77,31 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head />
-      <body
-        className={cn(
-          "bg-white dark:bg-zinc-950 font-sans antialiased",
-          fontSans.variable,
-          fontMono.variable,
-        )}
-      >
-        <Providers attribute="class" enableSystem>
-          <Header />
-          <Wrap />
-          <main className="px-10 min-h-[51rem]">
-            {children}
-            {draftMode().isEnabled && <LiveVisualEditing />}
-          </main>
+    <ViewTransitions>
+      <html lang="en" suppressHydrationWarning>
+        <head />
+        <body
+          className={cn(
+            "bg-white dark:bg-zinc-950 font-sans antialiased",
+            fontSans.variable,
+            fontMono.variable,
+          )}
+        >
+          <Providers attribute="class" enableSystem>
+            <Header />
+            <Wrap />
+            <main className="px-10 min-h-[51rem]">
+              <SmoothScrolling>{children}</SmoothScrolling>
+              {draftMode().isEnabled && <LiveVisualEditing />}
+            </main>
 
-          <Analytics mode={"production"} />
-          <SpeedInsights />
-          <TailwindIndicator />
-          <Toaster />
-        </Providers>
-      </body>
-    </html>
+            <Analytics mode={"production"} />
+            <SpeedInsights />
+            <TailwindIndicator />
+            <Toaster />
+          </Providers>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }

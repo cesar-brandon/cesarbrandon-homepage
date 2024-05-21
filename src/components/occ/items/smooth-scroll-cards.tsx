@@ -31,7 +31,7 @@ export default function SmoothScrollCards() {
         element.removeEventListener("scroll", updateScrollValue);
       }
     };
-  }, []);
+  }, [scrollY]);
 
   const imageScale = useTransform(scrollY, [0, 1], [2, 1]);
 
