@@ -12,7 +12,7 @@ export const PROJECTS_QUERY = groq`
 
 async function fetchProjects(): Promise<Project[]> {
   let projects = [] as Project[];
-  if (process.env.NODE_ENV === "development") {
+  if (process.env.NODE_ENV !== "development") {
     try {
       projects = await sanityClient.fetch(PROJECTS_QUERY);
     } catch (error) {
