@@ -2,11 +2,12 @@ import BlurImage from "@/components/common/blur-image";
 import { GithubIcon } from "@/components/common/icons";
 import RichTextComponents from "@/components/common/RichTextComponents";
 import { Badge } from "@/components/ui/badge";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { sanityClient } from "@/lib/sanity.client";
 import urlFor from "@/lib/urlFor";
-import { formatDate } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 import { PortableText } from "@portabletext/react";
-import { LinkIcon } from "lucide-react";
+import { ChevronLeft, CornerUpLeft, LinkIcon, MoveLeft } from "lucide-react";
 import { groq } from "next-sanity";
 import Link from "next/link";
 import React from "react";
@@ -54,6 +55,16 @@ const ProjectPage = async ({ params: { slug } }: Props) => {
   return (
     <article className="mb-10">
       <section className="w-full h-96 relative rounded-xl overflow-hidden">
+        <Link
+          href="/projects"
+          className={cn(
+            buttonVariants({ variant: "glass", size: "icon" }),
+            "absolute top-4 left-4 w-20 cursor-pointer z-10"
+          )}
+        >
+          <MoveLeft className="h-6 w-6" />
+        </Link>
+
         {project.mainImage && (
           <BlurImage
             className="object-cover object-center mx-auto"

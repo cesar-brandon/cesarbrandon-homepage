@@ -1,3 +1,4 @@
+import BlurImage from "@/components/common/blur-image";
 import {
   GithubIcon,
   LinkedinIcon,
@@ -85,7 +86,13 @@ const About: React.FC = () => {
           </Accordion>
         </div>
       </div>
-      <div className="hidden lg:flex items-center justify-center relative h-[30rem] w-[45%] rounded-xl bg-[#fbfafb] border overflow-hidden">
+      <div className="hidden lg:flex items-center justify-center relative h-[30rem] w-[45%] rounded-xl overflow-hidden">
+        <BlurImage 
+          src="/totoro-bg.jpg"
+          alt="Totoro"
+          className="absolute -right-12"
+          fill
+        />
         <Suspense
           fallback={<Flower className="w-12 h-12 text-accent-foreground/30" />}
         >
