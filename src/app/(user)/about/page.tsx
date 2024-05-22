@@ -1,18 +1,18 @@
-import { Character } from "@/components/common/character";
 import {
   GithubIcon,
   LinkedinIcon,
   TwitterIcon,
 } from "@/components/common/icons";
-import Line from "@/components/common/line";
+import { Totoro } from "@/components/totoro";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Flower } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import React, { Suspense } from "react";
 
 export const metadata = {
   title: "About",
@@ -21,15 +21,12 @@ export const metadata = {
 
 const About: React.FC = () => {
   return (
-    <div
-      className="relative flex border-2 border-foreground rounded-xl p-6 mb-10
-      dark:border-white dark:border-opacity-20 border-opacity-20 transition-all duration-300 overflow-hidden"
-    >
+    <div className="relative flex rounded-xl p-6 mb-10 transition-all duration-300">
       <div className="w-full lg:w-[55%] pb-10">
         <h1 className="text-5xl font-bold">Cesar Brandon</h1>
-        <h2 className="mt-4 ml-2 text-3xl font-medium">
-          <span className="text-primary">Frontend Developer</span>
-          <span className="text-muted font-mono">{"~>"} UI Designer</span>
+        <h2 className="mt-4 text-3xl font-medium">
+          <span className="text-primary">Software Developer</span>
+          {/* <span className="text-muted font-mono">{"~>"} UI Designer</span> */}
           {/* <span className="text-primary">{"<line>"}</span> by{" "}
           <span className="text-primary">{"</line>"}</span> */}
         </h2>
@@ -88,7 +85,13 @@ const About: React.FC = () => {
           </Accordion>
         </div>
       </div>
-      <div className="hidden lg:block relative h-[30rem] w-[45%] rounded-xl bg-muted">
+      <div className="hidden lg:flex items-center justify-center relative h-[30rem] w-[45%] rounded-xl bg-[#fbfafb] border overflow-hidden">
+        <Suspense
+          fallback={<Flower className="w-12 h-12 text-accent-foreground/30" />}
+        >
+          <Totoro />
+        </Suspense>
+
         {/* <Line className="w-[15rem] -rotate-12 border-dashed top-[6rem] -left-20 dark:border-primary/20" /> */}
         {/* <Line className="-left-[14rem] top-[12rem] xl:top-[11rem] dark:border-indigo-200" /> */}
         {/* <Line className="rotate-12 top-[18rem] border-dashed -left-20 dark:border-primary/20" /> */}
@@ -97,7 +100,7 @@ const About: React.FC = () => {
         {/* <Character className="absolute -right-4" /> */}
       </div>
 
-      <div className="absolute right-5 bottom-4 flex items-center justify-center gap-8">
+      <div className="absolute right-5 -bottom-2 flex items-center justify-center gap-8">
         <Link
           href="https://drive.google.com/file/d/1tGdsZZAzsk-WMmLIuYhrOjCBenRd2CXV/view?usp=sharing"
           target="_blank"

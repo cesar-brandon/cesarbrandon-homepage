@@ -59,7 +59,7 @@ const Carousel: React.FC<PropType> = (props) => {
   return (
     <div
       className={cn(
-        "overflow-hidden border-2 border-accent-foreground dark:border-none rounded-xl z-[1]",
+        "overflow-hidden rounded-xl z-[1]",
         className,
       )}
     >
