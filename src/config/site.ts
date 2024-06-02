@@ -1,12 +1,12 @@
-import type { FooterItem, MainNavItem } from "@/types/site"
+import type { FooterItem, MainNavItem } from "@/types/site";
 
-export type SiteConfig = typeof siteConfig
+export type SiteConfig = typeof siteConfig;
 
 const links = {
-  twitter: "https://twitter.com/cesarbrandon_0",
+  twitter: "https://x.com/burando_03",
   github: "https://github.com/cesar-brandon/cesarbrandon-homepage",
   githubAccount: "https://github.com/cesar-brandon",
-}
+};
 
 export const siteConfig = {
   name: "Cesar Brandon",
@@ -37,7 +37,7 @@ export const siteConfig = {
         },
       ],
     },
-  ]satisfies MainNavItem[],
+  ] satisfies MainNavItem[],
   links,
   footerNav: [
     {
@@ -55,5 +55,5 @@ export const siteConfig = {
         },
       ],
     },
-  ]satisfies FooterItem[],
-}
+  ] satisfies FooterItem[],
+};

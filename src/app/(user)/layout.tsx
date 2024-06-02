@@ -5,6 +5,7 @@ import Header from "@/components/layouts/Header";
 import { siteConfig } from "@/config/site";
 import { GeistSans as fontSans } from "geist/font/sans";
 import { GeistMono as fontMono } from "geist/font/mono";
+import { Cormorant_Garamond } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/react";
@@ -15,6 +16,14 @@ import { draftMode } from "next/headers";
 import LiveVisualEditing from "@/components/live-visual-editing";
 import { ViewTransitions } from "next-view-transitions";
 import SmoothScrolling from "@/lib/smooth-scroolling";
+
+const cormorantGaramond = Cormorant_Garamond({
+  weight: "600",
+  style: "italic",
+  display: "swap",
+  subsets: ["latin"],
+  variable: "--font-cormorant",
+});
 
 export const viewport: Viewport = {
   themeColor: [
@@ -62,7 +71,7 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [`${siteConfig.url}/og.jpg`],
-    creator: "@cesarbrandon_0",
+    creator: "@burando_03",
   },
   icons: {
     icon: "/favicon.ico",
@@ -82,9 +91,10 @@ export default function RootLayout({
         <head />
         <body
           className={cn(
-            "bg-white dark:bg-zinc-950 font-sans antialiased",
+            "bg-background font-sans antialiased",
             fontSans.variable,
             fontMono.variable,
+            cormorantGaramond.variable,
           )}
         >
           <Providers attribute="class" enableSystem>

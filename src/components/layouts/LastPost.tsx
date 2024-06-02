@@ -7,7 +7,6 @@ interface Props {
 }
 
 export default function LastPost({ postTitles }: Props) {
-  
   const simplifyDate = (date: string) => {
     const dateObj = new Date(date);
     const month = dateObj.toLocaleString("default", { month: "long" });
@@ -29,7 +28,7 @@ export default function LastPost({ postTitles }: Props) {
           </span>
         }
       />
-      <div>
+      <div className="h-full w-full">
         {postTitles.length !== 0 ? (
           postTitles.map((post: Post, index) => (
             <ClientSideRoute

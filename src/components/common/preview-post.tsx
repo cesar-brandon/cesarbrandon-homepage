@@ -23,7 +23,9 @@ const PreviewPost: React.FC<Props> = ({ post }) => {
         </div>
 
         <div className="w-full md:w-[50%] h-full flex flex-col justify-center gap-2 sm:px-8 sm:pb-8">
-          <h3 className="text-xl md:text-2xl decoration-clone">{post.title}</h3>
+          <h3 className="text-xl md:text-3xl decoration-clone font-cormorant">
+            {post.title}
+          </h3>
           <p className="text-sm text-foreground dark:text-gray-300 line-clamp-3">
             Lorem ipsum dolor sit amet, qui minim labore.Lorem ipsum dolor sit
             amet, officia.lorem ipsum dolor sit amet, qui minim labore.Lorem

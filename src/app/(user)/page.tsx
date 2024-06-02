@@ -1,10 +1,11 @@
 import Carousel from "@/components/carousel/carousel";
 import { EmblaOptionsType } from "embla-carousel-react";
 import LastPost from "@/components/layouts/LastPost";
-import { getLastPosts } from "@/services/fetch-posts";
 import { getProjects } from "@/services/fetch-projects";
 import LastOCC from "@/components/layouts/last-occ";
 import CarouselContent from "@/components/carousel/carousel-content";
+import { Suspense } from "react";
+import { getLastPosts } from "@/services/fetch-posts";
 
 const OPTIONS_PROJECT: EmblaOptionsType = { loop: true };
 

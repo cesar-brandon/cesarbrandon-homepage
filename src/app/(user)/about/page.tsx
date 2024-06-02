@@ -26,7 +26,9 @@ const About: React.FC = () => {
       <div className="w-full lg:w-[55%] pb-10">
         <h1 className="text-5xl font-bold">Cesar Brandon</h1>
         <h2 className="mt-4 text-3xl font-medium">
-          <span className="text-primary">Software Developer</span>
+          <span className="text-primary font-cormorant text-4xl">
+            Software Developer
+          </span>
           {/* <span className="text-muted font-mono">{"~>"} UI Designer</span> */}
           {/* <span className="text-primary">{"<line>"}</span> by{" "}
           <span className="text-primary">{"</line>"}</span> */}
@@ -87,7 +89,7 @@ const About: React.FC = () => {
         </div>
       </div>
       <div className="hidden lg:flex items-center justify-center relative h-[30rem] w-[45%] rounded-xl overflow-hidden">
-        <BlurImage 
+        <BlurImage
           src="/totoro-bg.jpg"
           alt="Totoro"
           className="absolute -right-12"
