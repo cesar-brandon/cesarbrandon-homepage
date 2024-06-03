@@ -2,12 +2,11 @@ import BlurImage from "@/components/common/blur-image";
 import { GithubIcon } from "@/components/common/icons";
 import RichTextComponents from "@/components/common/RichTextComponents";
 import { Badge } from "@/components/ui/badge";
-import { Button, buttonVariants } from "@/components/ui/button";
 import { sanityClient } from "@/lib/sanity.client";
 import urlFor from "@/lib/urlFor";
-import { cn, formatDate } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 import { PortableText } from "@portabletext/react";
-import { ChevronLeft, CornerUpLeft, LinkIcon, MoveLeft } from "lucide-react";
+import { LinkIcon } from "lucide-react";
 import { groq } from "next-sanity";
 import Link from "next/link";
 import React from "react";
@@ -54,52 +53,53 @@ const ProjectPage = async ({ params: { slug } }: Props) => {
 
   return (
     <article className="mb-10">
-      <section className="w-full h-96 relative rounded-xl overflow-hidden">
-        <Link
-          href="/projects"
-          className={cn(
-            buttonVariants({ variant: "glass", size: "icon" }),
-            "absolute top-4 left-4 w-20 cursor-pointer z-10"
-          )}
-        >
-          <MoveLeft className="h-6 w-6" />
+      <section className="relative h-96 w-full overflow-hidden rounded-xl">
+        <Link href="/projects" className="absolute left-4 top-4 z-10">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="h-12 w-12 text-white"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m19.5 19.5-15-15m0 0v11.25m0-11.25h11.25"
+            />
+          </svg>
         </Link>
 
         {project.mainImage && (
           <BlurImage
-            className="object-cover object-center mx-auto"
+            className="mx-auto object-cover object-center"
             src={urlFor(project.mainImage).url()}
             alt={project.author.name}
             fill
           />
         )}
-        <div className="absolute flex gap-4 bottom-4 left-4">
+        <div className="absolute bottom-4 left-4 flex gap-4">
           {project.github && (
             <Link href={project.github} target="_blank">
-              <Badge
-                className="flex gap-2 h-8 w-40 hover:w-80 overflow-hidden
-              transition-all duration-300"
-              >
-                <GithubIcon className="w-[22px] h-[22px]" />
+              <Badge className="flex h-8 w-40 gap-2 overflow-hidden transition-all duration-300 hover:w-80">
+                <GithubIcon className="h-[22px] w-[22px]" />
                 <span className="w-full truncate">{project.github}</span>
               </Badge>
             </Link>
           )}
           {project.demo && (
             <Link href={project.demo} target="_blank">
-              <Badge
-                className="flex gap-2 h-8 w-40 hover:w-80 overflow-hidden
-              transition-all duration-300"
-              >
-                <LinkIcon className="w-[22px] h-[22px]" />
+              <Badge className="flex h-8 w-40 gap-2 overflow-hidden transition-all duration-300 hover:w-80">
+                <LinkIcon className="h-[22px] w-[22px]" />
                 <span className="w-full truncate">{project.demo}</span>
               </Badge>
             </Link>
           )}
         </div>
       </section>
-      <div className="flex justify-between my-4">
-        <span className="font-light text-sm">
+      <div className="my-4 flex justify-between">
+        <span className="text-sm font-light">
           {formatDate(project.publishedAt)}
         </span>
         <div className="flex gap-4">
@@ -111,15 +111,15 @@ const ProjectPage = async ({ params: { slug } }: Props) => {
             ))}
         </div>
       </div>
-      <section className="gap-8 flex">
+      <section className="flex gap-8">
         <div className="w-full">
           <PortableText value={project.body} components={RichTextComponents} />
         </div>
-        <div className="w-full flex flex-col gap-5">
-          <div className="w-full h-60 border rounded"></div>
-          <div className="w-full h-60 border rounded"></div>
-          <div className="w-full h-60 border rounded"></div>
-          <div className="w-full h-60 border rounded"></div>
+        <div className="flex w-full flex-col gap-5">
+          <div className="h-60 w-full rounded border"></div>
+          <div className="h-60 w-full rounded border"></div>
+          <div className="h-60 w-full rounded border"></div>
+          <div className="h-60 w-full rounded border"></div>
         </div>
       </section>
     </article>
