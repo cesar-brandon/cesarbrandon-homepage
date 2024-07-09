@@ -111,7 +111,7 @@ const About: React.FC = () => {
 
       <div className="absolute right-5 -bottom-2 flex items-center justify-center gap-8">
         <Link
-          href="https://drive.google.com/file/d/1tGdsZZAzsk-WMmLIuYhrOjCBenRd2CXV/view?usp=sharing"
+          href="https://docs.google.com/document/d/1spilQxMQszKQdWeNjdFq0tHLH4EAekX-PRXsi9EkeJM/edit?usp=sharing"
           target="_blank"
           className="text-primary"
         >
