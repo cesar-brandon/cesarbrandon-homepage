@@ -10,6 +10,7 @@ export default function OCCPage() {
     <div className="mb-20">
       <h1 className="font-mono text-center text-2xl mt-8 mb-24 flex gap-4 items-center justify-center">
         Open Custom Components
+        <span className="font-cursive">mini</span>
         <div className="group relative w-11">
           <Button
             className="relative w-11 text-xs rounded-full font-mono p-[0.8rem] bg-white dark:bg-background"

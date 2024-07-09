@@ -15,7 +15,6 @@ import { Toaster } from "@/components/ui/sonner";
 import { draftMode } from "next/headers";
 import LiveVisualEditing from "@/components/live-visual-editing";
 import { ViewTransitions } from "next-view-transitions";
-import SmoothScrolling from "@/lib/smooth-scroolling";
 
 const cormorantGaramond = Cormorant_Garamond({
   weight: "600",
@@ -101,7 +100,7 @@ export default function RootLayout({
             <Header />
             <Wrap />
             <main className="px-10 min-h-[51rem]">
-              <SmoothScrolling>{children}</SmoothScrolling>
+              {children}
               {draftMode().isEnabled && <LiveVisualEditing />}
             </main>
 

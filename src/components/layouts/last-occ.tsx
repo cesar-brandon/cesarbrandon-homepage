@@ -20,7 +20,8 @@ export default function LastOCC() {
         asChild
       >
         <Link href="/occ" aria-label="Go OCC List">
-          OCC
+          COMPONENTS
+          <span className="font-cursive ml-2">mini</span>
           <span className="font-mono ml-2 group-hover:translate-x-2 transition-all duration-300">
             {"~>"}
           </span>

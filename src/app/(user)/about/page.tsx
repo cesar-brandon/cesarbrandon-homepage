@@ -26,7 +26,7 @@ const About: React.FC = () => {
       <div className="w-full lg:w-[55%] pb-10">
         <h1 className="text-5xl font-bold">Cesar Brandon</h1>
         <h2 className="mt-4 text-3xl font-medium">
-          <span className="text-primary font-cormorant text-4xl">
+          <span className="text-primary font-cursive text-4xl">
             Software Developer
           </span>
           {/* <span className="text-muted font-mono">{"~>"} UI Designer</span> */}

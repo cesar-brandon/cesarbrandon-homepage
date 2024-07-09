@@ -23,7 +23,7 @@ export default function PreviewProject({ post }: Props) {
         />
       </div>
       <div className="absolute left-0 right-0 top-0 flex h-full w-full flex-col justify-between gap-2 bg-background/40 p-4 opacity-0 backdrop-blur transition-all duration-300 group-hover:opacity-100">
-        <span className="font-cormorant text-7xl text-foreground">
+        <span className="font-cursive text-7xl text-foreground">
           {post.title}
         </span>
         <p className="line-clamp-2">{post.description}</p>
@@ -47,12 +47,12 @@ export default function PreviewProject({ post }: Props) {
 //         <div
 //           className={cn(
 //             buttonVariants({ variant: "outline" }),
-//             "rounded-full border-2 font-cormorant text-xl font-bold transition-all duration-150 group-hover:opacity-0",
+//             "rounded-full border-2 font-cursive text-xl font-bold transition-all duration-150 group-hover:opacity-0",
 //           )}
 //         >
 //           {post.title}
 //         </div>
-//         {/* <p className="w-full rounded-full bg-muted py-1 pl-4 font-cormorant text-2xl font-bold transition-all duration-150 group-hover:opacity-0"> */}
+//         {/* <p className="w-full rounded-full bg-muted py-1 pl-4 font-cursive text-2xl font-bold transition-all duration-150 group-hover:opacity-0"> */}
 //         {/* </p> */}
 //         {/* <p className="group-hover:hidden"> */}
 //         {/*   {post.description.length > 70 */}
