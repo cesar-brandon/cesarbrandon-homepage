@@ -3,8 +3,28 @@ import { PickingUpOrder } from "./items/picking-up-order";
 import { PictureEditor } from "./items/picture-editor";
 import SmoothScrollCards from "./items/smooth-scroll-cards";
 import { MessageBubbles } from "./items/message-bubbles";
+import { YourSignature } from "./items/your-signature";
 
 export const occ: OCC[] = [
+  {
+    _id: "your-signature",
+    mainImage: "/occ/your-signature.png",
+    title: "Your Signature",
+    slug: {
+      _type: "slug",
+      current: "your-signature",
+    },
+    description: "Your signature component.",
+    topics: ["react", "tailwindcss", "framer motion", "sonner"],
+    code: {
+      code: fs.readFileSync(
+        "src/components/occ/items/your-signature.tsx",
+        "utf-8",
+      ),
+      language: "TSX",
+    },
+    component: <YourSignature />,
+  },
   {
     _id: "occ-message-bubbles",
     mainImage: "/occ/occ-message-bubbles.png",
