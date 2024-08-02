@@ -1,21 +1,33 @@
 "use client";
+
 import { PowerIcon } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export function AudioSpectrum() {
   const [isRecording, setIsRecording] = useState<boolean>(false);
-  const audio = useMemo(() => new Audio("/audio/button-click.wav"), []);
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+  // const audio = useMemo(() => new Audio("/audio/button-click.wav"), []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setAudio(new Audio("/audio/button-click.wav"));
+    }
+  }, []);
 
   function handleStartRecording() {
-    audio.pause();
-    audio.currentTime = 0;
-    audio.play();
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0;
+      audio.play();
+    }
   }
 
   function handleStopRecording() {
-    audio.pause();
-    audio.currentTime = 0;
-    audio.play();
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0;
+      audio.play();
+    }
   }
 
   return (
