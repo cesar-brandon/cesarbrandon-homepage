@@ -4,26 +4,27 @@ import { PictureEditor } from "./items/picture-editor";
 import SmoothScrollCards from "./items/smooth-scroll-cards";
 import { MessageBubbles } from "./items/message-bubbles";
 import { YourSignature } from "./items/your-signature";
+import { AudioSpectrum } from "./items/audio-spectrum";
 
 export const occ: OCC[] = [
   {
-    _id: "your-signature",
-    mainImage: "/occ/your-signature.png",
-    title: "Your Signature",
+    _id: "audio-spectrum",
+    mainImage: "/occ/occ-audio-spectrum.png",
+    title: "Aduio Spectrum 🚧",
     slug: {
       _type: "slug",
-      current: "your-signature",
+      current: "audio-spectrum",
     },
-    description: "Your signature component.",
-    topics: ["react", "tailwindcss", "framer motion", "sonner"],
+    description: "An audio spectrum component.",
+    topics: ["react", "tailwindcss", "framer motion"],
     code: {
       code: fs.readFileSync(
-        "src/components/occ/items/your-signature.tsx",
+        "src/components/occ/items/audio-spectrum.tsx",
         "utf-8",
       ),
       language: "TSX",
     },
-    component: <YourSignature />,
+    component: <AudioSpectrum />,
   },
   {
     _id: "occ-message-bubbles",
@@ -43,6 +44,25 @@ export const occ: OCC[] = [
       language: "TSX",
     },
     component: <MessageBubbles />,
+  },
+  {
+    _id: "your-signature",
+    mainImage: "/occ/your-signature.png",
+    title: "Your Signature",
+    slug: {
+      _type: "slug",
+      current: "your-signature",
+    },
+    description: "Your signature component.",
+    topics: ["react", "tailwindcss", "framer motion", "sonner"],
+    code: {
+      code: fs.readFileSync(
+        "src/components/occ/items/your-signature.tsx",
+        "utf-8",
+      ),
+      language: "TSX",
+    },
+    component: <YourSignature />,
   },
   {
     _id: "occ-picking-up-order",
