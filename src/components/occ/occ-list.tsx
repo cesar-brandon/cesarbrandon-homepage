@@ -10,7 +10,7 @@ export const occ: OCC[] = [
   {
     _id: "audio-spectrum",
     mainImage: "/occ/occ-audio-spectrum.png",
-    title: "Aduio Spectrum 🚧",
+    title: "Audio Spectrum 🚧",
     slug: {
       _type: "slug",
       current: "audio-spectrum",
