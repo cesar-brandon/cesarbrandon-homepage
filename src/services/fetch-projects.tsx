@@ -7,7 +7,7 @@ export const PROJECTS_QUERY = groq`
 				...,
 				author->,
 				topics[]->
-		}| order(_createdAt desc)
+		}| order(_updatedAt desc)
 `;
 
 async function fetchProjects(): Promise<Project[]> {
