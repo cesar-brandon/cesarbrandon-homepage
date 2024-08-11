@@ -1,4 +1,8 @@
-/** @type {import('next').NextConfig} */
+// @ts-check
+
+/**
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
   reactStrictMode: true,
   images: {
@@ -9,6 +13,7 @@ const nextConfig = {
       },
     ],
   },
+  transpilePackages: ["shiki"],
 };
 
-module.exports = nextConfig;
+export default nextConfig;

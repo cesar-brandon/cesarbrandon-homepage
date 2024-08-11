@@ -10,12 +10,13 @@ export const occ: OCC[] = [
   {
     _id: "audio-spectrum",
     mainImage: "/occ/occ-audio-spectrum.png",
-    title: "Audio Spectrum 🚧",
+    title: "Audio Spectrum",
     slug: {
       _type: "slug",
       current: "audio-spectrum",
     },
-    description: "An audio spectrum component.",
+    description:
+      "A customizable and interactive audio spectrum component that visually represents audio frequencies in real-time.",
     topics: ["react", "tailwindcss", "framer motion"],
     code: {
       code: fs.readFileSync(
@@ -34,7 +35,8 @@ export const occ: OCC[] = [
       _type: "slug",
       current: "message-bubbles",
     },
-    description: "A message bubbles component.",
+    description:
+      "An intuitive and responsive message bubbles component that elegantly displays conversations or notifications in a chat-like format.",
     topics: ["react", "tailwindcss", "framer motion"],
     code: {
       code: fs.readFileSync(
@@ -47,13 +49,14 @@ export const occ: OCC[] = [
   },
   {
     _id: "your-signature",
-    mainImage: "/occ/your-signature.png",
+    mainImage: "/occ/occ-your-signature.png",
     title: "Your Signature",
     slug: {
       _type: "slug",
       current: "your-signature",
     },
-    description: "Your signature component.",
+    description:
+      "A versatile and interactive signature component that allows users to create, preview, and submit their handwritten signatures digitally.",
     topics: ["react", "tailwindcss", "framer motion", "sonner"],
     code: {
       code: fs.readFileSync(
@@ -107,7 +110,7 @@ export const occ: OCC[] = [
   },
   {
     _id: "occ-picture-editor",
-    mainImage: "/occ/picture-editor.png",
+    mainImage: "/occ/occ-picture-editor.png",
     title: "Picture editor",
     slug: {
       _type: "slug",

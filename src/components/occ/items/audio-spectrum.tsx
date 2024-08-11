@@ -1,12 +1,15 @@
 "use client";
 
 import { PowerIcon } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 export function AudioSpectrum() {
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
-  // const audio = useMemo(() => new Audio("/audio/button-click.wav"), []);
+
+  const [animationsLeft, setAnimationsLeft] = useState(Array(20).fill({}));
+  const [animationsRight, setAnimationsRight] = useState(Array(20).fill({}));
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -14,31 +17,92 @@ export function AudioSpectrum() {
     }
   }, []);
 
+  function generateAnimation(
+    index: number,
+    isRecording: boolean,
+    isLeft: boolean,
+  ) {
+    const direction = isLeft ? -1 : 1;
+    const largeIndex = Math.floor(animationsLeft.length / 2);
+    const maxTranslation = 50;
+    const minTranslation = Math.random() * 20;
+    const spread = 3;
+
+    const distance = Math.abs(index - largeIndex);
+
+    const translation =
+      maxTranslation * Math.exp(-Math.pow(distance / spread, 2)) +
+      minTranslation;
+
+    return isRecording
+      ? {
+          translateX: [0, direction * translation, 0],
+          transition: {
+            repeat: Infinity,
+            duration: 0.5,
+            ease: "easeInOut",
+            delay: Math.random() * 0.5,
+            repeatType: "reverse",
+          },
+        }
+      : { translateX: 0 };
+  }
+
   function handleStartRecording() {
+    setIsRecording(true);
+
     if (audio) {
       audio.pause();
       audio.currentTime = 0;
       audio.play();
     }
+
+    setAnimationsLeft((prev) =>
+      prev.map((animation, index) => generateAnimation(index, true, true)),
+    );
+    setAnimationsRight((prev) =>
+      prev.map((animation, index) => generateAnimation(index, true, false)),
+    );
   }
 
   function handleStopRecording() {
+    setIsRecording(false);
+
     if (audio) {
       audio.pause();
       audio.currentTime = 0;
       audio.play();
     }
+
+    setAnimationsLeft((prev) =>
+      prev.map((animation, index) => generateAnimation(index, false, true)),
+    );
+    setAnimationsRight((prev) =>
+      prev.map((animation, index) => generateAnimation(index, false, false)),
+    );
   }
 
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <div className="w-52 h-52 rounded-full flex items-center justify-center overflow-hidden cursor-pointer">
-        {Array.from({ length: 20 }, (_, index) => (
-          <span
-            key={index}
-            className="inline-block w-2 h-full bg-foreground mx-1"
-          />
-        ))}
+      <div className="w-52 h-52 rounded-full flex items-center justify-center gap-2 overflow-hidden cursor-none">
+        <div className="w-52 h-52 flex flex-col items-center justify-center gap-2">
+          {Array.from({ length: 20 }, (_, index) => (
+            <motion.span
+              key={index}
+              className="inline-block w-full h-2 bg-foreground"
+              animate={animationsLeft[index]}
+            />
+          ))}
+        </div>
+        <div className="w-52 h-52 flex flex-col items-center justify-center gap-2">
+          {Array.from({ length: 20 }, (_, index) => (
+            <motion.span
+              key={index}
+              className="inline-block w-full h-2 bg-foreground"
+              animate={animationsRight[index]}
+            />
+          ))}
+        </div>
       </div>
 
       <div
