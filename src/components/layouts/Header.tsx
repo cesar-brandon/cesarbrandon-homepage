@@ -50,9 +50,10 @@ const Header: React.FC = () => {
 				`}
       >
         <HeaderItem title="Projects" href="/projects" />
-        <HeaderItem title="Posts" href="/posts" />
+        <HeaderItem title="Components" href="/occ" />
         <div />
-        <HeaderItem title="About" href="/about" />
+        {/* <HeaderItem title="About" href="/about" /> */}
+        <HeaderItem title="Posts" href="/posts" />
 
         <ToggleTheme />
       </div>
