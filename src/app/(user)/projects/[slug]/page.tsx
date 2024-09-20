@@ -41,8 +41,12 @@ const query = groq`
 
 const ProjectPage = async ({ params: { slug } }: Props) => {
   let project = {} as Project;
+  let projectBlocks = [] as Block[];
+  let projectImages = [] as Block[];
   try {
     project = await sanityClient.fetch(query, { slug });
+    projectBlocks = project.body.filter((block) => block._type === "block");
+    projectImages = project.body.filter((block) => block._type === "image");
   } catch (error) {
     console.error("Error fetching project: ", error);
   }
@@ -54,14 +58,19 @@ const ProjectPage = async ({ params: { slug } }: Props) => {
   return (
     <article className="mb-10">
       <section className="relative h-96 w-full overflow-hidden rounded-xl">
-        <Link href="/projects" className="absolute left-4 top-4 z-10">
+        <Link
+          href="/projects"
+          className="group absolute left-0 top-0 p-2 z-10 bg-background/30 border border-background/30
+          dark:border-foreground/30 hover:border-background/70 backdrop-blur rounded-xl hover:rounded-br-3xl transition-all duration-300"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={2}
             stroke="currentColor"
-            className="h-12 w-12 text-white"
+            className="h-12 w-12 text-background/70 dark:text-foreground/70 
+            group-hover:text-background/90 dark:group-hover:text-foreground/90 transition-colors duration-300"
           >
             <path
               strokeLinecap="round"
@@ -112,14 +121,11 @@ const ProjectPage = async ({ params: { slug } }: Props) => {
         </div>
       </div>
       <section className="flex gap-8">
-        <div className="w-full">
-          <PortableText value={project.body} components={RichTextComponents} />
+        <div className="w-[40%]">
+          <PortableText value={projectBlocks} components={RichTextComponents} />
         </div>
-        <div className="flex w-full flex-col gap-5">
-          <div className="h-60 w-full rounded border"></div>
-          <div className="h-60 w-full rounded border"></div>
-          <div className="h-60 w-full rounded border"></div>
-          <div className="h-60 w-full rounded border"></div>
+        <div className="w-[60%] flex flex-col gap-5">
+          <PortableText value={projectImages} components={RichTextComponents} />
         </div>
       </section>
     </article>

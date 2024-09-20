@@ -15,12 +15,12 @@ const Wrap: React.FC = () => {
     setIsExpanded(true);
 
     setTimeout(() => {
-      pathname === "/" ? router.push("/about") : router.push("/");
+      pathname === "/" ? router.push("/projects") : router.push("/");
     }, 500);
   };
 
   useEffect(() => {
-    if (pathname === "/" || pathname === "/about") {
+    if (pathname === "/" || pathname === "/projects") {
       setIsExpanded(false);
     }
   }, [pathname]);
@@ -31,7 +31,9 @@ const Wrap: React.FC = () => {
         id="animated-circle"
         className={cn(
           "absolute left-1/2 -ml-[36px] top-[10px] w-[72px] h-[72px] rounded-full bg-foreground dark:bg-background z-30 transition-all ease-in-out duration-700",
-          isExpanded ? "transform scale-[80] z-50" : "",
+          isExpanded
+            ? "transform scale-[80] z-50 dark:bg-background/30 dark:backdrop-blur"
+            : "",
         )}
       ></div>
       <div className="group h-[72px] w-[72px] overflow-hidden rounded-full dark:border-2 dark:border-white dark:border-opacity-30  absolute left-1/2 ml-[-36px] top-[10px] z-30">

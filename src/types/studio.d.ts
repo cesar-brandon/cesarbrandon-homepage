@@ -53,7 +53,7 @@ interface Slug {
 
 interface Block {
   _key: string;
-  _type: "Block";
+  _type: "block" | "image" | "code";
   children: Span[];
   markDefs: any[];
   style: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";

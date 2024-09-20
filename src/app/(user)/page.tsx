@@ -4,7 +4,6 @@ import LastPost from "@/components/layouts/LastPost";
 import { getProjects } from "@/services/fetch-projects";
 import LastOCC from "@/components/layouts/last-occ";
 import CarouselContent from "@/components/carousel/carousel-content";
-import { Suspense } from "react";
 import { getLastPosts } from "@/services/fetch-posts";
 import About from "./about/page";
 
