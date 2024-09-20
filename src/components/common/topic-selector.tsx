@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Badge } from "../ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import { parseSearchParams } from "@/lib/url-state";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 interface FilterProps {
   topics: Topic[];
@@ -30,31 +31,34 @@ export function TopicSelector({ topics }: FilterProps) {
   }, [selectedTopics, router]);
 
   return (
-    <div className="pb-2 flex items-end justify-end">
-      {topics.map((topic) => (
-        <Badge
-          key={topic._id}
-          variant={"outline"}
-          className={cn(
-            "font-medium cursor-pointer transition-all duration-300",
-            selectedTopics.includes(topic._id)
-              ? `bg-secondary text-primary-foreground border-foreground dark:border-secondary`
-              : "text-foreground border-foreground dark:border-foreground/30",
-          )}
-          onClick={() => {
-            setSelectedTopics((prev) =>
-              prev.includes(topic._id)
-                ? prev.filter((t) => t !== topic._id)
-                : [...prev, topic._id],
-            );
-          }}
-        >
-          {topic.title}
-          {selectedTopics.includes(topic._id) && (
-            <CheckCircle2 className="w-4 h-4 ml-1" />
-          )}
-        </Badge>
-      ))}
-    </div>
+    <ScrollArea className="w-full whitespace-nowrap">
+      <div className="pb-2 flex items-end justify-end">
+        {topics.map((topic) => (
+          <Badge
+            key={topic._id}
+            variant={"outline"}
+            className={cn(
+              "font-medium cursor-pointer transition-all duration-300",
+              selectedTopics.includes(topic._id)
+                ? `bg-secondary text-primary-foreground border-foreground dark:border-secondary`
+                : "text-foreground border-foreground dark:border-foreground/30",
+            )}
+            onClick={() => {
+              setSelectedTopics((prev) =>
+                prev.includes(topic._id)
+                  ? prev.filter((t) => t !== topic._id)
+                  : [...prev, topic._id],
+              );
+            }}
+          >
+            {topic.title}
+            {selectedTopics.includes(topic._id) && (
+              <CheckCircle2 className="w-4 h-4 ml-1" />
+            )}
+          </Badge>
+        ))}
+      </div>
+      <ScrollBar orientation="horizontal" />
+    </ScrollArea>
   );
 }
