@@ -8,8 +8,8 @@ import { GeistMono as fontMono } from "geist/font/mono";
 import { Cormorant_Garamond } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Metadata, Viewport } from "next";
-// import { Analytics } from "@vercel/analytics/react";
-// import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "../globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { draftMode } from "next/headers";
@@ -104,8 +104,8 @@ export default function RootLayout({
               {draftMode().isEnabled && <LiveVisualEditing />}
             </main>
 
-            {/* <Analytics mode={"production"} /> */}
-            {/* <SpeedInsights /> */}
+            <Analytics mode={"production"} />
+            <SpeedInsights />
             <TailwindIndicator />
             <Toaster />
           </Providers>
