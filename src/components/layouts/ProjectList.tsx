@@ -1,6 +1,6 @@
-import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import React from "react";
 import PreviewProject from "../common/preview-project";
+import { Coffee } from "lucide-react";
 
 type Props = {
   projects: Project[];
@@ -10,7 +10,7 @@ const ProjectList: React.FC<Props> = ({ projects }) => {
   if (!projects || projects.length === 0) {
     return (
       <div className="flex h-72 w-full flex-col items-center justify-center gap-4">
-        <NoSymbolIcon className="h-40 w-40 stroke-primary stroke-1" />
+        <Coffee className="h-40 w-40 stroke-primary stroke-1" />
         <span>There are no projects at the moment</span>
       </div>
     );

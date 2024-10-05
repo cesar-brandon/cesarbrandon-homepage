@@ -114,9 +114,11 @@ const ProjectPage = async ({ params: { slug } }: Props) => {
         <div className="flex gap-4">
           {Array.isArray(project.topics) &&
             project.topics.map((topic) => (
-              <Badge key={topic.title} variant="secondary">
-                {topic.title}
-              </Badge>
+              <Link key={topic._id} href={`/projects?topics=${topic._id}`}>
+                <Badge key={topic.title} variant="secondary">
+                  {topic.title}
+                </Badge>
+              </Link>
             ))}
         </div>
       </div>
