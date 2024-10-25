@@ -13,7 +13,7 @@ const OPTIONS_DRAFT: EmblaOptionsType = {
 
 export default function LastOCC() {
   return (
-    <div className="relative flex flex-col justify-center gap-10">
+    <div className="relative flex flex-col justify-center px-6 py-6 gap-10 bg-white dark:bg-border rounded-3xl">
       <Button
         className={"w-full group text-2xl font-normal rounded-full p-0"}
         variant="ghost"

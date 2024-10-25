@@ -21,7 +21,7 @@ export function CarouselItemX({ _id, slug, mainImage }: Props) {
           alt={ariaLabel}
           width="1920"
           height="1080"
-          className="object-cover"
+          className="object-cover rounded-xl"
         />
       </div>
     </ClientSideRoute>

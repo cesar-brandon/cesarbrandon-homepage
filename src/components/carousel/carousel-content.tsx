@@ -8,7 +8,7 @@ interface Props {
 
 export default function CarouselContent({ slides, axis }: Props) {
   return (
-    <div className={`${!axis ? "flex" : "h-full"}`}>
+    <div className={`${!axis ? "flex gap-10" : "h-full"}`}>
       {slides &&
         slides.map(({ _id, slug, title, mainImage }: Post | Project | OCC) =>
           axis ? (

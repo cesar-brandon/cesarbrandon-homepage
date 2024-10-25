@@ -15,9 +15,9 @@ const Header: React.FC = () => {
   return (
     <header
       ref={containerRef}
-      className="md:relative h-28 px-10 py-10
+      className="md:relative h-20 px-10 py-5 mx-10 mt-4
 			transition-all duration-500 ease z-30 md:z-10
-			md:flex-row md:items-center md:justify-between"
+			md:flex-row md:items-center md:justify-between bg-white dark:bg-border rounded-3xl"
       onBlur={handleBlur}
       tabIndex={0}
     >

@@ -57,12 +57,7 @@ const Carousel: React.FC<PropType> = (props) => {
   }
 
   return (
-    <div
-      className={cn(
-        "overflow-hidden rounded-xl z-[1]",
-        className,
-      )}
-    >
+    <div className={cn("overflow-hidden rounded-xl z-[1]", className)}>
       {!axis && (
         <>
           <motion.div

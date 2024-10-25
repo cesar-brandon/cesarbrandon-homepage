@@ -22,7 +22,7 @@ export const metadata = {
 
 const About: React.FC = () => {
   return (
-    <div className="relative flex rounded-xl p-6 transition-all duration-300">
+    <div className="relative flex rounded-3xl p-6 transition-all duration-300 bg-white dark:bg-border pb-14">
       <div className="w-full lg:w-[55%] pb-10">
         <h1 className="text-5xl font-bold">Cesar Brandon</h1>
         <h2 className="mt-4 text-3xl font-medium">
@@ -109,11 +109,11 @@ const About: React.FC = () => {
         {/* <Character className="absolute -right-4" /> */}
       </div>
 
-      <div className="absolute right-5 -bottom-4 flex items-center justify-center gap-8">
+      <div className="absolute right-6 bottom-4 flex items-center justify-center gap-8">
         <Link
           href="https://docs.google.com/document/d/1spilQxMQszKQdWeNjdFq0tHLH4EAekX-PRXsi9EkeJM/edit?usp=sharing"
           target="_blank"
-          className="text-primary"
+          className="text-primary pt-1"
         >
           Resume{"↗"}
         </Link>
