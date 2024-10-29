@@ -11,7 +11,7 @@ const BlogList: React.FC<Props> = ({ posts }) => {
   if (!posts || posts.length === 0) {
     return (
       <div className="w-full h-72 flex flex-col items-center justify-center gap-4">
-        <Coffee className="stroke-primary stroke-1 w-32 h-32" />
+        <Coffee className="stroke-primary stroke-[1.4px] w-32 h-32" />
         There are no posts at this time
       </div>
     );

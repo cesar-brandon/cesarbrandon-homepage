@@ -16,7 +16,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col gap-4 mb-10">
       <About />
-      <section className="relative bg-white dark:bg-border rounded-3xl p-6">
+      <section className="relative bg-white dark:bg-border/50 rounded-3xl p-6">
         <Carousel slides={projects} options={OPTIONS_PROJECT}>
           <CarouselContent slides={projects} />
         </Carousel>

@@ -20,7 +20,7 @@ export function OCCItem({ index, item, children }: Props) {
         index={index}
       />
       <div
-        className={`relative w-full h-[25rem] rounded border flex items-center justify-center m-auto ${
+        className={`relative w-full h-[25rem] rounded-3xl border flex items-center justify-center m-auto ${
           codeMode ? "overflow-y-auto overflow-x-auto" : "overflow-y-auto"
         }`}
       >

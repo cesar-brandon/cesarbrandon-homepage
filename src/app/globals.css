@@ -10,7 +10,7 @@
     --muted-foreground: 76 10% 37%;
     --popover: 256 69% 98%;
     --popover-foreground: 256 79% 3%;
-    --card: 256 69% 98%;
+    --card: 0, 0%, 100%;
     --card-foreground: 256 79% 3%;
     --border: 256 12% 92%;
     --input: 256 12% 92%;
@@ -34,7 +34,7 @@
     --muted-foreground: 76 10% 63%;
     --popover: 256 50% 1%;
     --popover-foreground: 256 24% 100%;
-    --card: 256 50% 1%;
+    --card: 260, 20%, 6%;
     --card-foreground: 256 24% 100%;
     --border: 256 12% 11%;
     --input: 256 12% 11%;

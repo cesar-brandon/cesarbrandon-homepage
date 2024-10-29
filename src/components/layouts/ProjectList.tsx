@@ -10,7 +10,7 @@ const ProjectList: React.FC<Props> = ({ projects }) => {
   if (!projects || projects.length === 0) {
     return (
       <div className="flex h-72 w-full flex-col items-center justify-center gap-4">
-        <Coffee className="h-40 w-40 stroke-primary stroke-1" />
+        <Coffee className="stroke-primary stroke-[1.4px] w-32 h-32" />
         <span>There are no projects at the moment</span>
       </div>
     );

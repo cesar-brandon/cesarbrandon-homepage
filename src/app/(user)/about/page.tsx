@@ -22,7 +22,7 @@ export const metadata = {
 
 const About: React.FC = () => {
   return (
-    <div className="relative flex rounded-3xl p-6 transition-all duration-300 bg-white dark:bg-border pb-14">
+    <div className="relative flex rounded-3xl p-6 transition-all duration-300 bg-card pb-14">
       <div className="w-full lg:w-[55%] pb-10">
         <h1 className="text-5xl font-bold">Cesar Brandon</h1>
         <h2 className="mt-4 text-3xl font-medium">

@@ -109,8 +109,10 @@ export default function RootLayout({
             <TailwindIndicator />
             <Toaster />
           </Providers>
-          <footer className="flex flex-col items-center justify-center gap-4 mb-10">
-            <p className="text-sm">Cesar Brandon © 2024</p>
+          <footer className="mx-auto flex flex-col items-center justify-center gap-4 mb-10 px-10">
+            <p className="w-full max-w-7xl pt-6 rounded-3xl text-sm text-center">
+              Cesar Brandon © 2024
+            </p>
           </footer>
         </body>
       </html>

@@ -64,7 +64,7 @@ const ToggleTheme: React.FC = () => {
         className={`absolute w-28  ${
           isOpen ? "h-32" : "h-10"
         } flex flex-col mt-4 overflow-hidden
-        bg-zinc-900 md:bg-background font-normal text-zinc-500 hover:text-zinc-50
+        bg-zinc-900 md:bg-white font-normal text-zinc-500 hover:text-zinc-50
         border border-zinc-500 hover:border-zinc-50 rounded-lg cursor-pointer
         transition-all duration-150 
         md:mt-0 md:hover:text-zinc-900 md:border-zinc-300 md:hover:border-zinc-900

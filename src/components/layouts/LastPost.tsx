@@ -16,7 +16,7 @@ export default function LastPost({ postTitles }: Props) {
   };
 
   return (
-    <div className="flex flex-col justify-center px-6 py-6 gap-10 bg-white dark:bg-border rounded-3xl">
+    <div className="flex flex-col justify-center px-6 py-6 gap-10 bg-card rounded-3xl">
       <ButtonLink
         className="group text-2xl font-normal"
         href="/posts"
