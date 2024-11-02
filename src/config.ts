@@ -1,1 +1,1 @@
-export const OCC_TOTAL = 6;
+export const OCC_TOTAL = 7;

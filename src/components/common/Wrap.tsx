@@ -12,11 +12,13 @@ const Wrap: React.FC = () => {
   const pathname = usePathname();
 
   const handleCircleClick = () => {
-    setIsExpanded(true);
+    if (pathname !== "/") {
+      setIsExpanded(true);
 
-    setTimeout(() => {
-      router.push("/");
-    }, 500);
+      setTimeout(() => {
+        router.push("/");
+      }, 500);
+    }
   };
 
   useEffect(() => {

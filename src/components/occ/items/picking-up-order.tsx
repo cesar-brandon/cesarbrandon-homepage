@@ -127,6 +127,7 @@ export function DeliveryCall({ isCalling }: { isCalling: boolean }) {
     <motion.div
       animate={{
         y: isCalling ? 90 : 0,
+        zIndex: isCalling ? 1 : -1,
       }}
       className="absolute bottom-0 left-0 flex items-center justify-between gap-4 h-20
       w-full bg-background border rounded-3xl p-5 z-[-1]"

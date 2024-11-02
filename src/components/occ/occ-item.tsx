@@ -21,7 +21,9 @@ export function OCCItem({ index, item, children }: Props) {
       />
       <div
         className={`relative w-full h-[25rem] rounded-3xl border flex items-center justify-center m-auto ${
-          codeMode ? "overflow-y-auto overflow-x-auto" : "overflow-y-auto"
+          codeMode
+            ? "overflow-y-auto overflow-x-auto"
+            : "overflow-y-auto bg-card"
         }`}
       >
         {codeMode ? <>{children}</> : <>{item.component}</>}
