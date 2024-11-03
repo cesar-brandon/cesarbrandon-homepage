@@ -235,7 +235,7 @@ export function YourSignature() {
     <div className="flex flex-col items-center justify-center">
       <div
         ref={containerRef}
-        className="relative flex h-[20rem] w-[35rem] items-center justify-center"
+        className="relative flex h-[20rem] w-[20rem] md:w-[35rem] items-center justify-center"
       >
         <Button
           variant="outline"
@@ -258,7 +258,7 @@ export function YourSignature() {
 
         {!isCanvasActive && (
           <div
-            className="absolute h-[17rem] w-[32rem] border flex items-center justify-center
+            className="absolute h-[17rem] w-full md:w-[32rem] border flex items-center justify-center
           z-10 top-6 lef-0 backdrop-blur-sm bg-background/30 rounded-lg"
           >
             {isLoading ? (

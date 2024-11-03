@@ -15,10 +15,7 @@ export function CarouselDialogItem({ children, slide, index }: ItemProps) {
   const snapCount = useCarouselStore((state) => state.snapCount);
 
   return (
-    <CarouselItem
-      className="group relative flex flex-col lg:flex-row gap-4 lg:gap-10
-      mt-10 first:mt-0"
-    >
+    <CarouselItem className="group relative flex flex-col lg:flex-row gap-4 lg:gap-10 pt-16">
       <div className="w-full lg:w-[40%] flex flex-col gap-4">
         <div className="font-medium flex items-center justify-center md:justify-start gap-2">
           {slide.title}{" "}
@@ -39,7 +36,7 @@ export function CarouselDialogItem({ children, slide, index }: ItemProps) {
       </div>
       <CopyToClipboard code={slide.code.code} />
       <div
-        className={`group relative w-full lg:w-[60%] h-[22rem] border rounded flex justify-center ${
+        className={`group relative w-full lg:w-[60%] h-[22rem] border rounded flex items-center justify-center ${
           codeMode ? "overflow-y-auto overflow-x-auto" : "overflow-y-auto"
         }`}
       >

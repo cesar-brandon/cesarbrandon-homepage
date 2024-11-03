@@ -10,7 +10,6 @@ import { CarouselDialogActions } from "./carousel-dialog-actions";
 import { CarouselDialogItem } from "./carousel-dialog-item";
 import Code from "./carousel-dialog-code";
 import { EmblaOptionsType } from "embla-carousel-react";
-import useEmblaCarousel from "embla-carousel-react";
 
 interface CarouselProps {
   children: React.ReactNode;
@@ -22,7 +21,7 @@ export function CarouselDialog({ children, slides, opts }: CarouselProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="max-w-[80%] xl:max-w-[60rem] h-[40rem] py-10">
+      <DialogContent className="max-w-[80%] xl:max-w-[60rem] h-[40rem]">
         {slides && slides.length > 0 ? (
           <Carousel
             orientation="vertical"
@@ -30,7 +29,7 @@ export function CarouselDialog({ children, slides, opts }: CarouselProps) {
               watchDrag: false,
             }}
           >
-            <CarouselContent className="h-[35rem] py-20 box-border">
+            <CarouselContent className="h-[35rem] box-border">
               {slides.map((slide, i) => (
                 <CarouselDialogItem key={slide.title} slide={slide} index={i}>
                   {/* @ts-expect-error Server Component */}
