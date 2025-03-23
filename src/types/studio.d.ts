@@ -27,6 +27,7 @@ interface Project extends Base {
   description: string;
   github: string;
   demo: string;
+  projectType: number;
 }
 
 interface Author extends Base {

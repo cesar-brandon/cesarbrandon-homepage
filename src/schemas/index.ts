@@ -1,4 +1,4 @@
-import blockContent from "./blockContent";
+import blockContent from "./block-content";
 import post from "./post";
 import author from "./author";
 import project from "./project";
