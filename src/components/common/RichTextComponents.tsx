@@ -1,21 +1,10 @@
 import urlFor from "@/lib/urlFor";
-import Image from "next/image";
 import Link from "next/link";
+import ImagePreview from "./image-preview";
 
 const RichTextComponents = {
   types: {
-    image: ({ value }: any) => {
-      return (
-        <div className="relative w-full h-96 m-10 mx-auto bg-border border rounded-xl">
-          <Image
-            className="w-full h-full object-contain"
-            src={urlFor(value).url()}
-            alt="Blog Post Image"
-            fill
-          />
-        </div>
-      );
-    },
+    image: ({ value }: any) => <ImagePreview src={urlFor(value).url()} />,
   },
   list: {
     bullet: ({ children }: any) => (
