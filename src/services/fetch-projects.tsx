@@ -18,7 +18,7 @@ const TOPICS_QUERY = groq`
 
 async function fetchProjects(): Promise<Project[]> {
   let projects = [] as Project[];
-  if (process.env.NODE_ENV == "development") {
+  if (process.env.NODE_ENV !== "development") {
     try {
       projects = await sanityClient.fetch(PROJECTS_QUERY);
     } catch (error) {
@@ -31,7 +31,7 @@ async function fetchProjects(): Promise<Project[]> {
 
 async function fetchTopics(): Promise<Topic[]> {
   let topics = [] as Topic[];
-  if (process.env.NODE_ENV == "development") {
+  if (process.env.NODE_ENV !== "development") {
     try {
       topics = await sanityClient.fetch(TOPICS_QUERY);
     } catch (error) {
