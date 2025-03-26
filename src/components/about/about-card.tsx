@@ -76,7 +76,8 @@ export default function AboutCard() {
               <AccordionTrigger>Tools</AccordionTrigger>
               <AccordionContent>
                 <ul className="text-base flex flex-col gap-4">
-                  Nextjs / Tailwindcss / React / Javascript / TypeScript / Figma
+                  Nextjs / Expo / Tailwindcss / React / Javascript / TypeScript
+                  / Figma
                 </ul>
               </AccordionContent>
             </AccordionItem>

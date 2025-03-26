@@ -1,6 +1,7 @@
 import { groq } from "next-sanity";
 import { sanityClient } from "@/lib/sanity.client";
 import { cache } from "react";
+import { isProd } from "@/config";
 
 export const PROJECTS_QUERY = groq`
   *[_type == "project"] {
@@ -18,7 +19,7 @@ const TOPICS_QUERY = groq`
 
 async function fetchProjects(): Promise<Project[]> {
   let projects = [] as Project[];
-  if (process.env.NODE_ENV !== "development") {
+  if (isProd) {
     try {
       projects = await sanityClient.fetch(PROJECTS_QUERY);
     } catch (error) {
@@ -31,7 +32,7 @@ async function fetchProjects(): Promise<Project[]> {
 
 async function fetchTopics(): Promise<Topic[]> {
   let topics = [] as Topic[];
-  if (process.env.NODE_ENV !== "development") {
+  if (isProd) {
     try {
       topics = await sanityClient.fetch(TOPICS_QUERY);
     } catch (error) {

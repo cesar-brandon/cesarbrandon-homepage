@@ -1,16 +1,15 @@
 import Carousel from "@/components/carousel/carousel";
 import { EmblaOptionsType } from "embla-carousel-react";
-import LastPost from "@/components/layouts/LastPost";
 import { getProjects } from "@/services/fetch-projects";
 import LastOCC from "@/components/layouts/last-occ";
 import CarouselContent from "@/components/carousel/carousel-content";
-import { getLastPosts } from "@/services/fetch-posts";
+import { CompaniesCarousel } from "@/components/layouts/companies-carousel";
 
 const OPTIONS_PROJECT: EmblaOptionsType = { loop: true };
 
 export default async function Home() {
   const projects = await getProjects();
-  const postTitles = await getLastPosts();
+  // const postTitles = await getLastPosts();
 
   return (
     <div className="flex flex-col gap-4 mb-10">
@@ -20,7 +19,8 @@ export default async function Home() {
         </Carousel>
       </section>
       <div className="grid md:grid-cols-2 gap-4">
-        <LastPost postTitles={postTitles} />
+        {/* <LastPost postTitles={postTitles} /> */}
+        <CompaniesCarousel />
         <LastOCC />
       </div>
     </div>
