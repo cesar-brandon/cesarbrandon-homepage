@@ -1,12 +1,12 @@
 import { InfiniteSlider } from "@/components/ui/infinite-slider";
 
 const companies = [
-  { title: "Company 1", image: "1.jpg" },
-  { title: "Company 2", image: "2.png" },
-  { title: "Company 3", image: "3.jpg" },
-  { title: "Company 4", image: "4.webp" },
-  { title: "Company 5", image: "5.png" },
-  { title: "Company 6", image: "6.png" },
+  { title: "Company 1", image: "1.jpg", url: "https://company1.com" },
+  { title: "Company 2", image: "2.png", url: "https://company2.com" },
+  { title: "Company 3", image: "3.jpg", url: "https://company3.com" },
+  { title: "Company 4", image: "4.webp", url: "https://company4.com" },
+  { title: "Company 5", image: "5.png", url: "https://company5.com" },
+  { title: "Company 6", image: "6.png", url: "https://company6.com" },
 ];
 
 export function CompaniesCarousel() {
@@ -19,7 +19,7 @@ export function CompaniesCarousel() {
               key={index}
               src={`/companies/${company.image}`}
               alt={company.title}
-              className="aspect-square w-[80px] sm:w-[120px] rounded-xl object-contain"
+              className="aspect-square w-[80px] sm:w-[120px] rounded-xl object-contain bg-white"
             />
           ))}
         </InfiniteSlider>
