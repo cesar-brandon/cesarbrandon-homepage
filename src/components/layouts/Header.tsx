@@ -4,6 +4,7 @@ import useToggleContainer from "@/hooks/use-toggle-container";
 import { Bars2Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import HeaderItem from "../common/HeaderItem";
 import ToggleTheme from "../common/toggle-theme";
+import { cn } from "@/lib/utils";
 
 const Header: React.FC = () => {
   const { isOpen, toggle, containerRef, handleBlur } = useToggleContainer();
@@ -15,9 +16,12 @@ const Header: React.FC = () => {
   return (
     <header
       ref={containerRef}
-      className="md:relative h-20 px-10 py-5 mx-10 mt-4
-			transition-all duration-500 ease z-30 md:z-10
-			md:flex-row md:items-center md:justify-between bg-card rounded-3xl"
+      className={cn(
+        `md:relative h-24 px-10 py-7 mx-10 mt-4
+			transition-all duration-500 ease z-20 md:z-10
+			md:flex-row md:items-center md:justify-between bg-card rounded-3xl`,
+        isOpen ? "z-40" : "",
+      )}
       onBlur={handleBlur}
       tabIndex={0}
     >

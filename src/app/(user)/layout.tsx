@@ -99,7 +99,7 @@ export default function RootLayout({
           <Providers attribute="class" enableSystem>
             <Header />
             <Wrap />
-            <main className="px-10 min-h-[51rem]">
+            <main className="px-5 sm:px-10 min-h-[51rem]">
               {children}
               {draftMode().isEnabled && <LiveVisualEditing />}
             </main>

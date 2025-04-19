@@ -107,7 +107,7 @@ const ProjectPage = async ({ params: { slug } }: Props) => {
           )}
         </div>
       </section>
-      <div className="my-4 flex justify-between">
+      <div className="my-4 flex flex-col md:flex-row justify-between gap-2">
         <span className="text-sm font-light">
           {formatDate(project.publishedAt)}
         </span>
@@ -122,11 +122,11 @@ const ProjectPage = async ({ params: { slug } }: Props) => {
             ))}
         </div>
       </div>
-      <section className="flex gap-8">
-        <div className="w-[40%]">
+      <section className="flex flex-col md:flex-row gap-8">
+        <div className="md:w-[40%]">
           <PortableText value={projectBlocks} components={RichTextComponents} />
         </div>
-        <div className="w-[60%] flex flex-col gap-5">
+        <div className="md:w-[60%] flex flex-col gap-5">
           <PortableText value={projectImages} components={RichTextComponents} />
         </div>
       </section>

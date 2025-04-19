@@ -32,13 +32,13 @@ const Wrap: React.FC = () => {
       <div
         id="animated-circle"
         className={cn(
-          "absolute left-1/2 -ml-[36px] top-[22px] w-[72px] h-[72px] rounded-full bg-foreground dark:bg-background z-30 transition-all ease-in-out duration-700",
+          "absolute left-1/2 -ml-[36px] top-[28px] w-[72px] h-[72px] rounded-full bg-foreground dark:bg-background z-20 transition-all ease-in-out duration-700",
           isExpanded
             ? "transform scale-[80] z-50 dark:bg-background/30 dark:backdrop-blur"
             : "",
         )}
       ></div>
-      <div className="group h-[72px] w-[72px] overflow-hidden rounded-full dark:border-2 dark:border-white dark:border-opacity-30  absolute left-1/2 ml-[-36px] top-[23px] z-30">
+      <div className="group h-[72px] w-[72px] overflow-hidden rounded-full dark:border-2 dark:border-white dark:border-opacity-30  absolute left-1/2 ml-[-36px] top-[28px] z-20">
         <Image
           className={cn(
             "cursor-pointer mt-6 group-hover:mt-2 group-hover:animate-none transition-all duration-300",

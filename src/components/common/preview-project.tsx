@@ -1,36 +1,89 @@
+"use client";
 import urlFor from "@/lib/urlFor";
-import React from "react";
+import React, { useState } from "react";
 import BlurImage from "./blur-image";
 import ClientSideRoute from "./ClientSideRoute";
+import { motion } from "motion/react";
+import { ProgressiveBlur } from "../ui/progressive-blur";
 
 type Props = {
   post: Post;
 };
 
 export default function PreviewProject({ post }: Props) {
+  const [isHover, setIsHover] = useState(false);
+
   return (
     <ClientSideRoute
       ariaLabel="Read More"
       route={`/projects/${post.slug.current}`}
-      className="group relative h-80 w-full overflow-hidden rounded-xl dark:border-none"
     >
-      <div className="h-[80%] w-full overflow-hidden rounded-xl transition-all duration-300">
+      <div
+        className="relative my-4 aspect-square h-[300px] overflow-hidden rounded-3xl"
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+      >
         <BlurImage
           className="object-cover object-center dark:border-none"
           src={urlFor(post.mainImage).url()}
           alt={post.author.name}
           fill
         />
-      </div>
-      <div className="absolute left-0 right-0 top-0 flex h-full w-full flex-col justify-between gap-2 bg-background/40 p-4 opacity-0 backdrop-blur transition-all duration-300 group-hover:opacity-100">
-        <span className="font-cursive text-7xl text-foreground">
-          {post.title}
-        </span>
-        <p className="line-clamp-2">{post.description}</p>
+        <ProgressiveBlur
+          className="pointer-events-none absolute bottom-0 left-0 h-[75%] w-full"
+          blurIntensity={4}
+          animate={isHover ? "visible" : "hidden"}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1 },
+          }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+        />
+        <motion.div
+          className="absolute bottom-0 left-0"
+          animate={isHover ? "visible" : "hidden"}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1 },
+          }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+        >
+          <div className="flex flex-col items-start gap-0 px-5 py-4">
+            <p className="text-base font-medium text-white ">{post.title}</p>
+            <span className="text-base text-zinc-300 line-clamp-1">
+              {post.description}
+            </span>
+          </div>
+        </motion.div>
       </div>
     </ClientSideRoute>
   );
 }
+
+// export default function PreviewProject({ post }: Props) {
+//   return (
+//     <ClientSideRoute
+//       ariaLabel="Read More"
+//       route={`/projects/${post.slug.current}`}
+//       className="group relative h-80 w-full overflow-hidden rounded-xl dark:border-none"
+//     >
+//       <div className="h-[80%] w-full overflow-hidden rounded-xl transition-all duration-300">
+//         <BlurImage
+//           className="object-cover object-center dark:border-none"
+//           src={urlFor(post.mainImage).url()}
+//           alt={post.author.name}
+//           fill
+//         />
+//       </div>
+//       <div className="absolute left-0 right-0 top-0 flex h-full w-full flex-col justify-between gap-2 bg-background/40 p-4 opacity-0 backdrop-blur transition-all duration-300 group-hover:opacity-100">
+//         <span className="font-cursive text-7xl text-foreground">
+//           {post.title}
+//         </span>
+//         <p className="line-clamp-2">{post.description}</p>
+//       </div>
+//     </ClientSideRoute>
+//   );
+// }
 // export default function PreviewProject({ post }: Props) {
 //   return (
 //     <div className="group relative h-80 w-full overflow-hidden rounded-xl dark:border-none">
