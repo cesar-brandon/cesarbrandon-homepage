@@ -8,9 +8,9 @@ interface Props {
 
 export default function CarouselContent({ slides, axis }: Props) {
   return (
-    <div className={`${!axis ? "flex gap-10" : "h-full"}`}>
+    <div className={`${!axis ? "flex gap-10 px-5" : "h-full"}`}>
       {slides &&
-        slides.map(({ _id, slug, title, mainImage }: Post | Project | OCC) =>
+        slides.map(({ _id, slug, title, mainImage, description }: Post | Project | OCC) =>
           axis ? (
             <CarouselItemY
               key={_id}
@@ -24,6 +24,8 @@ export default function CarouselContent({ slides, axis }: Props) {
               _id={_id}
               slug={slug}
               mainImage={mainImage}
+              title={title}
+              description={description}
             />
           ),
         )}

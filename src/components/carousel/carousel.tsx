@@ -24,12 +24,13 @@ type PropType = {
   options?: EmblaOptionsType;
   className?: string;
   children: React.ReactNode;
+  autoplay?: boolean;
 };
 
 const Carousel: React.FC<PropType> = (props) => {
-  const { slides, options, className, children } = props;
+  const { slides, options, className, children, autoplay = true } = props;
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [
-    Autoplay({ delay: 3000 }),
+    ...(autoplay ? [Autoplay({ delay: 5000 })] : []),
   ]);
 
   const onButtonClick = useCallback((emblaApi: EmblaCarouselType) => {

@@ -13,7 +13,7 @@ export function CompaniesCarousel() {
   return (
     <div className="w-[80dvw] sm:w-[90dvw] md:w-full flex flex-col justify-center px-6 py-6 gap-10 bg-card rounded-3xl">
       <section className=" flex justify-center">
-        <InfiniteSlider speedOnHover={30} speed={50} gap={16}>
+        <InfiniteSlider speedOnHover={200} speed={20} gap={16}>
           {companies.map((company, index) => (
             <img
               key={index}

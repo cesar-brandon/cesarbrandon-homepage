@@ -33,6 +33,7 @@ export default function LastOCC() {
           slides={occ}
           options={OPTIONS_DRAFT}
           className="w-full h-[16rem]"
+          autoplay={false}
         >
           <CarouselContent slides={occ} axis="y" />
         </Carousel>
