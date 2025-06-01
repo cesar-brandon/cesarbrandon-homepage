@@ -3,7 +3,7 @@ import { Disc3Icon, Frame, RotateCcw, Upload, ZoomIn } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Rnd } from "react-rnd";
 import { useDropzone } from "react-dropzone";
@@ -29,59 +29,170 @@ export function PictureEditor() {
   });
   const [adjust, setAdjust] = useState(false);
   const [files, setFiles] = useState<FileWithPreview[]>([]);
+  const [brightness, setBrightness] = useState(100);
+  const [contrast, setContrast] = useState(100);
+  const [saturation, setSaturation] = useState(100);
+  const [filters, setFilters] = useState<string>("none");
 
-  const onDrop = useCallback((acceptedFiles: any) => {
-    console.log(acceptedFiles);
-    setFiles(
-      acceptedFiles.map((file: Blob | MediaSource) =>
-        Object.assign(file, {
-          preview: URL.createObjectURL(file),
-        }),
-      ),
-    );
-  }, []);
+  useEffect(() => {
+    return () => {
+      files.forEach((file) => URL.revokeObjectURL(file.preview));
+    };
+  }, [files]);
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      files.forEach((file) => URL.revokeObjectURL(file.preview));
+      setFiles(
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        )
+      );
+      // Resetear ajustes al cargar nueva imagen
+      setScale(1);
+      setRotate({ angle: 0, isVisible: false });
+      setAdjust(false);
+      setBrightness(100);
+      setContrast(100);
+      setSaturation(100);
+      setFilters("none");
+    },
+    [files]
+  );
+
+  const resetFilters = () => {
+    setScale(1);
+    setRotate({ angle: 0, isVisible: false });
+    setAdjust(false);
+    setBrightness(100);
+    setContrast(100);
+    setSaturation(100);
+    setFilters("none");
+  };
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: {
+      "image/*": [".png", ".jpg", ".jpeg", ".gif", ".webp"],
+    },
+    maxFiles: 1,
+    multiple: false,
+  });
 
   const takeScreenshot = async () => {
-    const node = document.querySelector("#image-container");
-    if (!node) return;
+    try {
+      const node = document.querySelector("#image-container");
+      if (!node) throw new Error("No se encontró el contenedor de la imagen");
 
-    const imgElement = node.querySelector("img");
-    if (!imgElement) return;
+      const imgElement = node.querySelector("img");
+      if (!imgElement) throw new Error("No se encontró la imagen");
 
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      if (!ctx) throw new Error("No se pudo crear el contexto del canvas");
 
-    canvas.width = node.clientWidth;
-    canvas.height = node.clientHeight;
+      // Obtener la resolución actual del ajuste
+      const adjustmentTool = document.querySelector(".rnd-container");
+      let relativeX = 0;
+      let relativeY = 0;
+      let relativeWidth = 1;
+      let relativeHeight = 1;
 
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.src = imgElement.src;
+      if (adjustmentTool) {
+        const rect = adjustmentTool.getBoundingClientRect();
+        const containerRect = node.getBoundingClientRect();
 
-    img.onload = () => {
-      const scaleRatio = Math.max(
-        canvas.width / img.width,
-        canvas.height / img.height,
+        // Calcular las proporciones relativas
+        relativeX = (rect.x - containerRect.x) / containerRect.width;
+        relativeY = (rect.y - containerRect.y) / containerRect.height;
+        relativeWidth = rect.width / containerRect.width;
+        relativeHeight = rect.height / containerRect.height;
+      }
+
+      // Obtener la resolución actual del estado
+      const resolutionElement = document.querySelector(
+        ".text-white.text-xs.font-mono"
       );
-      const x = (canvas.width - img.width * scaleRatio) / 2;
-      const y = (canvas.height - img.height * scaleRatio) / 2;
+      const resolution = {
+        width: 1920,
+        height: 1080,
+      };
 
+      if (resolutionElement) {
+        const [width, height] = resolutionElement.textContent
+          ?.split(" x ")
+          .map(Number) || [1920, 1080];
+        resolution.width = width;
+        resolution.height = height;
+      }
+
+      canvas.width = resolution.width;
+      canvas.height = resolution.height;
+
+      // Crear una imagen temporal para aplicar los filtros
+      const tempCanvas = document.createElement("canvas");
+      const tempCtx = tempCanvas.getContext("2d");
+      if (!tempCtx) throw new Error("No se pudo crear el contexto temporal");
+
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.src = imgElement.src;
+
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+      });
+
+      // Aplicar los filtros en el canvas temporal
+      tempCanvas.width = img.width;
+      tempCanvas.height = img.height;
+      tempCtx.filter = `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturation}%) ${filters === "none" ? "" : filters}`;
+      tempCtx.drawImage(img, 0, 0);
+
+      // Aplicar las transformaciones en el canvas principal
       ctx.save();
       ctx.translate(canvas.width / 2, canvas.height / 2);
       ctx.rotate((rotate.angle * Math.PI) / 180);
       ctx.scale(scale, scale);
       ctx.translate(-canvas.width / 2, -canvas.height / 2);
-      ctx.drawImage(img, x, y, img.width * scaleRatio, img.height * scaleRatio);
+
+      // Dibujar la imagen con los filtros aplicados y el recorte
+      ctx.drawImage(
+        tempCanvas,
+        relativeX * img.width,
+        relativeY * img.height,
+        relativeWidth * img.width,
+        relativeHeight * img.height,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
       ctx.restore();
 
-      const data = canvas.toDataURL("image/png");
+      // Obtener la fecha actual para el nombre del archivo
+      const date = new Date().toISOString().split("T")[0];
+      const fileName = `imagen-editada-${resolution.width}x${resolution.height}-${date}.png`;
+
+      // Crear y descargar el archivo
+      const data = canvas.toDataURL("image/png", 1.0);
       const a = document.createElement("a");
       a.href = data;
-      a.download = "screenshot.png";
+      a.download = fileName;
       a.click();
+    } catch (error) {
+      console.error("Error al tomar la captura:", error);
+      alert("Hubo un error al procesar la imagen. Por favor, intente de nuevo.");
+    }
+  };
+
+  const getImageStyle = () => {
+    return {
+      filter: `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturation}%) ${filters === "none" ? "" : filters}`,
+      transform: `scale(${scale}) rotate(${rotate.angle}deg)`,
     };
   };
 
@@ -89,12 +200,16 @@ export function PictureEditor() {
     <div className="w-[90%] h-[90%] my-auto rounded-xl bg-background border overflow-hidden">
       <PictureEditorControls takeScreenshot={takeScreenshot} file={files[0]} />
       <div className="relative w-full h-[80%] overflow-hidden border-y">
-        <AdjustementTool isVisible={adjust} />
-        <RotationTool
-          rotate={rotate.angle}
-          setRotate={(value) => setRotate({ ...rotate, angle: value })}
-          isVisible={rotate.isVisible}
-        />
+        {files.length > 0 && (
+          <>
+            <AdjustementTool isVisible={adjust} />
+            <RotationTool
+              rotate={rotate.angle}
+              setRotate={(value) => setRotate({ ...rotate, angle: value })}
+              isVisible={rotate.isVisible}
+            />
+          </>
+        )}
         <div
           id="image-container"
           className="w-full h-full overflow-hidden"
@@ -110,12 +225,8 @@ export function PictureEditor() {
           <input {...getInputProps()} />
           {files.length > 0 && (
             <motion.img
-              animate={{
-                scale: scale + rotate.angle / 360,
-                transition: { duration: 0 },
-                rotateZ: rotate.angle,
-              }}
-              className={`w-full h-full object-cover transform transition-transform duration-300 ease-in-out select-none`}
+              style={getImageStyle()}
+              className="w-full h-full object-cover transform transition-all duration-300 ease-in-out select-none"
               src={files[0].preview}
               alt="picture"
               draggable="false"
@@ -130,6 +241,16 @@ export function PictureEditor() {
         setScale={setScale}
         rotate={rotate}
         setRotate={setRotate}
+        brightness={brightness}
+        setBrightness={setBrightness}
+        contrast={contrast}
+        setContrast={setContrast}
+        saturation={saturation}
+        setSaturation={setSaturation}
+        filters={filters}
+        setFilters={setFilters}
+        hasImage={files.length > 0}
+        resetFilters={resetFilters}
       />
     </div>
   );
@@ -177,6 +298,16 @@ interface ActionsProps {
   setAdjust: (value: boolean) => void;
   rotate: { angle: number; isVisible: boolean };
   setRotate: any;
+  brightness: number;
+  setBrightness: (value: number) => void;
+  contrast: number;
+  setContrast: (value: number) => void;
+  saturation: number;
+  setSaturation: (value: number) => void;
+  filters: string;
+  setFilters: (value: string) => void;
+  hasImage: boolean;
+  resetFilters: () => void;
 }
 
 export function PictureEditorActions({
@@ -186,74 +317,195 @@ export function PictureEditorActions({
   setAdjust,
   rotate,
   setRotate,
+  brightness,
+  setBrightness,
+  contrast,
+  setContrast,
+  saturation,
+  setSaturation,
+  filters,
+  setFilters,
+  hasImage,
+  resetFilters,
 }: ActionsProps) {
   const calculatePercentage = (value: number) => {
-    return Math.round(value * 100);
+    return Math.round(value);
   };
+
+  const filterOptions = [
+    { name: "Normal", value: "none" },
+    { name: "Sepia", value: "sepia(100%)" },
+    { name: "B/N", value: "grayscale(100%)" },
+    { name: "Invertir", value: "invert(100%)" },
+    { name: "Vintage", value: "sepia(50%) contrast(120%) brightness(90%)" },
+    { name: "Dramático", value: "contrast(150%) brightness(90%)" },
+    { name: "Suave", value: "contrast(90%) brightness(110%) saturate(90%)" },
+  ];
 
   return (
     <div className="h-[10%] w-full flex items-center justify-center space-x-4 px-2 dark:bg-foreground/10 dark:border-transparent dark:text-muted-foreground">
-      <Button
-        className="w-auto h-6 hover:bg-muted dark:hover:text-accent text-xs"
-        variant="ghost"
-        onClick={() => {
-          setScale(1);
-          setRotate({ angle: 0, isVisible: false });
-          setAdjust(false);
-        }}
-      >
-        <RotateCcw className="h-4 w-4" />
-      </Button>
-      <span className="text-muted dark:text-accent-foreground">|</span>
-      <Button
-        className={`w-auto h-6 hover:bg-muted dark:hover:text-accent text-xs ${
-          adjust ? "bg-muted dark:text-accent" : ""
-        }`}
-        variant="ghost"
-        onClick={() => {
-          setRotate({ ...rotate, isVisible: false });
-          setAdjust(!adjust);
-        }}
-      >
-        <Frame className="h-4 w-4" />
-      </Button>
-      <span className="text-muted dark:text-accent-foreground">|</span>
-      <Button
-        className={`w-auto h-6 hover:bg-muted dark:hover:text-accent text-xs ${
-          rotate.isVisible ? "bg-muted dark:text-accent" : ""
-        }`}
-        variant="ghost"
-        onClick={() => {
-          setAdjust(false);
-          setRotate({ ...rotate, isVisible: !rotate.isVisible });
-        }}
-      >
-        <Disc3Icon className="h-4 w-4" />
-      </Button>
-      <span className="text-muted dark:text-accent-foreground">|</span>
-      <div
-        className="absolute -bottom-6 sm:bottom-0 sm:relative flex w-[80%] sm:w-[60%] items-center justify-between
-        gap-4 bg-background border sm:border-none p-2 rounded-xl dark:bg-foreground/10 dark:border-transparent dark:text-muted-foreground"
-      >
-        <span className="font-mono text-xs">{calculatePercentage(scale)}%</span>
-        {/*by Shadcn -> <SliderPrimitive.Track className="relative h-1 focus-visible:h-2 w-full grow overflow-hidden rounded-full bg-foreground/20"> */}
-        {/*by Shadcn -> <SliderPrimitive.Thumb className="block h-3 w-3 rounded-full border bg-primary ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50" /> */}
-        <Slider
-          value={[scale]}
-          onValueChange={(value) => setScale(value[0])}
-          defaultValue={[2.5]}
-          max={5}
-          min={1}
-          step={0.1}
-          className="w-[60%]"
-        />
-        <ZoomIn className="w-4 h-4" />
+      {hasImage && (
+        <>
+          <Button
+            className="w-auto h-6 hover:bg-muted dark:hover:text-accent text-xs"
+            variant="ghost"
+            onClick={resetFilters}
+          >
+            <RotateCcw className="h-4 w-4" />
+          </Button>
+          <span className="text-muted dark:text-accent-foreground">|</span>
+          <Button
+            className={`w-auto h-6 hover:bg-muted dark:hover:text-accent text-xs ${
+              adjust ? "bg-muted dark:text-accent" : ""
+            }`}
+            variant="ghost"
+            onClick={() => {
+              setRotate({ ...rotate, isVisible: false });
+              setAdjust(!adjust);
+            }}
+          >
+            <Frame className="h-4 w-4" />
+          </Button>
+          <span className="text-muted dark:text-accent-foreground">|</span>
+          <Button
+            className={`w-auto h-6 hover:bg-muted dark:hover:text-accent text-xs ${
+              rotate.isVisible ? "bg-muted dark:text-accent" : ""
+            }`}
+            variant="ghost"
+            onClick={() => {
+              setAdjust(false);
+              setRotate({ ...rotate, isVisible: !rotate.isVisible });
+            }}
+          >
+            <Disc3Icon className="h-4 w-4" />
+          </Button>
+          <span className="text-muted dark:text-accent-foreground">|</span>
+          <div className="relative">
+            <select
+              value={filters}
+              onChange={(e) => setFilters(e.target.value)}
+              className="bg-transparent border rounded px-2 py-1 text-xs appearance-none pr-8"
+            >
+              {filterOptions.map((filter) => (
+                <option key={filter.value} value={filter.value}>
+                  {filter.name}
+                </option>
+              ))}
+            </select>
+            <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2 4L6 8L10 4"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+          </div>
+        </>
+      )}
+      <div className="absolute -bottom-6 sm:bottom-0 sm:relative flex w-[80%] sm:w-[60%] items-center justify-between gap-4 bg-background border sm:border-none p-2 rounded-xl dark:bg-foreground/10 dark:border-transparent dark:text-muted-foreground">
+        {hasImage ? (
+          <>
+            <div className="flex items-center gap-2 w-full">
+              <ZoomIn className="w-4 h-4" />
+              <Slider
+                value={[scale]}
+                onValueChange={(value) => setScale(value[0])}
+                min={0.1}
+                max={3}
+                step={0.1}
+                className="w-full"
+              />
+              <span className="font-mono text-xs">
+                {Math.round(scale * 100)}%
+              </span>
+            </div>
+          </>
+        ) : (
+          <div className="text-center w-full text-muted-foreground">
+            Arrastra una imagen para comenzar
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
 export function AdjustementTool({ isVisible }: { isVisible: boolean }) {
+  const [position, setPosition] = useState({
+    x: 0,
+    y: 0,
+    width: 320,
+    height: 200,
+  });
+  const [aspectRatio, setAspectRatio] = useState(16 / 9);
+  const [resolution, setResolution] = useState({ width: 1920, height: 1080 });
+
+  const handleDragStop = (e: any, d: any) => {
+    setPosition({ ...position, x: d.x, y: d.y });
+  };
+
+  const handleResizeStop = (
+    e: any,
+    direction: any,
+    ref: any,
+    delta: any,
+    position: any
+  ) => {
+    const newWidth = parseInt(ref.style.width);
+    const newHeight = parseInt(ref.style.height);
+    setPosition({
+      x: position.x,
+      y: position.y,
+      width: newWidth,
+      height: newHeight,
+    });
+  };
+
+  const handleResolutionChange = (ratio: number) => {
+    setAspectRatio(ratio);
+    let newResolution = { width: 1920, height: 1080 };
+    if (ratio === 1) {
+      newResolution = { width: 1080, height: 1080 };
+    } else if (ratio === 16 / 9) {
+      newResolution = { width: 1920, height: 1080 };
+    } else if (ratio === 4 / 3) {
+      newResolution = { width: 1440, height: 1080 };
+    }
+    setResolution(newResolution);
+
+    // Actualizar el tamaño del contenedor Rnd
+    const container = document.querySelector(".rnd-container");
+    if (container) {
+      const containerWidth = container.parentElement?.clientWidth || 0;
+      const containerHeight = container.parentElement?.clientHeight || 0;
+
+      // Calcular el nuevo tamaño manteniendo la relación de aspecto
+      let newWidth = containerWidth * 0.8;
+      let newHeight = newWidth / ratio;
+
+      if (newHeight > containerHeight * 0.8) {
+        newHeight = containerHeight * 0.8;
+        newWidth = newHeight * ratio;
+      }
+
+      setPosition({
+        ...position,
+        width: newWidth,
+        height: newHeight,
+      });
+    }
+  };
+
   return (
     <motion.div
       animate={{
@@ -264,26 +516,65 @@ export function AdjustementTool({ isVisible }: { isVisible: boolean }) {
       className="absolute w-full h-full opacity-0 invisible z-10 left-0 bottom-0"
     >
       <Rnd
-        default={{
-          x: 50,
-          y: 50,
-          width: 320,
-          height: 200,
-        }}
+        default={position}
+        position={{ x: position.x, y: position.y }}
+        size={{ width: position.width, height: position.height }}
         minWidth={100}
         maxWidth={"100%"}
         minHeight={100}
         maxHeight={"100%"}
-        className="absolute bottom-0 w-[50%] max-w-[10rem] h-[50%] max-h-full inset-0 m-auto border border-white z-20"
+        onDragStop={handleDragStop}
+        onResizeStop={handleResizeStop}
+        lockAspectRatio={aspectRatio}
+        className="absolute bottom-0 w-[50%] max-w-[10rem] h-[50%] max-h-full inset-0 m-auto border-2 border-white z-20 bg-transparent"
       >
         <AdjustementToolHandle position="top" />
         <AdjustementToolHandle position="bottom" />
         <AdjustementToolHandle position="left" />
         <AdjustementToolHandle position="right" />
-        <div className="absolute top-0 left-1/3 w-[0.01rem]  h-full bg-white transform -translate-x-1/2"></div>
-        <div className="absolute top-1/3 left-0 h-[0.01rem] w-full bg-white transform -translate-y-1/2"></div>
-        <div className="absolute top-0 right-1/3 w-[0.01rem] h-full bg-white transform -translate-x-1/2"></div>
-        <div className="absolute bottom-1/3 left-0 h-[0.01rem] w-full bg-white transform -translate-y-1/2"></div>
+        <div className="absolute top-0 left-1/3 w-[0.01rem] h-full bg-white/80 transform -translate-x-1/2"></div>
+        <div className="absolute top-1/3 left-0 h-[0.01rem] w-full bg-white/80 transform -translate-y-1/2"></div>
+        <div className="absolute top-0 right-1/3 w-[0.01rem] h-full bg-white/80 transform -translate-x-1/2"></div>
+        <div className="absolute bottom-1/3 left-0 h-[0.01rem] w-full bg-white/80 transform -translate-y-1/2"></div>
+
+        {/* Controles de relación de aspecto y resolución */}
+        <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2">
+          <div className="flex gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              className={`h-6 ${
+                aspectRatio === 1 ? "bg-white text-black" : ""
+              }`}
+              onClick={() => handleResolutionChange(1)}
+            >
+              1:1
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className={`h-6 ${
+                aspectRatio === 16 / 9 ? "bg-white text-black" : ""
+              }`}
+              onClick={() => handleResolutionChange(16 / 9)}
+            >
+              16:9
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className={`h-6 ${
+                aspectRatio === 4 / 3 ? "bg-white text-black" : ""
+              }`}
+              onClick={() => handleResolutionChange(4 / 3)}
+            >
+              4:3
+            </Button>
+          </div>
+          <div className="text-white text-xs font-mono">
+            {resolution.width} x {resolution.height}
+          </div>
+        </div>
       </Rnd>
     </motion.div>
   );

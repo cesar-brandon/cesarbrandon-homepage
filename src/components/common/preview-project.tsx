@@ -17,6 +17,7 @@ export default function PreviewProject({ post }: Props) {
     <ClientSideRoute
       ariaLabel="Read More"
       route={`/projects/${post.slug.current}`}
+      className="flex items-center justify-center"
     >
       <div
         className="relative my-4 aspect-square h-[300px] overflow-hidden rounded-3xl"

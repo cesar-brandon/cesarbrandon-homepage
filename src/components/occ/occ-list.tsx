@@ -6,8 +6,29 @@ import { MessageBubbles } from "./items/message-bubbles";
 import { YourSignature } from "./items/your-signature";
 import { AudioSpectrum } from "./items/audio-spectrum";
 import ResizableCardDemo from "./items/resizable-card";
+import { KeyboardKeys } from "./items/keyboard-keys";
 
 export const occ: OCC[] = [
+  {
+    _id: "occ-keyboard-keys",
+    mainImage: "/occ/occ-keyboard-keys.png",
+    title: "Keyboard Keys",
+    slug: {
+      _type: "slug",
+      current: "keyboard-keys",
+    },
+    description:
+      "Un componente visual para mostrar mensajes motivacionales o personalizados usando teclas de teclado.",
+    topics: ["react", "tailwindcss"],
+    code: {
+      code: fs.readFileSync(
+        "src/components/occ/items/keyboard-keys.tsx",
+        "utf-8"
+      ),
+      language: "TSX",
+    },
+    component: <KeyboardKeys />,
+  },
   {
     _id: "occ-resizable-card",
     mainImage: "/occ/occ-resizable-card.png",
@@ -21,7 +42,7 @@ export const occ: OCC[] = [
     code: {
       code: fs.readFileSync(
         "src/components/occ/items/resizable-card.tsx",
-        "utf-8",
+        "utf-8"
       ),
       language: "TSX",
     },
@@ -41,7 +62,7 @@ export const occ: OCC[] = [
     code: {
       code: fs.readFileSync(
         "src/components/occ/items/audio-spectrum.tsx",
-        "utf-8",
+        "utf-8"
       ),
       language: "TSX",
     },
@@ -61,7 +82,7 @@ export const occ: OCC[] = [
     code: {
       code: fs.readFileSync(
         "src/components/occ/items/message-bubbles.tsx",
-        "utf-8",
+        "utf-8"
       ),
       language: "TSX",
     },
@@ -81,7 +102,7 @@ export const occ: OCC[] = [
     code: {
       code: fs.readFileSync(
         "src/components/occ/items/your-signature.tsx",
-        "utf-8",
+        "utf-8"
       ),
       language: "TSX",
     },
@@ -101,7 +122,7 @@ export const occ: OCC[] = [
     code: {
       code: fs.readFileSync(
         "src/components/occ/items/picking-up-order.tsx",
-        "utf-8",
+        "utf-8"
       ),
       language: "TSX",
     },
@@ -122,7 +143,7 @@ export const occ: OCC[] = [
     code: {
       code: fs.readFileSync(
         "src/components/occ/items/smooth-scroll-cards-react.jsx",
-        "utf-8",
+        "utf-8"
       ),
       language: "JSX",
     },
@@ -141,7 +162,7 @@ export const occ: OCC[] = [
     code: {
       code: fs.readFileSync(
         "src/components/occ/items/picture-editor.tsx",
-        "utf-8",
+        "utf-8"
       ),
       language: "TSX",
     },

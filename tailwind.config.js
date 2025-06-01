@@ -19,7 +19,7 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         bloglist: "",
-        projectlist: "repeat(auto-fill, minmax(24rem, 1fr))",
+        projectlist: "repeat(auto-fill, minmax(18rem, 1fr))",
       },
       fontFamily: {
         sans: ["var(--font-geist-sans)"],

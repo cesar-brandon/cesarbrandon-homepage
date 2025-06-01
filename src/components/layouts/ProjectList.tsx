@@ -17,7 +17,7 @@ const ProjectList: React.FC<Props> = ({ projects }) => {
   }
 
   return (
-    <div className="flex grid-cols-projectlist flex-col gap-6 sm:grid">
+    <div className="flex grid-cols-projectlist flex-col gap-4 sm:grid">
       {projects &&
         projects.map((project) => (
           <PreviewProject key={project._id} post={project} />
