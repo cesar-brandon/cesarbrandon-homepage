@@ -10,6 +10,25 @@ import { KeyboardKeys } from "./items/keyboard-keys";
 
 export const occ: OCC[] = [
   {
+    _id: "occ-resizable-card",
+    mainImage: "/occ/occ-resizable-card.png",
+    title: "Resizable Card",
+    slug: {
+      _type: "slug",
+      current: "resizable-card",
+    },
+    description: "A resizable card component with drag and drop functionality.",
+    topics: ["shadcn", "tailwindcss", "framer motion"],
+    code: {
+      code: fs.readFileSync(
+        "src/components/occ/items/resizable-card.tsx",
+        "utf-8"
+      ),
+      language: "TSX",
+    },
+    component: <ResizableCardDemo />,
+  },
+  {
     _id: "occ-keyboard-keys",
     mainImage: "/occ/occ-keyboard-keys.png",
     title: "Keyboard Keys",
@@ -28,25 +47,6 @@ export const occ: OCC[] = [
       language: "TSX",
     },
     component: <KeyboardKeys />,
-  },
-  {
-    _id: "occ-resizable-card",
-    mainImage: "/occ/occ-resizable-card.png",
-    title: "Resizable Card",
-    slug: {
-      _type: "slug",
-      current: "resizable-card",
-    },
-    description: "A resizable card component with drag and drop functionality.",
-    topics: ["shadcn", "tailwindcss", "framer motion"],
-    code: {
-      code: fs.readFileSync(
-        "src/components/occ/items/resizable-card.tsx",
-        "utf-8"
-      ),
-      language: "TSX",
-    },
-    component: <ResizableCardDemo />,
   },
   {
     _id: "audio-spectrum",
