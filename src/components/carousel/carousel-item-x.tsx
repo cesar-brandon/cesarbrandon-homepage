@@ -22,7 +22,7 @@ export function CarouselItemX({ _id, slug, mainImage, title, description }: Prop
           alt={ariaLabel}
           width="1920"
           height="1080"
-          className="object-cover rounded-xl"
+          className="object-cover rounded-xl border"
         />
         <div className="absolute bottom-5 -left-5 flex flex-col gap-2 z-20">
           {title && (

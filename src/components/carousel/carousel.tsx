@@ -16,8 +16,6 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import { cn } from "@/lib/utils";
 import { CarouselLoader } from "./carousel-loader";
-import Sticker from "../ui/sticker";
-import { motion } from "framer-motion";
 
 type PropType = {
   slides: Post[] | Project[] | OCC[];
@@ -59,7 +57,7 @@ const Carousel: React.FC<PropType> = (props) => {
 
   return (
     <div className={cn("overflow-hidden rounded-xl z-[1]", className)}>
-      {!axis && (
+      {/* {!axis && (
         <>
           <motion.div
             animate={{ translateY: [0, 10, 0] }}
@@ -80,7 +78,7 @@ const Carousel: React.FC<PropType> = (props) => {
             <Sticker type="asterisk" className="w-full h-full" />
           </motion.div>
         </>
-      )}
+      )} */}
       <div className="h-full" ref={emblaRef}>
         {children}
       </div>
