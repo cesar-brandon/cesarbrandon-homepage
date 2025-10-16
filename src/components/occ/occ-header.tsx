@@ -29,7 +29,7 @@ export function OCCHeader({ handleMode, codeMode, item, index }: Props) {
 
   return (
     <div className="w-full h-14 flex items-center justify-between">
-      <div className="flex gap-4">
+      <div className="flex gap-4 items-center">
         <p>{item.title}</p>
         <Badge variant="outline" className="font-mono bg-card">
           {index + 1}/{OCC_TOTAL} OCC
@@ -39,7 +39,7 @@ export function OCCHeader({ handleMode, codeMode, item, index }: Props) {
         {codeMode && (
           <Button
             variant="outline"
-            className="w-11 text-xs rounded-full p-[0.85rem] bg-card"
+            className="w-11 text-xs rounded-3xl p-[0.85rem] bg-card"
             onClick={copyToClipboard}
           >
             {isLoading ? <Loader2 className="animate-spin" /> : <Copy />}
@@ -48,7 +48,7 @@ export function OCCHeader({ handleMode, codeMode, item, index }: Props) {
         <Button
           disabled={isLoading}
           variant="outline"
-          className="w-11 text-xs rounded-full p-[0.85rem] bg-card"
+          className="w-11 text-xs rounded-3xl p-[0.85rem] bg-card"
           onClick={() => handleMode(!codeMode)}
         >
           {codeMode ? <Component /> : <Code2 />}

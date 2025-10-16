@@ -1,5 +1,5 @@
 import BlurImage from "@/components/common/blur-image";
-import { GithubIcon } from "@/components/common/icons";
+import { GithubIcon, Icons } from "@/components/common/icons";
 import RichTextComponents from "@/components/common/RichTextComponents";
 import { Badge } from "@/components/ui/badge";
 import { sanityClient } from "@/lib/sanity.client";
@@ -35,7 +35,11 @@ const query = groq`
 		*[_type == "project" && slug.current == $slug][0]{
 				...,
 				author->, 
-				topics[]->
+				topics[]->,
+				github,
+				demo,
+				playStore,
+				appStore
 		}
 `;
 
@@ -47,6 +51,7 @@ const ProjectPage = async ({ params: { slug } }: Props) => {
     project = await sanityClient.fetch(query, { slug });
     projectBlocks = project.body.filter((block) => block._type === "block");
     projectImages = project.body.filter((block) => block._type === "image");
+    
   } catch (error) {
     console.error("Error fetching project: ", error);
   }
@@ -61,7 +66,7 @@ const ProjectPage = async ({ params: { slug } }: Props) => {
         <Link
           href="/projects"
           className="group absolute left-0 top-0 p-2 z-10 bg-background/30 border border-background/30
-          dark:border-foreground/30 hover:border-background/70 backdrop-blur rounded-xl hover:rounded-br-3xl transition-all duration-300"
+          dark:border-foreground/30 hover:border-background/70 backdrop-blur rounded-xl rounded-br-3xl transition-all duration-300"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +75,8 @@ const ProjectPage = async ({ params: { slug } }: Props) => {
             strokeWidth={2}
             stroke="currentColor"
             className="h-12 w-12 text-background/70 dark:text-foreground/70 
-            group-hover:text-background/90 dark:group-hover:text-foreground/90 transition-colors duration-300"
+            group-hover:text-background/90 dark:group-hover:text-foreground/90 
+            transition-all duration-300 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5"
           >
             <path
               strokeLinecap="round"
@@ -88,21 +94,45 @@ const ProjectPage = async ({ params: { slug } }: Props) => {
             fill
           />
         )}
-        <div className="absolute bottom-4 left-4 flex gap-4">
+        <div className="absolute bottom-4 left-4 flex gap-3">
           {project.github && (
-            <Link href={project.github} target="_blank">
-              <Badge className="flex h-8 w-40 gap-2 overflow-hidden transition-all duration-300 hover:w-80">
-                <GithubIcon className="h-[22px] w-[22px]" />
-                <span className="w-full truncate">{project.github}</span>
-              </Badge>
+            <Link 
+              href={project.github} 
+              target="_blank"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-black/40 backdrop-blur-sm border border-white/20 transition-all hover:bg-black/60 hover:border-white/40 hover:scale-110"
+              aria-label="Ver código en GitHub"
+            >
+              <GithubIcon className="h-5 w-5 text-white" />
             </Link>
           )}
           {project.demo && (
-            <Link href={project.demo} target="_blank">
-              <Badge className="flex h-8 w-40 gap-2 overflow-hidden transition-all duration-300 hover:w-80">
-                <LinkIcon className="h-[22px] w-[22px]" />
-                <span className="w-full truncate">{project.demo}</span>
-              </Badge>
+            <Link 
+              href={project.demo} 
+              target="_blank"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-black/40 backdrop-blur-sm border border-white/20 transition-all hover:bg-black/60 hover:border-white/40 hover:scale-110"
+              aria-label="Ver demo en vivo"
+            >
+              <LinkIcon className="h-5 w-5 text-white" />
+            </Link>
+          )}
+          {project.playStore && (
+            <Link 
+              href={project.playStore} 
+              target="_blank"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-black/40 backdrop-blur-sm border border-white/20 transition-all hover:bg-black/60 hover:border-white/40 hover:scale-110"
+              aria-label="Ver en Play Store"
+            >
+              <Icons.playStore className="h-5 w-5 text-white" />
+            </Link>
+          )}
+          {project.appStore && (
+            <Link 
+              href={project.appStore} 
+              target="_blank"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-black/40 backdrop-blur-sm border border-white/20 transition-all hover:bg-black/60 hover:border-white/40 hover:scale-110"
+              aria-label="Ver en App Store"
+            >
+              <Icons.appStore className="h-5 w-5 text-white" />
             </Link>
           )}
         </div>
@@ -111,11 +141,15 @@ const ProjectPage = async ({ params: { slug } }: Props) => {
         <span className="text-sm font-light">
           {formatDate(project.publishedAt)}
         </span>
-        <div className="flex gap-4">
+        <div className="flex gap-1">
           {Array.isArray(project.topics) &&
             project.topics.map((topic) => (
               <Link key={topic._id} href={`/projects?topics=${topic._id}`}>
-                <Badge key={topic.title} variant="secondary">
+                <Badge 
+                  key={topic.title} 
+                  variant="apple" 
+                  className="cursor-pointer hover:scale-105 active:scale-95 bg-card"
+                >
                   {topic.title}
                 </Badge>
               </Link>

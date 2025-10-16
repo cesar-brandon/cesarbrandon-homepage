@@ -21,6 +21,16 @@ export default defineType({
       type: "url",
     }),
     defineField({
+      name: "playStore",
+      title: "Play Store",
+      type: "url",
+    }),
+    defineField({
+      name: "appStore",
+      title: "App Store",
+      type: "url",
+    }),
+    defineField({
       name: "description",
       title: "Description",
       type: "text",

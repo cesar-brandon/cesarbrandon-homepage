@@ -5,31 +5,35 @@ import BlurImage from "./blur-image";
 import ClientSideRoute from "./ClientSideRoute";
 import { motion } from "motion/react";
 import { ProgressiveBlur } from "../ui/progressive-blur";
+import { Icons } from "./icons";
+import { LinkIcon } from "lucide-react";
 
 type Props = {
-  post: Post;
+  post: Project;
 };
 
 export default function PreviewProject({ post }: Props) {
   const [isHover, setIsHover] = useState(false);
 
   return (
-    <ClientSideRoute
-      ariaLabel="Read More"
-      route={`/projects/${post.slug.current}`}
-      className="flex items-center justify-center"
-    >
+    <div className="flex items-center justify-center">
       <div
         className="relative my-4 aspect-square h-[300px] overflow-hidden rounded-3xl"
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >
-        <BlurImage
-          className="object-cover object-center dark:border-none"
-          src={urlFor(post.mainImage).url()}
-          alt={post.author.name}
-          fill
-        />
+        <ClientSideRoute
+          ariaLabel="Read More"
+          route={`/projects/${post.slug.current}`}
+          className="block h-full w-full"
+        >
+          <BlurImage
+            className="object-cover object-center dark:border-none"
+            src={urlFor(post.mainImage).url()}
+            alt={post.author.name}
+            fill
+          />
+        </ClientSideRoute>
         <ProgressiveBlur
           className="pointer-events-none absolute bottom-0 left-0 h-[75%] w-full"
           blurIntensity={4}
@@ -56,8 +60,76 @@ export default function PreviewProject({ post }: Props) {
             </span>
           </div>
         </motion.div>
+        
+        {/* Enlaces de Play Store y App Store */}
+        <motion.div
+          className="absolute top-4 right-4 flex gap-2"
+          animate={isHover ? "visible" : "hidden"}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1 },
+          }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+        >
+          {post.playStore && (
+            <a
+              href={post.playStore}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-black/40 backdrop-blur-sm border border-white/20 transition-all hover:bg-black/60 hover:border-white/40"
+              aria-label="Ver en Play Store"
+            >
+              <Icons.playStore className="h-5 w-5 text-white" />
+            </a>
+          )}
+          {post.appStore && (
+            <a
+              href={post.appStore}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-black/40 backdrop-blur-sm border border-white/20 transition-all hover:bg-black/60 hover:border-white/40"
+              aria-label="Ver en App Store"
+            >
+              <Icons.appStore className="h-5 w-5 text-white" />
+            </a>
+          )}
+        </motion.div>
+
+        {/* Enlaces de GitHub y Demo */}
+        <motion.div
+          className="absolute top-4 left-4 flex gap-2"
+          animate={isHover ? "visible" : "hidden"}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1 },
+          }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+        >
+          {post.github && (
+            <a
+              href={post.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-black/40 backdrop-blur-sm border border-white/20 transition-all hover:bg-black/60 hover:border-white/40"
+              aria-label="Ver código en GitHub"
+            >
+              <Icons.github className="h-5 w-5 text-white" />
+            </a>
+          )}
+          {post.demo && (
+            <a
+              href={post.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-black/40 backdrop-blur-sm border border-white/20 transition-all hover:bg-black/60 hover:border-white/40"
+              aria-label="Ver demo en vivo"
+            >
+              <LinkIcon className="h-5 w-5 text-white" />
+            </a>
+          )}
+        </motion.div>
       </div>
-    </ClientSideRoute>
+    </div>
   );
 }
 

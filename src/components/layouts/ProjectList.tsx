@@ -16,12 +16,31 @@ const ProjectList: React.FC<Props> = ({ projects }) => {
     );
   }
 
+  // Separar proyectos por tipo (asumiendo que projectType 1 = propios, 2 = freelance)
+  const ownProjects = projects.filter(project => project.projectType === 1);
+  const freelanceProjects = projects.filter(project => project.projectType === 2);
+
+  const ProjectScrollList = ({ title, projectList }: { title: string; projectList: Project[] }) => {
+    if (projectList.length === 0) return null;
+
+    return (
+      <div className="space-y-1">
+        <h2 className="text-2xl font-bold text-foreground decoration-clone font-cursive">{title}</h2>
+        <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-muted-foreground/20 hover:scrollbar-thumb-muted-foreground/40">
+          {projectList.map((project) => (
+            <div key={project._id} className="flex-shrink-0">
+              <PreviewProject post={project} />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <div className="flex grid-cols-projectlist flex-col gap-4 sm:grid">
-      {projects &&
-        projects.map((project) => (
-          <PreviewProject key={project._id} post={project} />
-        ))}
+    <div className="space-y-4">
+      <ProjectScrollList title="Proyectos Desarrollados" projectList={ownProjects} />
+      <ProjectScrollList title="Colaboraciones y Freelance" projectList={freelanceProjects} />
     </div>
   );
 };

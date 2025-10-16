@@ -88,8 +88,8 @@ export function LogoSticker({ className, variant = "default" }: StickerProps) {
       <path
         d="M45.3561 28.628C41.7589 29.0156 38.3394 30.065 36.5334 30.7301C30.0634 17.6132 19.0779 13.4932 14.2929 13.4932C11.3814 28.628 19.9541 42.2914 18.9432 42.7118C17.9323 43.1322 11.0888 66.8847 11.26 90.2184C23.1273 100.287 59.573 107.724 81.2163 85.8041C81.9297 62.9512 73.0335 44.1287 69.6918 37.8771C72.2806 28.2344 65.3743 12.7511 62.6153 8.02781C56.4689 12.2319 54.0561 24.0735 53.5169 29.4688C51.1593 28.4289 48.2021 28.3213 45.3561 28.628ZM45.3561 28.628L43.2055 13.7034M43.2055 13.7034C44.4844 8.96095 45.4984 7.26551 47.6536 7.18701C49.0689 7.18701 50.6863 8.02784 49.8776 10.1299C49.3432 11.519 47.5181 12.6885 43.2055 13.7034ZM43.2055 13.7034C40.4453 11.2322 37.2208 10.5503 35.9268 11.3911C34.3093 12.4422 34.7808 14.8478 36.3312 15.385C38.7574 16.2259 40.7114 15.522 43.2055 13.7034Z"
         stroke="#090101"
-        stroke-width="3"
-        stroke-linejoin="round"
+        strokeWidth="3"
+        strokeLinejoin="round"
       />
       <ellipse
         cx="32.2874"
@@ -113,9 +113,9 @@ export function LogoSticker({ className, variant = "default" }: StickerProps) {
           width="94.8516"
           height="115.266"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"

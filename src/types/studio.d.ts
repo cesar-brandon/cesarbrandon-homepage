@@ -27,6 +27,8 @@ interface Project extends Base {
   description: string;
   github: string;
   demo: string;
+  playStore: string;
+  appStore: string;
   projectType: number;
 }
 
