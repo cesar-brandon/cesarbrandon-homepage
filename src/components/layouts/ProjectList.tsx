@@ -39,8 +39,8 @@ const ProjectList: React.FC<Props> = ({ projects }) => {
 
   return (
     <div className="space-y-4">
-      <ProjectScrollList title="Proyectos Desarrollados" projectList={ownProjects} />
-      <ProjectScrollList title="Colaboraciones y Freelance" projectList={freelanceProjects} />
+      <ProjectScrollList title="Developed Projects" projectList={ownProjects} />
+      <ProjectScrollList title="Collaborations and Freelance" projectList={freelanceProjects} />
     </div>
   );
 };

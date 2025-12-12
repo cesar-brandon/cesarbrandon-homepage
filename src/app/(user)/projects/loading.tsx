@@ -22,8 +22,8 @@ export default function Loading() {
         ))}
       </div>
       <div className="space-y-4">
-        <ProjectScrollSkeleton title="Proyectos Propios" />
-        <ProjectScrollSkeleton title="Proyectos Freelance" />
+        <ProjectScrollSkeleton title="Developed Projects" />
+        <ProjectScrollSkeleton title="Collaborations and Freelance" />
       </div>
     </div>
   );
