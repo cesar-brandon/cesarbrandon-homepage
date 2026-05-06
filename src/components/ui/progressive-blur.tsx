@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { HTMLMotionProps, motion } from "motion/react";
+import { motion, useReducedMotion, type Transition } from "motion/react";
 
 export const GRADIENT_ANGLES = {
   top: 0,
@@ -14,20 +14,31 @@ export type ProgressiveBlurProps = {
   blurLayers?: number;
   className?: string;
   blurIntensity?: number;
-} & HTMLMotionProps<"div">;
+};
 
 export function ProgressiveBlur({
   direction = "bottom",
   blurLayers = 8,
   className,
   blurIntensity = 0.25,
-  ...props
 }: ProgressiveBlurProps) {
+  const reduceMotion = useReducedMotion();
+  const transition: Transition = reduceMotion
+    ? { duration: 0 }
+    : { duration: 0.2, ease: [0.25, 0.1, 0.25, 1] };
+
   const layers = Math.max(blurLayers, 2);
   const segmentSize = 1 / (blurLayers + 1);
 
   return (
-    <div className={cn("relative", className)}>
+    <motion.div
+      className={cn("relative", className)}
+      initial={false}
+      variants={{
+        rest: {},
+        hover: {},
+      }}
+    >
       {Array.from({ length: layers }).map((_, index) => {
         const angle = GRADIENT_ANGLES[direction];
         const gradientStops = [
@@ -44,6 +55,8 @@ export function ProgressiveBlur({
           ", ",
         )})`;
 
+        const blurPx = index * blurIntensity;
+
         return (
           <motion.div
             key={index}
@@ -51,12 +64,22 @@ export function ProgressiveBlur({
             style={{
               maskImage: gradient,
               WebkitMaskImage: gradient,
-              backdropFilter: `blur(${index * blurIntensity}px)`,
             }}
-            {...props}
+            initial={false}
+            transition={transition}
+            variants={{
+              rest: {
+                backdropFilter: "blur(0px)",
+                WebkitBackdropFilter: "blur(0px)",
+              },
+              hover: {
+                backdropFilter: `blur(${blurPx}px)`,
+                WebkitBackdropFilter: `blur(${blurPx}px)`,
+              },
+            }}
           />
         );
       })}
-    </div>
+    </motion.div>
   );
 }

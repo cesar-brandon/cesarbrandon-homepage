@@ -1,7 +1,6 @@
 import { groq } from "next-sanity";
 import { sanityClient } from "@/lib/sanity.client";
 import { cache } from "react";
-import { isProd } from "@/config";
 
 const queryLastPosts = groq`
   *[_type == "post"] {
@@ -20,27 +19,21 @@ export const queryAllPosts = groq`
 `;
 
 async function fetchLastPosts(): Promise<Post[]> {
-  let posts = [] as Post[];
-  if (isProd) {
-    try {
-      posts = await sanityClient.fetch(queryLastPosts);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
+  try {
+    return await sanityClient.fetch(queryLastPosts);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
   }
-  return posts;
 }
 
 async function fetchPosts(): Promise<Post[]> {
-  let posts = [] as Post[];
-  if (isProd) {
-    try {
-      posts = await sanityClient.fetch(queryAllPosts);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
+  try {
+    return await sanityClient.fetch(queryAllPosts);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
   }
-  return posts;
 }
 
 export const getLastPosts = cache(fetchLastPosts);

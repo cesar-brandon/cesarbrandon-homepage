@@ -1,6 +1,6 @@
 import Providers from "@/components/common/providers";
 import { TailwindIndicator } from "@/components/common/tailwind-indicator";
-import Wrap from "@/components/common/Wrap";
+import Wrap, { MainWithReveal, PageRevealProvider } from "@/components/common/Wrap";
 import Header from "@/components/layouts/Header";
 import { siteConfig } from "@/config/site";
 import { GeistSans as fontSans } from "geist/font/sans";
@@ -97,12 +97,14 @@ export default function RootLayout({
           )}
         >
           <Providers attribute="class" enableSystem>
-            <Header />
-            <Wrap />
-            <main className="px-5 sm:px-10 min-h-[51rem]">
-              {children}
-              {draftMode().isEnabled && <LiveVisualEditing />}
-            </main>
+            <PageRevealProvider>
+              <Header />
+              <Wrap />
+              <MainWithReveal className="px-5 sm:px-10 min-h-[51rem]">
+                {children}
+                {draftMode().isEnabled && <LiveVisualEditing />}
+              </MainWithReveal>
+            </PageRevealProvider>
 
             <Analytics mode={"production"} />
             <SpeedInsights />

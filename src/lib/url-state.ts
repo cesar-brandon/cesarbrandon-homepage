@@ -1,5 +1,6 @@
 export interface SearchParams {
   topics?: string;
+  platform?: string;
 }
 
 export function parseSearchParams(
@@ -7,6 +8,8 @@ export function parseSearchParams(
 ): SearchParams {
   return {
     topics: typeof params.topics === "string" ? params.topics : undefined,
+    platform:
+      typeof params.platform === "string" ? params.platform : undefined,
   };
 }
 

@@ -29,7 +29,8 @@ interface Project extends Base {
   demo: string;
   playStore: string;
   appStore: string;
-  projectType: number;
+  ownership: "own" | "freelance";
+  platform: "web" | "mobile";
 }
 
 interface Author extends Base {

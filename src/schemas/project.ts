@@ -65,9 +65,33 @@ export default defineType({
       of: [{ type: "reference", to: { type: "topic" } }],
     }),
     defineField({
-      name: "projectType",
-      title: "Project Type",
-      type: "number",
+      name: "ownership",
+      title: "Ownership",
+      type: "string",
+      description: "Own product vs client or collaboration work.",
+      options: {
+        list: [
+          { title: "Own — developed by you", value: "own" },
+          { title: "Freelance / collaboration", value: "freelance" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "own",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "platform",
+      title: "Platform",
+      type: "string",
+      options: {
+        list: [
+          { title: "Web", value: "web" },
+          { title: "Mobile", value: "mobile" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "web",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "publishedAt",
@@ -86,10 +110,15 @@ export default defineType({
       title: "title",
       author: "author.name",
       media: "mainImage",
+      ownership: "ownership",
+      platform: "platform",
     },
     prepare(selection) {
-      const { author } = selection;
-      return { ...selection, subtitle: author && `by ${author}` };
+      const { author, ownership, platform } = selection;
+      const meta = [ownership, platform].filter(Boolean).join(" · ");
+      const byline = author ? `by ${author}` : "";
+      const subtitle = [meta, byline].filter(Boolean).join(" — ");
+      return { ...selection, subtitle };
     },
   },
 });

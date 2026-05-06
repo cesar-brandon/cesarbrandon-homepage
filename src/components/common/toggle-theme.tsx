@@ -11,17 +11,17 @@ const themesList = [
   {
     title: "Sistema",
     label: "system",
-    icon: <ComputerDesktopIcon className="h-5 w-5" />,
+    icon: <ComputerDesktopIcon className="h-5 w-5 shrink-0 block" />,
   },
   {
     title: "Claro",
     label: "light",
-    icon: <SunIcon className="h-5 w-5" />,
+    icon: <SunIcon className="h-5 w-5 shrink-0 block" />,
   },
   {
     title: "Oscuro",
     label: "dark",
-    icon: <MoonIcon className="h-5 w-5" />,
+    icon: <MoonIcon className="h-5 w-5 shrink-0 block" />,
   },
 ];
 
@@ -58,29 +58,30 @@ const ToggleTheme: React.FC = () => {
   };
 
   return (
-    <div className="w-28 h-10 relative">
+    <div className="relative h-[38px] w-28">
       <div
         ref={containerRef}
-        className={`absolute w-28  ${
-          isOpen ? "h-32" : "h-10"
-        } flex flex-col mt-4 overflow-hidden
-        bg-zinc-900 md:bg-white font-normal text-zinc-500 hover:text-zinc-50
-        border border-zinc-500 hover:border-zinc-50 rounded-lg cursor-pointer
-        transition-all duration-150 
-        md:mt-0 md:hover:text-zinc-900 md:border-zinc-300 md:hover:border-zinc-900
-        dark:md:bg-zinc-950 dark:md:backdrop-blur dark:md:border-white dark:md:border-opacity-30 dark:hover:text-zinc-50`}
+        className={`absolute left-0 top-0 z-10 w-28 ${
+          isOpen ? "h-auto" : "h-[38px]"
+        } mt-4 flex flex-col overflow-hidden
+        rounded-lg border border-zinc-500 bg-zinc-900 font-normal
+        text-zinc-500 transition-all duration-150 hover:border-zinc-50
+        hover:text-zinc-50
+        md:mt-0 md:border-zinc-300 md:bg-white md:hover:border-zinc-900 md:hover:text-zinc-900
+        dark:md:border-white dark:md:border-opacity-30 dark:md:bg-zinc-950 dark:md:backdrop-blur
+        dark:hover:text-zinc-50 cursor-pointer`}
         onBlur={handleBlur}
         tabIndex={0}
       >
         {themes.map(({ title, icon, label }, index) => (
           <div
             key={index}
-            className="w-full h-full p-2 gap-2 flex items-center md:hover:bg-muted hover:bg-zinc-800
+            className="flex w-full shrink-0 items-center gap-2 px-2 py-2 leading-none hover:bg-zinc-800 md:hover:bg-muted
               dark:md:hover:bg-zinc-800"
             onClick={() => handleThemeClick(label)}
           >
             {icon}
-            <p className="text-sm">{title}</p>
+            <span className="text-sm leading-none">{title}</span>
           </div>
         ))}
       </div>

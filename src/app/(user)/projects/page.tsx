@@ -1,14 +1,10 @@
 import React, { Suspense } from "react";
 import { draftMode } from "next/headers";
 import PreviewList from "@/components/layouts/PreviewList";
-import {
-  getProjects,
-  getTopics,
-  PROJECTS_QUERY,
-} from "@/services/fetch-projects";
+import { getProjects, PROJECTS_QUERY } from "@/services/fetch-projects";
 import Loading from "./loading";
 import { parseSearchParams } from "@/lib/url-state";
-import { TopicSelector } from "@/components/common/topic-selector";
+import { ProjectFilterSelector } from "@/components/common/project-filter-selector";
 import ProjectList from "@/components/layouts/ProjectList";
 
 export const metadata = {
@@ -16,23 +12,26 @@ export const metadata = {
   description: "A list of all projects",
 };
 
+function filterProjectsByQuery(
+  projects: Project[],
+  parsed: ReturnType<typeof parseSearchParams>,
+) {
+  if (!parsed.platform) {
+    return projects;
+  }
+
+  const allowed = new Set(parsed.platform.split(",").filter(Boolean));
+  return projects.filter((p) => allowed.has(p.platform));
+}
+
 const Projects = async ({
   searchParams,
 }: {
   searchParams: Record<string, string | string[] | undefined>;
 }) => {
   const projects = await getProjects();
-  const topics = await getTopics();
   const parsedSearchParams = parseSearchParams(searchParams);
-  const selectedTopics = parsedSearchParams.topics?.split(",");
-  const filteredProjects = parsedSearchParams.topics
-    ? projects.filter(
-        (project) =>
-          selectedTopics?.some((topic) =>
-            project.topics.some((t) => t._id === topic),
-          ),
-      )
-    : projects;
+  const filteredProjects = filterProjectsByQuery(projects, parsedSearchParams);
 
   return draftMode().isEnabled ? (
     <Suspense fallback={<Loading />}>
@@ -40,7 +39,7 @@ const Projects = async ({
     </Suspense>
   ) : (
     <Suspense fallback={<Loading />}>
-      <TopicSelector topics={topics} />
+      <ProjectFilterSelector />
       <ProjectList projects={filteredProjects} />
     </Suspense>
   );

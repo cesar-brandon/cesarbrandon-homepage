@@ -1,7 +1,6 @@
 import { groq } from "next-sanity";
 import { sanityClient } from "@/lib/sanity.client";
 import { cache } from "react";
-import { isProd } from "@/config";
 
 export const PROJECTS_QUERY = groq`
   *[_type == "project"] {
@@ -18,28 +17,38 @@ const TOPICS_QUERY = groq`
 `;
 
 async function fetchProjects(): Promise<Project[]> {
-  let projects = [] as Project[];
-  if (isProd) {
-    try {
-      projects = await sanityClient.fetch(PROJECTS_QUERY);
-    } catch (error) {
-      console.error("Error fetching projects: ", error);
-    }
+  try {
+    const raw = await sanityClient.fetch(PROJECTS_QUERY);
+    return Array.isArray(raw) ? raw.map(normalizeProjectFromSanity) : [];
+  } catch (error) {
+    console.error("Error fetching projects: ", error);
+    return [];
   }
+}
 
-  return projects;
+/** Payload from Sanity before defaults (legacy `projectType` or missing fields). */
+type SanityProjectDoc = Omit<Project, "ownership" | "platform"> & {
+  ownership?: Project["ownership"];
+  platform?: Project["platform"];
+  projectType?: number;
+};
+
+/** Sanity may omit new fields on old documents; support legacy projectType (1 own, 2 freelance). */
+function normalizeProjectFromSanity(doc: SanityProjectDoc): Project {
+  const ownership: Project["ownership"] =
+    doc.ownership ??
+    (doc.projectType === 2 ? "freelance" : "own");
+  const platform: Project["platform"] = doc.platform ?? "web";
+  return { ...doc, ownership, platform };
 }
 
 async function fetchTopics(): Promise<Topic[]> {
-  let topics = [] as Topic[];
-  if (isProd) {
-    try {
-      topics = await sanityClient.fetch(TOPICS_QUERY);
-    } catch (error) {
-      console.error("Error fetching topics: ", error);
-    }
+  try {
+    return await sanityClient.fetch(TOPICS_QUERY);
+  } catch (error) {
+    console.error("Error fetching topics: ", error);
+    return [];
   }
-  return topics;
 }
 
 export const getProjects = cache(fetchProjects);
